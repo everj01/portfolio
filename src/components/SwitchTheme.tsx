@@ -1,27 +1,10 @@
 import { Switch } from '@headlessui/react';
 import { useDarkMode } from '../hooks/userDarkMode';
-//import { useEffect, useRef } from 'react';
-// Asegúrate de tener tu sonido en src/sounds/click.mp3 (o donde prefieras)
-//import clickSound from '../assets/sounds/switch.opus';
 
 export default function SwitchTheme() {
   const { isDark, toggle } = useDarkMode();
-  // Ref para mantener la misma instancia de Audio
-  //const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  // Inicializa el audio al montar
-  // useEffect(() => {
-  //   audioRef.current = new Audio(clickSound);
-  //   audioRef.current.volume = 0.5;
-  // }, []);
-
-  // Manejador que invierte el tema y suena
   const handleChange = () => {
-    toggle(); // primero cambia el tema
-    // if (audioRef.current) {
-    //   audioRef.current.currentTime = 0;
-    //   audioRef.current.play().catch(console.warn);
-    // }
+    toggle();
   };
 
   return (

@@ -1,35 +1,8 @@
 import '../styles/aboutMe.css';
-//import scrollImg from '../assets/images/scroll-down.png';
 import ItemSocial from "../components/ItemSocial";
 import TitlePerfil from "../components/TitlePerfil";
+import { itemsSocial } from '../data/data';
 
-const itemsSocial: {name: string, icon: string,  url: string}[] = [
-  {
-    name: 'Facebook',
-    icon: 'fa-brands fa-facebook',
-    url: 'https://www.facebook.com/em.2801'
-  },
-  {
-    name: 'X',
-    icon: 'fa-brands fa-x-twitter',
-    url: 'https://x.com/CoddiDv'
-  },
-  {
-    name: 'Instagram',
-    icon: 'fa-brands fa-instagram',
-    url: 'https://www.instagram.com/ev28.jm/'
-  },
-  {
-    name: 'Linkedin',
-    icon: 'fa-brands fa-linkedin',
-    url: 'https://www.linkedin.com/in/everjm01/'
-  },
-  {
-    name: 'Github',
-    icon: 'fa-brands fa-github',
-    url: 'https://github.com/EverJM0101'
-  }
-];
 
 export default function AboutMe(){
   return(
@@ -49,9 +22,9 @@ export default function AboutMe(){
           <div className="animate-wiggle animate-scaleUp w-32 h-32 bg-black/40 dark:bg-white/20 transform rotate-45 absolute" style={{ top: '80%', left: '68%' }}></div>
         </div>
 
-        <div className='flex flex-col h-screen z-20 relative items-center justify-center w-[82%]'>
+        <div className='flex flex-col h-screen z-20 relative items-center justify-center w-[82%]  '>
           {/* Sección de contenido */}
-          <div className="flex flex-col lg:flex-row justify-between items-center h-screen animate-slideIn relative">
+          <div className="flex flex-col lg:flex-row justify-between items-center h-screen animate-slideIn relative pt-24 xl:pt-0">
             <div className="flex flex-col gap-7 px-20">
               <div className="flex flex-col gap-5">
               <div className="relative inline-block">
@@ -63,7 +36,7 @@ export default function AboutMe(){
               <TitlePerfil></TitlePerfil>
               </div>
               <div className="flex flex-col gap-6">
-                <p className='pe-40'>
+                <p className='pe-0 md:pe-24 xl:pe-40'>
                   <b>Hola, soy Ever ✌️</b><br />
                   Desarrollador Frontend apasionado por crear experiencias web modernas y funcionales. Me gusta convertir ideas en interfaces limpias, rápidas y responsivas.
                   También tengo conocimientos en desarrollo móvil con Android, y estoy en constante evolución como desarrollador.
@@ -74,7 +47,7 @@ export default function AboutMe(){
                   {
                     itemsSocial.map((item, index) => {
                       return (
-                        <ItemSocial key={index} url={item.url} icon={item.icon} name={item.name}></ItemSocial>
+                        <ItemSocial key={index} url={item.url} icon={item.icon} name={item.name} style={item.style}></ItemSocial>
                       );
                     })
                   }

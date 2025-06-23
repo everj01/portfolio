@@ -1,19 +1,11 @@
-interface ProjectCardProps {
-  title?: string
-  description?: string
-  image?: string
-  tech?: string[]
-  githubUrl?: string
-  liveUrl?: string
-}
-
+import type ProjectCardProps  from "../interfaces/ProjectCardProps";
 export default function CardProject({
-  title = "E-commerce Dashboard",
-  description = "Una aplicación web completa para gestión de inventario y ventas con panel administrativo, autenticación de usuarios y análisis en tiempo real.",
-  image = "https://i.ibb.co/9gjSR32/Captura-de-pantalla-2024-11-26-180134.png",
-  tech = ["React", "Next.js", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL"],
-  githubUrl = "https://github.com/usuario/proyecto",
-  liveUrl = "https://proyecto-demo.vercel.app",
+  title,
+  description,
+  image,
+  tech = [],
+  githubUrl,
+  liveUrl,
 }: ProjectCardProps) {
   return (
     <div className="p-5 w-full max-w-lg">

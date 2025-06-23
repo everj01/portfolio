@@ -1,12 +1,7 @@
 import { useEffect, useState } from 'react';
 import SwitchTheme from './SwitchTheme';
-
-const itemsNavbar: { name: string; icon: string }[] = [
-  { name: "¿Quien soy?", icon: "bx bx-user" },
-  { name: "Proyectos", icon: "bx bx-folder-open" },
-  { name: "Habilidades", icon: "bx bx-sparkles-alt" },
-  { name: "Contacto", icon: "bx bx-envelope-open" },
-];
+import { itemsNav as itemsNavbar } from '../data/data';
+import { scrollToSection } from '../utils/scroolToSection';
 
 export default function Navbar() {
   const [shadowNavbar, setShadowNavbar] = useState(false);
@@ -66,6 +61,7 @@ export default function Navbar() {
                 dark:hover:bg-slate-900
                 hover:bg-slate-100 transition-colors duration-150
               "
+              onClick={() => scrollToSection(item.section || '')}
             >
               <i className={item.icon}></i>
               <span>{item.name}</span>

@@ -4,12 +4,13 @@ import ProjectsMe from "./pages/ProjectsMe";
 import SkillsMe from "./pages/SkillsMe";
 import ContactMe from "./pages/ContactMe";
 
+import { itemsNav } from "./data/data";
+
 function App() {
   return (
     <>
       <div className="flex flex-col min-h-screen">
       <Navbar />
-
       <main className="flex-1 bg-white dark:bg-gray-900 dark:text-white/90">
         <section id="aboutme"><AboutMe /></section>
         <section id="projectsme"><ProjectsMe /></section>
@@ -23,8 +24,6 @@ function App() {
         </p>
       </footer>
     </div>
-
-      
     </>
   );
 }
