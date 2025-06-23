@@ -1,0 +1,10 @@
+
+  .title-perfil-fade {
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out; /* Transición de opacidad */
+  }
+  
+  .title-perfil-fade.show {
+    opacity: 1;
+  }
+  
