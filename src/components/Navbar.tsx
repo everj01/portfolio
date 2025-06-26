@@ -32,9 +32,9 @@ export default function Navbar() {
         `}
       >
         <button
-          className="sm:hidden "
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
+        className="sm:hidden "
+        onClick={() => setMenuOpen(!menuOpen)}
+        aria-label="Toggle menu"
         >
           <i className="bx bx-menu text-2xl"></i>
         </button>
