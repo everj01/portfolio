@@ -5,3 +5,31 @@
 *{
   font-family: "Inter", sans-serif;
 }
+
+/* Botones de navegación */
+.swiper-button-next,
+.swiper-button-prev {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  padding: 8px;
+  transition: background-color 0.3s;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Paginación */
+.swiper-pagination-bullet {
+  background-color: white;
+  opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #6366f1; /* Tailwind Indigo-500 */
+  opacity: 1;
+}

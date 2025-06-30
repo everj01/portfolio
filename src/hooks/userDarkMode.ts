@@ -5,6 +5,7 @@ export function useDarkMode(){
     // const stored =  localStorage.getItem('theme');
     // if(stored === 'dark') return true;
     // if(stored === 'light') return false;
+    // Por ahora quioer que solo responda al tema del dispositivo
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
 
@@ -18,6 +19,13 @@ export function useDarkMode(){
       localStorage.setItem('theme', 'light');
     }
   }, [isDark]);
+
+
+  useEffect(()=>{
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ()=>{
+        setIsDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
+    });
+  }, []);
 
 
   return { isDark, toggle: () => setIsDark(prev => !prev) };

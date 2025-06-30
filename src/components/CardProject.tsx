@@ -1,4 +1,10 @@
+
 import type ProjectCardProps  from "../interfaces/ProjectCardProps";
+type Props = ProjectCardProps & {
+  onViewMore: (project: ProjectCardProps) => void;
+};
+
+
 export default function CardProject({
   title,
   description,
@@ -6,8 +12,9 @@ export default function CardProject({
   tech = [],
   githubUrl,
   liveUrl,
-  privatePro
-}: ProjectCardProps) {
+  privatePro,
+  onViewMore
+}: Props) {
   return (
     <div className="p-5 w-full max-w-lg">
       <div className="bg-white dark:bg-gray-800 shadow-lg dark:shadow-gray-900/20 rounded-xl overflow-hidden group hover:shadow-xl dark:hover:shadow-gray-900/40 transition-all duration-300">
@@ -53,8 +60,8 @@ export default function CardProject({
             }
             
             <button
-              onClick={() => window.open(liveUrl, "_blank")}
-              className="flex-1 flex items-center justify-center gap-1  py-1  bg-blue-600 dark:bg-blue-500 text-white rounded-lg hover:bg-blue-700 dark:hover:bg-blue-400 transition-colors"
+            onClick={() => onViewMore({ image, tech, githubUrl, liveUrl, privatePro, title, description })}
+            className="flex-1 flex items-center justify-center gap-1  py-1  bg-blue-600 dark:bg-blue-500 text-white rounded-lg hover:bg-blue-700 dark:hover:bg-blue-400 transition-colors"
             >
               <i className="fa-solid fa-up-right-from-square"></i>
               Ver más

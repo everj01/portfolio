@@ -4,6 +4,6 @@ export default interface ProjectCardProps {
   image?: string[]
   tech?: string[]
   githubUrl?: string | null
-  liveUrl?: string,
+  liveUrl?: string
   privatePro?: boolean
 }
