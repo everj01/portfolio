@@ -26,7 +26,7 @@ export default function AboutMe(){
           {/* Sección de contenido */}
           <div className="flex flex-col lg:flex-row justify-between items-center h-screen animate-slideIn relative pt-24 xl:pt-0">
             <div className="flex flex-col gap-7 px-20">
-              <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-5"> 
               <div className="relative inline-block">
                   <h1 className="text-5xl font-bold my-5">
                       Ever Jesús Montero Minaya
@@ -38,8 +38,7 @@ export default function AboutMe(){
               <div className="flex flex-col gap-6">
                 <p className='pe-0 md:pe-24 xl:pe-40'>
                   <b>Hola, soy Ever ✌️</b><br />
-                  Desarrollador Frontend apasionado por crear experiencias web modernas y funcionales. Me gusta convertir ideas en interfaces limpias, rápidas y responsivas.
-                  También tengo conocimientos en desarrollo móvil con Android, y estoy en constante evolución como desarrollador.
+                  Desarrollador Full Stack con experiencia en la creación de aplicaciones web completas, combinando interfaces responsivas con backends eficientes. Trabajo con buenas prácticas de desarrollo y arquitectura escalable. También tengo conocimientos en desarrollo móvil Android y mantengo una actitud de mejora continua.
                 </p>
 
                 <div className="flex items-center gap-2 mt-5 transition-all duration-75 animate-fadeIn">

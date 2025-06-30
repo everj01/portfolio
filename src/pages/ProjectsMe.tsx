@@ -15,6 +15,7 @@ export default function ProjectsMe(){
                 tech={item.tech}
                 githubUrl = {item.githubUrl}
                 liveUrl = {item.liveUrl}
+                privatePro = {item.privatePro}
                />
             ))}
         </div>
