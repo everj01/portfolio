@@ -15,6 +15,8 @@ export default function CarouselSwiper({ images }: Props) {
 
   return (
     <Swiper
+
+      height={700}
       modules={[Navigation, Pagination, Autoplay]}
       spaceBetween={10}
       slidesPerView={1}
@@ -22,7 +24,7 @@ export default function CarouselSwiper({ images }: Props) {
       navigation
       pagination={{ clickable: true }}
       autoplay={{ delay: 3000 }}
-      className="w-full max-w-md"
+      className="w-full max-w-xl"
     >
       {images.map((img, index) => (
         <SwiperSlide key={index}>

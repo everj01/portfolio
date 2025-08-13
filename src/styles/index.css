@@ -11,12 +11,15 @@
 .swiper-button-prev {
   color: white;
   background-color: rgba(0, 0, 0, 0.3);
-  width: 40px;
-  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  max-width: 40px;
+  max-height: 40px;
   border-radius: 9999px;
   padding: 8px;
   transition: background-color 0.3s;
 }
+
 
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
@@ -30,6 +33,6 @@
 }
 
 .swiper-pagination-bullet-active {
-  background-color: #6366f1; /* Tailwind Indigo-500 */
+  background-color: #151657; /* Tailwind Indigo-500 */
   opacity: 1;
 }

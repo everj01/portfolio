@@ -58,14 +58,14 @@ export const itemsPorject: ProjectCardProps[] = [
     {  title : "Sumak",
     description : "Plataforma colaborativa para compartir y descubrir lugares secretos en un mapa interactivo.",
     image : ["https://i.ibb.co/ymBSSMzY/image.png", "https://i.ibb.co/ymBSSMzY/image.png", "https://i.ibb.co/ymBSSMzY/image.png"],
-    tech : ["Laravel","React", "Axios", "TailwindCSS", "MySql", "React Native"],
+    tech : ["Laravel","React", "TailwindCSS", "MySql"],
     githubUrl : "https://github.com/usuario/proyecto",
     liveUrl : "https://proyecto-demo.vercel.app",
     privatePro : false,
   },
   {  title : "Monitor",
     description : "Aplicacion Web para la gestión de auditoría y administración de trámites marítimos.",
-    image : ["https://i.ibb.co/TB1tDhsy/image.png"],
+    image : ["https://i.ibb.co/TB1tDhsy/image.png", "https://i.ibb.co/q3r9b5mp/Screenshot-1.jpg"],
     tech : ["Codeigniter", "Javascript", "Jquery", "Bootstrap 5", "SQL Server"],
     githubUrl : '',
     liveUrl : "https://proyecto-demo.vercel.app",
@@ -74,7 +74,7 @@ export const itemsPorject: ProjectCardProps[] = [
   
   {  title : "Control Web",
     description : "Sistema de Seguridad Digitalizada para clientes de empresas marítimas de Solmar Security.",
-    image : ["https://i.ibb.co/67YtvhFT/image.png"],
+    image : ["https://i.ibb.co/67YtvhFT/image.png", "https://i.ibb.co/N2mhtkV3/1.png", "https://i.ibb.co/zWpPyMWh/2.png"],
     tech : ["Codeigniter", "Javascript", "Jquery", "Bootstrap 5", "SQL Server", "AlphineJS", "Tailwind CSS"],
     githubUrl : "",
     liveUrl : "https://proyecto-demo.vercel.app",
@@ -133,12 +133,12 @@ export const skillCategories: SkillsCat[] = [
     icon:  "fa-solid fa-code",
     color: "bg-blue-500",
     skills: [
-      { name: "React", level: "advanced" },
       { name: "JavaScript", level: "advanced" },
-      { name: "HTML", level: "advanced" },
-      { name: "CSS", level: "advanced" },
+      { name: "HTML y CSS", level: "advanced" },
       { name: "Tailwind CSS", level: "advanced" },
-      { name: "Angular", level: "basic" },
+      { name: "Typescript", level: "advanced" },
+      { name: "React JS", level: "advanced" },
+      { name: "Angular", level: "advanced" },
     ],
   },
   {
@@ -146,13 +146,29 @@ export const skillCategories: SkillsCat[] = [
     icon: "fa-solid fa-server",
     color: "bg-green-500",
     skills: [
-      { name: "PHP", level: "advanced" },
+  
       { name: "Laravel", level: "advanced" },
-      { name: "CodeIgniter", level: "advanced" },
-      { name: "Node.js", level: "advanced" },
-      { name: "Spring Boot", level: "learning" },
+      { name: "ASP.NET Core", level: "advanced" },
+      { name: "Codeigniter", level: "advanced" },
+      { name: "Node.js", level: "basic" },
+      { name: "Java Web", level: "basic" },
+      { name: "Spring Boot", level: "basic" },
     ],
   },
+  {
+    title: "Herramientas & DevOps",
+    icon: "fa-solid fa-sliders",
+    color: "bg-gray-600",
+    skills: [
+      { name: "Git / Github / Gitlab", level: "advanced" },
+      { name: "Postman", level: "advanced" },
+      { name: "IIS (Windows Server)", level: "advanced" },
+      { name: "Nginx / Apache", level: "basic" },
+      { name: "Firebase", level: "basic" },
+      { name: "Docker", level: "learning" },
+    ],
+  },
+  
   {
     title: "Base de Datos",
     icon: "fa-solid fa-database",
@@ -161,27 +177,11 @@ export const skillCategories: SkillsCat[] = [
       { name: "MySQL", level: "advanced" },
       { name: "SQL Server", level: "advanced" },
       { name: "PostgreSQL", level: "basic" },
+      { name: "MongoDB", level: "learning" },
     ],
   },
-  {
-    title: "Mobile Apps",
-    icon: "fa-solid fa-mobile-screen-button",
-    color: "bg-orange-500",
-    skills: [
-      { name: "React Native", level: "learning" },
-      { name: "Flutter", level: "learning" },
-    ],
-  },
-  {
-    title: "Herramientas & DevOps",
-    icon: "fa-solid fa-sliders",
-    color: "bg-gray-600",
-    skills: [
-      { name: "Git", level: "advanced" },
-      { name: "Firebase", level: "advanced" },
-      { name: "IIS", level: "advanced" },
-    ],
-  },
+  
+  
   {
     title: "Diseño",
     icon: "fa-solid fa-pen-nib",
@@ -190,6 +190,15 @@ export const skillCategories: SkillsCat[] = [
       { name: "Figma", level: "advanced" },
       { name: "Photoshop", level: "advanced" },
       { name: "Illustrator", level: "basic" },
+    ],
+  },
+  {
+    title: "Mobile Apps",
+    icon: "fa-solid fa-mobile-screen-button",
+    color: "bg-orange-500",
+    skills: [
+      { name: "React Native", level: "basic" },
+      { name: "Flutter", level: "learning" },
     ],
   },
 ];

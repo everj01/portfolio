@@ -179,7 +179,7 @@ export default function ContactMe() {
               <button
                 type="submit"
                 disabled={status.loading}
-                className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-blue-400 disabled:to-blue-500 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 disabled:cursor-not-allowed transform hover:scale-[1.01] active:scale-[0.99] shadow-lg hover:shadow-xl"
+                className="w-full flex justify-center items-center gap-2 bg-gray-800 hover:bg-gray-500 0 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 disabled:cursor-not-allowed transform hover:scale-[1.01] active:scale-[0.99] shadow-lg hover:shadow-xl"
               >
                 {status.loading ? (
                   <>
