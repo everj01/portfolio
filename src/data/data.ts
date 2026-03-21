@@ -55,14 +55,14 @@ export const itemsSocial: SocialItem[] = [
 
 // PROYECTOS
 export const itemsPorject: ProjectCardProps[] = [
-    {  title : "Sumak",
-    description : "Plataforma colaborativa para compartir y descubrir lugares secretos en un mapa interactivo.",
-    image : ["https://i.ibb.co/ymBSSMzY/image.png", "https://i.ibb.co/ymBSSMzY/image.png", "https://i.ibb.co/ymBSSMzY/image.png"],
-    tech : ["Laravel","React", "TailwindCSS", "MySql"],
-    githubUrl : "https://github.com/usuario/proyecto",
-    liveUrl : "https://proyecto-demo.vercel.app",
-    privatePro : false,
-  },
+  //   {  title : "Sumak",
+  //   description : "Plataforma colaborativa para compartir y descubrir lugares secretos en un mapa interactivo.",
+  //   image : ["https://i.ibb.co/ymBSSMzY/image.png", "https://i.ibb.co/ymBSSMzY/image.png", "https://i.ibb.co/ymBSSMzY/image.png"],
+  //   tech : ["Laravel","React", "TailwindCSS", "MySql"],
+  //   githubUrl : "https://github.com/usuario/proyecto",
+  //   liveUrl : "https://proyecto-demo.vercel.app",
+  //   privatePro : false,
+  // },
   {  title : "Monitor",
     description : "Aplicacion Web para la gestión de auditoría y administración de trámites marítimos.",
     image : ["https://i.ibb.co/TB1tDhsy/image.png", "https://i.ibb.co/q3r9b5mp/Screenshot-1.jpg"],
