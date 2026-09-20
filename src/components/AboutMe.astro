@@ -1,0 +1,168 @@
+---
+import { Icon } from "astro-icon/components";
+import ItemSocial from "./ItemSocial.astro";
+import TitlePerfil from "./TitlePerfil.astro";
+import { itemsSocial } from "../data/data";
+---
+
+<div
+  class="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-28 sm:px-6 sm:py-32"
+>
+  {/* ---------- Fondo: trama de puntos + formas flotando ---------- */}
+  <div class="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+    <div class="absolute inset-0 bg-dot-grid opacity-70 dark:opacity-40"></div>
+
+    <div class="absolute inset-0 blur-2xl opacity-40 dark:opacity-30">
+      {/* Circulo grande */}
+      <div
+        class="animate-scaleUp absolute h-32 w-32 rounded-full bg-navy-500/50"
+        style="top: 18%; left: 12%;"
+      >
+      </div>
+      {/* Rombo que cruza */}
+      <div
+        class="animate-moveDiagonal absolute h-32 w-32 rotate-45 bg-black/35 dark:bg-white/35"
+        style="top: 68%; left: 22%;"
+      >
+      </div>
+      {/* Circulo que baja */}
+      <div
+        class="animate-moveDiagonal2 absolute h-32 w-32 rounded-full bg-navy-400/45"
+        style="top: 16%; left: 52%;"
+      >
+      </div>
+      {/* Cuadrado que gira */}
+      <div
+        class="animate-wiggle absolute h-28 w-28 bg-black/30 dark:bg-white/30"
+        style="top: 62%; left: 8%;"
+      >
+      </div>
+      {/* Rombo pequeno pulsando */}
+      <div
+        class="animate-wiggle animate-scaleUp absolute h-24 w-24 rotate-45 bg-navy-600/40 dark:bg-navy-300/40"
+        style="top: 78%; left: 66%;"
+      >
+      </div>
+      <div
+        class="animate-float absolute h-40 w-40 rounded-full bg-navy-500/35"
+        style="top: 8%; left: 78%;"
+      >
+      </div>
+      <div
+        class="animate-moveDiagonal2 absolute h-20 w-20 rounded-full bg-black/30 dark:bg-white/25"
+        style="top: 46%; left: 88%;"
+      >
+      </div>
+      <div
+        class="animate-float absolute h-24 w-24 rotate-12 rounded-[2rem] bg-navy-400/40"
+        style="top: 84%; left: 40%; animation-duration: 7s;"
+      >
+      </div>
+      <div
+        class="animate-scaleUp absolute h-16 w-16 rounded-full bg-navy-600/45 dark:bg-navy-200/35"
+        style="top: 34%; left: 34%; animation-duration: 6s;"
+      >
+      </div>
+      <div
+        class="animate-moveDiagonal absolute h-14 w-14 rotate-45 bg-navy-500/40"
+        style="top: 12%; left: 30%; animation-duration: 9s;"
+      >
+      </div>
+    </div>
+
+    {/* Aros finos: dan profundidad sin ensuciar (no llevan blur) */}
+    <div
+      class="animate-float absolute right-[14%] top-[22%] h-44 w-44 rounded-full border border-navy-500/15 dark:border-navy-300/15"
+    >
+    </div>
+    <div
+      class="animate-float absolute left-[8%] top-[58%] h-28 w-28 rounded-full border border-navy-500/15 dark:border-navy-300/10"
+      style="animation-duration: 8s;"
+    >
+    </div>
+  </div>
+
+  {/* ---------- Tarjeta ---------- */}
+  <div class="relative z-10 w-full max-w-5xl">
+    <div
+      class="reveal-card relative rounded-3xl border border-gray-900/10 bg-white/70 px-6 py-9 shadow-[0_30px_80px_-40px_rgba(11,18,32,0.45)] backdrop-blur-xl sm:px-10 sm:py-12 lg:py-14 lg:pe-12 lg:ps-14 dark:border-white/[0.14] dark:bg-navy-800/55 dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.07),0_30px_80px_-30px_rgba(0,0,0,0.85)]"
+    >
+      <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16">
+        {/* --- Info --- */}
+        <div class="reveal order-2 flex flex-col lg:order-1" style="--d: 0.1s">
+          <h1
+            class="font-display text-[2.35rem] font-semibold leading-[1.05] tracking-[-0.03em] text-gray-900 sm:text-5xl dark:text-white"
+          >
+            Ever Jesús<br class="hidden sm:block" /> Montero Minaya
+            <span
+              class="ml-1 inline-block h-8 w-[3px] animate-animateCaret bg-accent align-middle sm:h-10"
+              aria-hidden="true"></span>
+          </h1>
+
+          <div class="mt-4">
+            <TitlePerfil />
+          </div>
+
+          <p class="mt-6 max-w-xl text-[15px] leading-[1.75] text-gray-600 dark:text-gray-300">
+            <b class="font-semibold text-gray-900 dark:text-white">Hola, soy Ever ✌️</b
+            ><br />
+            Hago aplicaciones web completas: la interfaz y el backend. Me importa que
+            el código se pueda mantener y crecer, no solo
+            que funcione. También desarrollo para Android, y siempre estoy aprendiendo
+            algo nuevo.
+          </p>
+
+          <div
+            class="reveal mt-8 flex items-center gap-1 border-t border-gray-900/10 pt-6 dark:border-white/15"
+            style="--d: 0.4s"
+          >
+            {
+              itemsSocial.map((item) => (
+                <ItemSocial
+                  url={item.url}
+                  icon={item.icon}
+                  name={item.name}
+                  style={item.style}
+                />
+              ))
+            }
+          </div>
+        </div>
+
+        {/* --- Foto: copia impresa, ligeramente torcida --- */}
+        <div class="order-1 flex justify-center lg:order-2 lg:-me-4 lg:-mt-20">
+          <div class="reveal-photo relative" style="--d: 0.15s">
+            {/* Bloque de color detras, desplazado a mano */}
+            <span
+              class="absolute inset-0 translate-x-3 translate-y-3 rounded-lg bg-navy-600/20 dark:bg-navy-400/25"
+              aria-hidden="true"></span>
+
+            <div
+              class="relative -rotate-2 rounded-lg bg-white p-2.5 shadow-[0_18px_40px_-18px_rgba(11,18,32,0.55)] transition-transform duration-500 ease-out hover:rotate-0 dark:bg-navy-200 dark:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.8)]"
+            >
+              <img
+                src="https://i.ibb.co/FxQfhgD/foto-small.jpg"
+                alt="Ever Montero"
+                width="300"
+                height="300"
+                class="w-44 rounded-[3px] object-cover sm:w-52 lg:w-[270px]"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* ---------- Flecha ---------- */}
+  <div
+    class="reveal absolute inset-x-0 bottom-6 z-10 flex justify-center"
+    style="--d: 0.7s"
+  >
+    <Icon
+      name="lucide:arrow-down"
+      class="h-6 w-6 animate-bounce text-gray-900 opacity-40 dark:text-white"
+      aria-hidden="true"
+    />
+  </div>
+</div>

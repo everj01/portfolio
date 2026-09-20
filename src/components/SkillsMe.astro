@@ -1,0 +1,157 @@
+---
+import { Icon } from "astro-icon/components";
+import { skillCategories } from "../data/data";
+import type { SkillLevel } from "../types";
+
+/* Tailwind no escanea data.json, asi que las clases que vienen de ahi
+   ("bg-blue-500"...) nunca se generan. Por eso el color del JSON solo se usa
+   como *nombre* y el estilo real se escribe aqui, estatico y visible para
+   Tailwind. Ademas asi el icono se ve igual de bien en claro y en oscuro. */
+type Tone = { chip: string; bar: string };
+
+const TONES: Record<string, Tone> = {
+  blue: {
+    chip: "bg-blue-500/10 text-blue-600 ring-blue-500/20 dark:bg-blue-400/10 dark:text-blue-300 dark:ring-blue-400/20",
+    bar: "from-blue-500/70",
+  },
+  green: {
+    chip: "bg-emerald-500/10 text-emerald-600 ring-emerald-500/20 dark:bg-emerald-400/10 dark:text-emerald-300 dark:ring-emerald-400/20",
+    bar: "from-emerald-500/70",
+  },
+  emerald: {
+    chip: "bg-emerald-500/10 text-emerald-600 ring-emerald-500/20 dark:bg-emerald-400/10 dark:text-emerald-300 dark:ring-emerald-400/20",
+    bar: "from-emerald-500/70",
+  },
+  purple: {
+    chip: "bg-purple-500/10 text-purple-600 ring-purple-500/20 dark:bg-purple-400/10 dark:text-purple-300 dark:ring-purple-400/20",
+    bar: "from-purple-500/70",
+  },
+  pink: {
+    chip: "bg-pink-500/10 text-pink-600 ring-pink-500/20 dark:bg-pink-400/10 dark:text-pink-300 dark:ring-pink-400/20",
+    bar: "from-pink-500/70",
+  },
+  orange: {
+    chip: "bg-orange-500/10 text-orange-600 ring-orange-500/20 dark:bg-orange-400/10 dark:text-orange-300 dark:ring-orange-400/20",
+    bar: "from-orange-500/70",
+  },
+  amber: {
+    chip: "bg-amber-500/10 text-amber-600 ring-amber-500/20 dark:bg-amber-400/10 dark:text-amber-300 dark:ring-amber-400/20",
+    bar: "from-amber-500/70",
+  },
+  red: {
+    chip: "bg-red-500/10 text-red-600 ring-red-500/20 dark:bg-red-400/10 dark:text-red-300 dark:ring-red-400/20",
+    bar: "from-red-500/70",
+  },
+  cyan: {
+    chip: "bg-cyan-500/10 text-cyan-600 ring-cyan-500/20 dark:bg-cyan-400/10 dark:text-cyan-300 dark:ring-cyan-400/20",
+    bar: "from-cyan-500/70",
+  },
+  gray: {
+    chip: "bg-navy-500/10 text-navy-700 ring-navy-500/20 dark:bg-navy-300/10 dark:text-navy-200 dark:ring-navy-300/20",
+    bar: "from-navy-500/70",
+  },
+};
+
+/* "bg-blue-500" -> "blue". Si no esta mapeado, cae en el acento del sitio. */
+const FALLBACK: Tone = {
+  chip: "bg-accent/10 text-accent ring-accent/20",
+  bar: "from-accent/70",
+};
+
+const toneOf = (color?: string): Tone => {
+  const key = color?.match(/bg-([a-z]+)-\d+/)?.[1] ?? "";
+  return TONES[key] ?? FALLBACK;
+};
+
+// "advanced" no muestra etiqueta (igual que en la version React).
+const levelText: Record<SkillLevel, string> = {
+  advanced: "",
+  basic: "Básico",
+  learning: "Aprendiendo",
+  "": "",
+};
+
+const levelStyle: Record<SkillLevel, string> = {
+  advanced: "",
+  basic: "bg-amber-500/10 text-amber-700 ring-amber-500/25 dark:bg-amber-400/10 dark:text-amber-300 dark:ring-amber-400/25",
+  learning:
+    "bg-sky-500/10 text-sky-700 ring-sky-500/25 dark:bg-sky-400/10 dark:text-sky-300 dark:ring-sky-400/25",
+  "": "bg-gray-500/10 text-gray-600 ring-gray-500/20 dark:bg-white/5 dark:text-gray-300 dark:ring-white/10",
+};
+---
+
+<div class="flex flex-col items-center justify-center px-4 sm:px-6">
+  <div class="mb-12 mt-32 text-center">
+    <h2
+      class="font-display text-3xl font-bold tracking-[-0.02em] text-gray-900 md:text-4xl dark:text-white"
+    >
+      Habilidades Técnicas
+    </h2>
+    <p class="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-gray-600 dark:text-gray-400">
+      Las herramientas con las que trabajo a diario, agrupadas por área.
+    </p>
+    <div class="mx-auto mt-6 h-px w-24 bg-gradient-to-r from-transparent via-accent/50 to-transparent"></div>
+  </div>
+
+  <div class="grid w-full max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+    {
+      skillCategories.map((category) => {
+        const tone = toneOf(category.color);
+        return (
+          <article
+            class="group relative overflow-hidden rounded-2xl border border-gray-900/10 bg-white/80 p-6 shadow-[0_18px_44px_-32px_rgba(11,18,32,0.55)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 hover:shadow-[0_26px_60px_-32px_rgba(11,18,32,0.6)] dark:border-white/[0.09] dark:bg-navy-800/50 dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05),0_24px_60px_-34px_rgba(0,0,0,0.9)] dark:hover:border-accent/40"
+          >
+            {/* Filo de color de la categoria */}
+            <span
+              class:list={[
+                "pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r to-transparent",
+                tone.bar,
+              ]}
+              aria-hidden="true"
+            />
+
+            <div class="mb-5 flex items-center gap-3">
+              <div
+                class:list={[
+                  "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ring-1 transition-transform duration-300 group-hover:scale-105",
+                  tone.chip,
+                ]}
+              >
+                {category.icon && (
+                  <Icon name={category.icon} class="h-5 w-5" aria-hidden="true" />
+                )}
+              </div>
+              <h3 class="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">
+                {category.title}
+              </h3>
+            </div>
+
+            <ul class="divide-y divide-gray-900/[0.06] dark:divide-white/[0.06]">
+              {category.skills?.map((skill) => (
+                <li class="flex items-center justify-between gap-3 py-2.5">
+                  <span class="flex items-center gap-2.5 text-[15px] font-medium text-gray-700 dark:text-gray-300">
+                    <span
+                      class="h-1.5 w-1.5 shrink-0 rounded-full bg-accent/60"
+                      aria-hidden="true"
+                    />
+                    {skill.name}
+                  </span>
+                  {levelText[skill.level] && (
+                    <span
+                      class:list={[
+                        "shrink-0 rounded-full px-2 py-0.5 text-[11px] font-medium ring-1",
+                        levelStyle[skill.level],
+                      ]}
+                    >
+                      {levelText[skill.level]}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </article>
+        );
+      })
+    }
+  </div>
+</div>

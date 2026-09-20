@@ -1,0 +1,170 @@
+---
+import { Icon } from "astro-icon/components";
+import ProjectGallery from "./ProjectGallery.astro";
+import TechChip from "./TechChip.astro";
+import type { ProjectCardProps } from "../types";
+import { hasLiveDemo, hasPublicRepo, normalizeImages } from "../utils/projects";
+
+type Props = ProjectCardProps & { index: number };
+
+const props = Astro.props;
+const {
+  index,
+  title,
+  description,
+  overview,
+  highlights = [],
+  tech = [],
+  githubUrl,
+  liveUrl,
+  role,
+  year,
+} = props;
+
+const images = normalizeImages(props.image);
+const showGithub = hasPublicRepo(props);
+const showDemo = hasLiveDemo(props);
+const body = overview?.trim() ? overview : description;
+const meta = [role, year].filter(Boolean).join(" · ");
+---
+
+<div class="grid gap-7 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-9">
+  {/* --- Galeria --- */}
+  <ProjectGallery images={images} title={title} />
+
+  {/* --- Ficha --- */}
+  <div class="flex flex-col gap-6">
+    <header class="flex flex-col gap-3">
+      {
+        meta && (
+          <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-400 dark:text-gray-500">
+            {meta}
+          </p>
+        )
+      }
+
+      <h3
+        id={`project-title-${index}`}
+        class="text-2xl font-bold leading-tight text-gray-900 sm:text-3xl dark:text-white"
+      >
+        {title}
+      </h3>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <span
+          class:list={[
+            "inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-[11px] font-medium",
+            showGithub
+              ? "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300 dark:ring-emerald-500/20"
+              : "bg-gray-100 text-gray-600 ring-1 ring-gray-200 dark:bg-white/5 dark:text-gray-300 dark:ring-white/10",
+          ]}
+        >
+          <Icon
+            name={showGithub ? "simple-icons:github" : "lucide:lock"}
+            class="h-3.5 w-3.5"
+            aria-hidden="true"
+          />
+          {showGithub ? "Código público" : "Código privado"}
+        </span>
+
+        {
+          images.length > 0 && (
+            <span class="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-2 py-1 text-[11px] font-medium text-gray-600 ring-1 ring-gray-200 dark:bg-white/5 dark:text-gray-300 dark:ring-white/10">
+              <Icon name="lucide:layers" class="h-3.5 w-3.5" aria-hidden="true" />
+              {images.length} {images.length === 1 ? "captura" : "capturas"}
+            </span>
+          )
+        }
+      </div>
+    </header>
+
+    {/* Descripcion */}
+    <section class="flex flex-col gap-2">
+      <h4
+        class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-400 dark:text-gray-500"
+      >
+        Sobre el proyecto
+      </h4>
+      <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+        {body}
+      </p>
+    </section>
+
+    {/* Puntos clave */}
+    {
+      highlights.length > 0 && (
+        <section class="flex flex-col gap-2">
+          <h4 class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-400 dark:text-gray-500">
+            Puntos clave
+          </h4>
+          <ul class="flex flex-col gap-2">
+            {highlights.map((item) => (
+              <li class="flex items-start gap-2.5 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+                <Icon
+                  name="lucide:check"
+                  class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                  aria-hidden="true"
+                />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {/* Stack */}
+    {
+      tech.length > 0 && (
+        <section class="flex flex-col gap-2.5">
+          <h4 class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-400 dark:text-gray-500">
+            Stack
+          </h4>
+          <div class="flex flex-wrap gap-2">
+            {tech.map((item) => (
+              <TechChip name={item} size="md" />
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {/* Enlaces */}
+    <div
+      class="mt-auto flex flex-col gap-3 border-t border-gray-100 pt-5 sm:flex-row dark:border-white/10"
+    >
+      {
+        showGithub ? (
+          <a
+            href={githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-gray-700 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
+          >
+            <Icon name="simple-icons:github" class="h-4 w-4" aria-hidden="true" />
+            Ver repositorio
+          </a>
+        ) : (
+          <p class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-dashed border-gray-300 px-4 py-2.5 text-xs text-gray-500 dark:border-white/15 dark:text-gray-400">
+            <Icon name="lucide:lock" class="h-4 w-4 shrink-0" aria-hidden="true" />
+            Código privado (proyecto interno)
+          </p>
+        )
+      }
+
+      {
+        showDemo && (
+          <a
+            href={liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-gray-300 px-4 py-2.5 text-sm font-semibold text-gray-800 transition-colors hover:border-accent hover:text-accent dark:border-white/15 dark:text-gray-100 dark:hover:border-accent"
+          >
+            <Icon name="lucide:external-link" class="h-4 w-4" aria-hidden="true" />
+            Ver demo
+          </a>
+        )
+      }
+    </div>
+  </div>
+</div>

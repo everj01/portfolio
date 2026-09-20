@@ -1,0 +1,44 @@
+---
+import { Icon } from "astro-icon/components";
+import { getTechIcon } from "../utils/techIcons";
+
+interface Props {
+  name: string;
+  /** "sm" para las tarjetas, "md" para el detalle. */
+  size?: "sm" | "md";
+}
+
+const { name, size = "sm" } = Astro.props;
+const tech = getTechIcon(name);
+
+const box =
+  size === "sm"
+    ? "gap-1.5 px-2.5 py-1 text-[11px]"
+    : "gap-2 px-3 py-1.5 text-xs";
+const iconSize = size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4";
+---
+
+<span
+  class:list={[
+    "inline-flex items-center rounded-md border border-gray-200 bg-gray-50 font-medium text-gray-700",
+    "dark:border-white/10 dark:bg-white/[0.04] dark:text-gray-300",
+    box,
+  ]}
+>
+  {
+    tech ? (
+      <Icon
+        name={tech.icon}
+        class:list={["shrink-0", iconSize]}
+        style={`color:${tech.color}`}
+        aria-hidden="true"
+      />
+    ) : (
+      <span
+        class="shrink-0 w-1.5 h-1.5 rounded-full bg-gray-400 dark:bg-gray-500"
+        aria-hidden="true"
+      />
+    )
+  }
+  {name}
+</span>

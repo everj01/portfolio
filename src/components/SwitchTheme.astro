@@ -1,0 +1,67 @@
+---
+import { Icon } from "astro-icon/components";
+
+// Boton cuadrado del mismo tamano que la hamburguesa, para que la zona de
+// acciones del navbar quede alineada. El estado visual sale de la clase
+// `dark` del <html> via CSS: no hay estado duplicado en JS.
+---
+
+<button
+  id="switch-theme"
+  type="button"
+  role="switch"
+  aria-checked="false"
+  class="relative grid h-9 w-9 place-items-center rounded-xl border border-gray-900/10 text-gray-700 transition-colors duration-300 hover:bg-gray-900/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 dark:border-white/10 dark:text-gray-200 dark:hover:bg-white/5"
+>
+  <span class="sr-only">Cambiar tema claro/oscuro</span>
+
+  <Icon
+    name="lucide:sun"
+    class="theme-icon-sun absolute h-[18px] w-[18px] transition-all duration-300"
+    aria-hidden="true"
+  />
+  <Icon
+    name="lucide:moon"
+    class="theme-icon-moon absolute h-[18px] w-[18px] transition-all duration-300"
+    aria-hidden="true"
+  />
+</button>
+
+<script>
+  const root = document.documentElement;
+  const btn = document.getElementById("switch-theme");
+
+  const sync = () => {
+    const isDark = root.classList.contains("dark");
+    btn?.setAttribute("aria-checked", String(isDark));
+  };
+
+  const apply = (isDark: boolean) => {
+    root.classList.toggle("dark", isDark);
+    try {
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    } catch (e) {
+      /* modo privado / storage bloqueado */
+    }
+    sync();
+  };
+
+  sync();
+
+  btn?.addEventListener("click", () => {
+    apply(!root.classList.contains("dark"));
+  });
+
+  // Sigue al tema del sistema solo mientras el usuario no haya elegido uno.
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", (event) => {
+      let saved: string | null = null;
+      try {
+        saved = localStorage.getItem("theme");
+      } catch (e) {
+        /* storage bloqueado */
+      }
+      if (saved === null) apply(event.matches);
+    });
+</script>

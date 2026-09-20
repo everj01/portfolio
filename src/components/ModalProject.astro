@@ -1,0 +1,332 @@
+---
+import { Icon } from "astro-icon/components";
+import ProjectDetail from "./ProjectDetail.astro";
+import { itemsPorject } from "../data/data";
+
+// Cada proyecto se renderiza en el servidor dentro del modal y se muestra
+// el que toque. Asi los iconos y las imagenes son HTML real (nada se arma
+// con JS) y no hace falta Swiper.
+---
+
+<div
+  id="project-modal"
+  class="fixed inset-0 z-50 hidden overflow-y-auto overscroll-contain"
+  role="dialog"
+  aria-modal="true"
+>
+  {/* Fondo */}
+  <div
+    class="fixed inset-0 bg-gray-950/70 backdrop-blur-sm"
+    data-modal-backdrop
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="relative flex min-h-full items-start justify-center p-3 sm:p-6 lg:items-center">
+    <div
+      id="project-modal-panel"
+      class="relative w-full max-w-6xl rounded-2xl border border-gray-200 bg-white shadow-2xl dark:border-white/10 dark:bg-gray-900"
+    >
+      <button
+        id="project-modal-close"
+        type="button"
+        class="absolute right-3 top-3 z-20 grid h-9 w-9 place-items-center rounded-full border border-gray-200 bg-white/90 text-gray-600 backdrop-blur transition hover:bg-gray-100 hover:text-gray-900 focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:bg-gray-800/90 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
+        aria-label="Cerrar detalle"
+      >
+        <Icon name="lucide:x" class="h-4 w-4" aria-hidden="true" />
+      </button>
+
+      <div class="p-4 sm:p-6 lg:p-8">
+        {
+          itemsPorject.map((project, index) => (
+            <div data-project-panel={index} hidden>
+              <ProjectDetail {...project} index={index} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+{/* Vista ampliada de una captura */}
+<div
+  id="project-lightbox"
+  class="fixed inset-0 z-[60] hidden items-center justify-center bg-gray-950/95 p-4"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Imagen ampliada"
+>
+  <button
+    id="project-lightbox-close"
+    type="button"
+    class="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+    aria-label="Cerrar imagen ampliada"
+  >
+    <Icon name="lucide:x" class="h-5 w-5" aria-hidden="true" />
+  </button>
+
+  <figure class="flex max-h-full w-full max-w-6xl flex-col items-center gap-3">
+    <img
+      id="project-lightbox-image"
+      src=""
+      alt=""
+      class="max-h-[80vh] w-auto max-w-full rounded-lg object-contain"
+    />
+    <figcaption
+      id="project-lightbox-caption"
+      class="text-center text-xs text-white/70"
+    >
+    </figcaption>
+  </figure>
+</div>
+
+<script>
+  type Gallery = {
+    root: HTMLElement;
+    slides: HTMLElement[];
+    thumbs: HTMLButtonElement[];
+    counter: HTMLElement | null;
+    caption: HTMLElement | null;
+    index: number;
+  };
+
+  const modal = document.getElementById("project-modal");
+  const panel = document.getElementById("project-modal-panel");
+  const closeBtn = document.getElementById("project-modal-close");
+  const backdrop = modal?.querySelector<HTMLElement>("[data-modal-backdrop]");
+
+  const lightbox = document.getElementById("project-lightbox");
+  const lightboxImg = document.getElementById(
+    "project-lightbox-image"
+  ) as HTMLImageElement | null;
+  const lightboxCaption = document.getElementById("project-lightbox-caption");
+  const lightboxClose = document.getElementById("project-lightbox-close");
+
+  const panels = Array.from(
+    modal?.querySelectorAll<HTMLElement>("[data-project-panel]") ?? []
+  );
+
+  const galleries = new Map<HTMLElement, Gallery>();
+  let activeGallery: Gallery | null = null;
+  let lastFocused: HTMLElement | null = null;
+
+  const pad = (value: number) => String(value).padStart(2, "0");
+
+  /* ---------- Galeria ---------- */
+
+  const render = (gallery: Gallery) => {
+    gallery.slides.forEach((slide, i) => {
+      const active = i === gallery.index;
+      slide.classList.toggle("opacity-100", active);
+      slide.classList.toggle("opacity-0", !active);
+      slide.classList.toggle("pointer-events-none", !active);
+      if (active) slide.dataset.active = "true";
+      else delete slide.dataset.active;
+    });
+
+    gallery.thumbs.forEach((thumb, i) => {
+      const active = i === gallery.index;
+      thumb.classList.toggle("ring-accent", active);
+      thumb.classList.toggle("ring-transparent", !active);
+      thumb.classList.toggle("opacity-60", !active);
+      thumb.setAttribute("aria-selected", String(active));
+      if (active) {
+        thumb.scrollIntoView({ block: "nearest", inline: "nearest" });
+      }
+    });
+
+    if (gallery.counter) {
+      gallery.counter.textContent = `${pad(gallery.index + 1)} / ${pad(
+        gallery.slides.length
+      )}`;
+    }
+
+    if (gallery.caption) {
+      const img = gallery.slides[gallery.index]?.querySelector<HTMLImageElement>(
+        "img:not([aria-hidden])"
+      );
+      gallery.caption.textContent = img?.dataset.caption ?? "";
+    }
+
+    if (lightbox && !lightbox.classList.contains("hidden")) syncLightbox(gallery);
+  };
+
+  const goTo = (gallery: Gallery, index: number) => {
+    const total = gallery.slides.length;
+    if (total === 0) return;
+    gallery.index = (index + total) % total;
+    render(gallery);
+  };
+
+  const setupGallery = (root: HTMLElement): Gallery => {
+    // La descripcion de cada imagen viaja en data-caption del propio <img>.
+    const slides = Array.from(root.querySelectorAll<HTMLElement>("[data-slide]"));
+
+    const gallery: Gallery = {
+      root,
+      slides,
+      thumbs: Array.from(
+        root.querySelectorAll<HTMLButtonElement>("[data-gallery-thumb]")
+      ),
+      counter: root.querySelector<HTMLElement>("[data-gallery-counter]"),
+      caption: root.querySelector<HTMLElement>("[data-gallery-caption]"),
+      index: 0,
+    };
+
+    root
+      .querySelector<HTMLButtonElement>("[data-gallery-prev]")
+      ?.addEventListener("click", () => goTo(gallery, gallery.index - 1));
+
+    root
+      .querySelector<HTMLButtonElement>("[data-gallery-next]")
+      ?.addEventListener("click", () => goTo(gallery, gallery.index + 1));
+
+    gallery.thumbs.forEach((thumb, i) => {
+      thumb.addEventListener("click", () => goTo(gallery, i));
+    });
+
+    root
+      .querySelector<HTMLButtonElement>("[data-gallery-expand]")
+      ?.addEventListener("click", () => openLightbox(gallery));
+
+    // Deslizar en tactil
+    const stage = root.querySelector<HTMLElement>("[data-gallery-stage]");
+    let startX = 0;
+    let startY = 0;
+
+    stage?.addEventListener(
+      "touchstart",
+      (event) => {
+        startX = event.changedTouches[0]?.clientX ?? 0;
+        startY = event.changedTouches[0]?.clientY ?? 0;
+      },
+      { passive: true }
+    );
+
+    stage?.addEventListener(
+      "touchend",
+      (event) => {
+        const deltaX = (event.changedTouches[0]?.clientX ?? 0) - startX;
+        const deltaY = (event.changedTouches[0]?.clientY ?? 0) - startY;
+        // Solo si el gesto es claramente horizontal, para no robar el scroll.
+        if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY)) {
+          goTo(gallery, gallery.index + (deltaX < 0 ? 1 : -1));
+        }
+      },
+      { passive: true }
+    );
+
+    galleries.set(root, gallery);
+    return gallery;
+  };
+
+  /* ---------- Imagen ampliada ---------- */
+
+  const syncLightbox = (gallery: Gallery) => {
+    const img = gallery.slides[gallery.index]?.querySelector<HTMLImageElement>(
+      "img:not([aria-hidden])"
+    );
+    if (!img || !lightboxImg) return;
+    lightboxImg.src = img.currentSrc || img.src;
+    lightboxImg.alt = img.alt;
+    if (lightboxCaption) lightboxCaption.textContent = img.dataset.caption ?? "";
+  };
+
+  const openLightbox = (gallery: Gallery) => {
+    if (!lightbox) return;
+    syncLightbox(gallery);
+    lightbox.classList.remove("hidden");
+    lightbox.classList.add("flex");
+    lightboxClose?.focus();
+  };
+
+  const closeLightbox = () => {
+    if (!lightbox) return;
+    lightbox.classList.add("hidden");
+    lightbox.classList.remove("flex");
+  };
+
+  /* ---------- Modal ---------- */
+
+  const isOpen = () => modal !== null && !modal.classList.contains("hidden");
+
+  const openModal = (index: number) => {
+    const target = panels[index];
+    if (!modal || !target) return;
+
+    lastFocused = document.activeElement as HTMLElement | null;
+
+    panels.forEach((item) => {
+      item.hidden = item !== target;
+    });
+
+    const galleryRoot = target.querySelector<HTMLElement>("[data-gallery]");
+    if (galleryRoot) {
+      activeGallery = galleries.get(galleryRoot) ?? setupGallery(galleryRoot);
+      goTo(activeGallery, 0);
+    } else {
+      activeGallery = null;
+    }
+
+    const title = target.querySelector("h3");
+    if (title?.id) modal.setAttribute("aria-labelledby", title.id);
+
+    modal.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+    modal.scrollTop = 0;
+    closeBtn?.focus();
+  };
+
+  const closeModal = () => {
+    if (!modal) return;
+    closeLightbox();
+    modal.classList.add("hidden");
+    document.body.style.overflow = "";
+    activeGallery = null;
+    lastFocused?.focus();
+  };
+
+  document
+    .querySelectorAll<HTMLButtonElement>("button.project-view-more")
+    .forEach((button) => {
+      button.addEventListener("click", () => {
+        openModal(Number(button.dataset.projectIndex));
+      });
+    });
+
+  closeBtn?.addEventListener("click", closeModal);
+  backdrop?.addEventListener("click", closeModal);
+  lightboxClose?.addEventListener("click", closeLightbox);
+
+  lightbox?.addEventListener("click", (event) => {
+    if (event.target === lightbox) closeLightbox();
+  });
+
+  // Click fuera del panel (zona de relleno alrededor)
+  modal?.addEventListener("click", (event) => {
+    const target = event.target as Node;
+    if (panel && !panel.contains(target) && target !== backdrop) closeModal();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (!isOpen()) return;
+
+    const lightboxOpen = lightbox !== null && !lightbox.classList.contains("hidden");
+
+    if (event.key === "Escape") {
+      lightboxOpen ? closeLightbox() : closeModal();
+      return;
+    }
+
+    if (!activeGallery || activeGallery.slides.length < 2) return;
+
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      goTo(activeGallery, activeGallery.index - 1);
+    } else if (event.key === "ArrowRight") {
+      event.preventDefault();
+      goTo(activeGallery, activeGallery.index + 1);
+    }
+  });
+</script>

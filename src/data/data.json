@@ -1,0 +1,228 @@
+{
+  "navbar": [
+    { "name": "¿Quien soy?", "icon": "lucide:user-round", "section": "aboutme" },
+    { "name": "Proyectos", "icon": "lucide:folder-open", "section": "projectsme" },
+    { "name": "Habilidades", "icon": "lucide:sparkles", "section": "skillsme" },
+    { "name": "Contacto", "icon": "lucide:mail-open", "section": "contactme" }
+  ],
+
+  "titles": [
+    { "name": "Fullstack Developer" },
+    { "name": "Apps Developer" },
+    { "name": "UI UX Designer" }
+  ],
+
+  "social": [
+    {
+      "name": "Github",
+      "icon": "simple-icons:github",
+      "url": "https://github.com/everj01",
+      "style": "hover:text-[#1F2328] dark:hover:text-[#95a0ad]"
+    },
+     {
+      "name": "Linkedin",
+      "icon": "simple-icons:linkedin",
+      "url": "https://www.linkedin.com/in/everjm01/",
+      "style": "hover:text-[#0A66C2] dark:hover:text-[#67aaed]"
+    },
+    
+    {
+      "name": "X",
+      "icon": "simple-icons:x",
+      "url": "https://x.com/CoddiDv",
+      "style": "hover:text-[#15202B] dark:hover:text-[#8997a4]"
+    },
+    {
+      "name": "Instagram",
+      "icon": "simple-icons:instagram",
+      "url": "https://www.instagram.com/ev01.m/",
+      "style": "hover:text-[#C90071] dark:hover:text-[#e47f9b]"
+    }
+   
+    
+  ],
+
+  "projects": [
+    {
+      "visible": false,
+      "title": "Sumak",
+      "role": "Full Stack",
+      "year": "2024",
+      "description": "Plataforma colaborativa para compartir y descubrir lugares secretos en un mapa interactivo.",
+      "overview": "PLANTILLA DE EJEMPLO (visible: false). Muestra todos los campos que acepta un proyecto. El campo overview es el texto largo del detalle; si lo dejas vacio se usa description.",
+      "highlights": [
+        "Los highlights se listan como puntos clave dentro del detalle.",
+        "Cada imagen puede llevar su propia descripcion usando { src, caption }.",
+        "Si privatePro es true o githubUrl esta vacio, la tarjeta marca el codigo como privado."
+      ],
+      "image": [
+        {
+          "src": "https://i.ibb.co/ymBSSMzY/image.png",
+          "caption": "Vista principal del mapa interactivo."
+        }
+      ],
+      "tech": ["Laravel", "React", "TailwindCSS", "MySql"],
+      "githubUrl": "https://github.com/usuario/proyecto",
+      "liveUrl": "https://proyecto-demo.vercel.app",
+      "privatePro": false
+    },
+    {
+      "visible": true,
+      "title": "Monitor",
+      "role": "",
+      "year": "",
+      "description": "Aplicacion Web para la gestión de auditoría y administración de trámites marítimos.",
+      "overview": "",
+      "highlights": [],
+      "image": [
+        "https://i.ibb.co/TB1tDhsy/image.png",
+        "https://i.ibb.co/q3r9b5mp/Screenshot-1.jpg"
+      ],
+      "tech": ["Codeigniter", "Javascript", "Jquery", "Bootstrap 5", "SQL Server"],
+      "githubUrl": "",
+      "liveUrl": "",
+      "privatePro": true
+    },
+    {
+      "visible": true,
+      "title": "Control Web",
+      "role": "",
+      "year": "",
+      "description": "Sistema de Seguridad Digitalizada para clientes de empresas marítimas de Solmar Security.",
+      "overview": "",
+      "highlights": [],
+      "image": [
+        "https://i.ibb.co/67YtvhFT/image.png",
+        "https://i.ibb.co/N2mhtkV3/1.png",
+        "https://i.ibb.co/zWpPyMWh/2.png"
+      ],
+      "tech": [
+        "Codeigniter",
+        "Javascript",
+        "Jquery",
+        "Bootstrap 5",
+        "SQL Server",
+        "AlphineJS",
+        "Tailwind CSS"
+      ],
+      "githubUrl": "",
+      "liveUrl": "",
+      "privatePro": true
+    },
+    {
+      "visible": true,
+      "title": "Pasarela de pagos",
+      "role": "",
+      "year": "",
+      "description": "Propuesta de una pasarela de pagos con la API Mercado Pago para la plataforma de ICMA.",
+      "overview": "",
+      "highlights": [],
+      "image": ["https://i.ibb.co/4C4364Z/image.png"],
+      "tech": ["Codeigniter", "Javascript", "Jquery", "Bootstrap 5", "API - Mercado Pago"],
+      "githubUrl": "",
+      "liveUrl": "",
+      "privatePro": true
+    },
+    {
+      "visible": true,
+      "title": "Reclutamiento",
+      "role": "",
+      "year": "",
+      "description": "Propuesta para la creación de una solución web que centralice y optimice el proceso de recepción y gestión de postulaciones.",
+      "overview": "",
+      "highlights": [],
+      "image": ["https://i.ibb.co/KxttvJ7H/image.png"],
+      "tech": ["Codeigniter", "Javascript", "Jquery", "Bootstrap 5", "SQL Server"],
+      "githubUrl": "",
+      "liveUrl": "",
+      "privatePro": true
+    },
+    {
+      "visible": true,
+      "title": "File Control",
+      "role": "",
+      "year": "",
+      "description": "ERP para la gestión de la información de Solmar Security.",
+      "overview": "",
+      "highlights": [],
+      "image": ["https://i.ibb.co/PZ1qjqVV/image.png"],
+      "tech": ["Laravel", "Javascript", "Alphine JS", "Tailwind CSS", "SQL Server", "Node JS"],
+      "githubUrl": "",
+      "liveUrl": "",
+      "privatePro": true
+    }
+ 
+  ],
+
+  "skills": [
+    {
+      "title": "Frontend",
+      "icon": "lucide:code",
+      "color": "bg-blue-500",
+      "skills": [
+        { "name": "JavaScript", "level": "advanced" },
+        { "name": "HTML y CSS", "level": "advanced" },
+        { "name": "Tailwind CSS", "level": "advanced" },
+        { "name": "Typescript", "level": "advanced" },
+        { "name": "React JS", "level": "advanced" },
+        { "name": "Angular", "level": "advanced" }
+      ]
+    },
+    {
+      "title": "Backend",
+      "icon": "lucide:server",
+      "color": "bg-green-500",
+      "skills": [
+        { "name": "Laravel", "level": "advanced" },
+        { "name": "ASP.NET Core", "level": "advanced" },
+        { "name": "Codeigniter", "level": "advanced" },
+        { "name": "Node.js", "level": "basic" },
+        { "name": "Java Web", "level": "basic" },
+        { "name": "Spring Boot", "level": "basic" }
+      ]
+    },
+    {
+      "title": "Herramientas & DevOps",
+      "icon": "lucide:sliders-horizontal",
+      "color": "bg-gray-600",
+      "skills": [
+        { "name": "Git / Github / Gitlab", "level": "advanced" },
+        { "name": "Postman", "level": "advanced" },
+        { "name": "IIS (Windows Server)", "level": "advanced" },
+        { "name": "Nginx / Apache", "level": "basic" },
+        { "name": "Firebase", "level": "basic" },
+        { "name": "Docker", "level": "learning" }
+      ]
+    },
+    {
+      "title": "Base de Datos",
+      "icon": "lucide:database",
+      "color": "bg-purple-500",
+      "skills": [
+        { "name": "MySQL", "level": "advanced" },
+        { "name": "SQL Server", "level": "advanced" },
+        { "name": "PostgreSQL", "level": "basic" },
+        { "name": "MongoDB", "level": "learning" }
+      ]
+    },
+    {
+      "title": "Diseño",
+      "icon": "lucide:pen-tool",
+      "color": "bg-pink-500",
+      "skills": [
+        { "name": "Figma", "level": "advanced" },
+        { "name": "Photoshop", "level": "advanced" },
+        { "name": "Illustrator", "level": "basic" }
+      ]
+    },
+    {
+      "title": "Mobile Apps",
+      "icon": "lucide:smartphone",
+      "color": "bg-orange-500",
+      "skills": [
+        { "name": "React Native", "level": "basic" },
+        { "name": "Flutter", "level": "learning" }
+      ]
+    }
+  ]
+}

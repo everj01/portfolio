@@ -1,0 +1,151 @@
+---
+import { Icon } from "astro-icon/components";
+import { itemsSocial } from "../data/data";
+
+// Datos de contacto: cambia estos tres valores y listo.
+const email = "ev.montero01@gmail.com";
+const phoneLabel = "+51 969024713";
+const phoneHref = "+51969024713";
+---
+
+<div class="flex flex-col items-center justify-center px-4 py-12 sm:px-6">
+  <div class="mb-12 mt-24 text-center">
+    <h2
+      class="font-display text-3xl font-bold tracking-[-0.02em] text-gray-900 md:text-4xl dark:text-white"
+    >
+      Contáctame
+    </h2>
+    <p class="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-gray-600 dark:text-gray-400">
+      ¿Tienes un proyecto en mente o una vacante? Escríbeme, respondo pronto.
+    </p>
+    <div
+      class="mx-auto mt-6 h-px w-24 bg-gradient-to-r from-transparent via-accent/50 to-transparent"
+    >
+    </div>
+  </div>
+
+  <div
+    class="w-full max-w-4xl rounded-3xl border border-gray-900/10 bg-white/80 p-6 shadow-[0_24px_60px_-38px_rgba(11,18,32,0.55)] backdrop-blur-sm sm:p-8 dark:border-white/[0.09] dark:bg-navy-800/50 dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05),0_28px_70px_-36px_rgba(0,0,0,0.9)]"
+  >
+    <div class="grid gap-4 sm:grid-cols-2">
+      {/* Email */}
+      <div
+        class="group relative flex items-center gap-4 rounded-2xl border border-gray-900/10 bg-gray-50/80 p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/30 hover:bg-white dark:border-white/[0.08] dark:bg-white/[0.03] dark:hover:border-accent/40 dark:hover:bg-white/[0.06]"
+      >
+        <span
+          class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent ring-1 ring-accent/20 transition-transform duration-300 group-hover:scale-105"
+        >
+          <Icon name="lucide:mail" class="h-5 w-5" aria-hidden="true" />
+        </span>
+
+        <div class="min-w-0 flex-1">
+          <p
+            class="mb-0.5 text-[11px] font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400"
+          >
+            Correo
+          </p>
+          <a
+            href={`mailto:${email}`}
+            class="block truncate text-sm font-semibold text-gray-900 underline-offset-4 hover:text-accent hover:underline dark:text-gray-100"
+          >
+            {email}
+          </a>
+        </div>
+
+        <button
+          type="button"
+          class="copy-email relative shrink-0 rounded-lg p-2 text-gray-500 transition-colors hover:bg-accent/10 hover:text-accent dark:text-gray-400"
+          data-email={email}
+          aria-label="Copiar correo"
+          title="Copiar correo"
+        >
+          <Icon name="lucide:copy" class="copy-idle h-4 w-4" aria-hidden="true" />
+          <Icon
+            name="lucide:check"
+            class="copy-done absolute inset-0 m-auto hidden h-4 w-4 text-emerald-500"
+            aria-hidden="true"
+          />
+        </button>
+      </div>
+
+      {/* Telefono */}
+      <a
+        href={`tel:${phoneHref}`}
+        class="group flex items-center gap-4 rounded-2xl border border-gray-900/10 bg-gray-50/80 p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/30 hover:bg-white dark:border-white/[0.08] dark:bg-white/[0.03] dark:hover:border-accent/40 dark:hover:bg-white/[0.06]"
+      >
+        <span
+          class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent ring-1 ring-accent/20 transition-transform duration-300 group-hover:scale-105"
+        >
+          <Icon name="lucide:phone" class="h-5 w-5" aria-hidden="true" />
+        </span>
+        <div class="min-w-0">
+          <p
+            class="mb-0.5 text-[11px] font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400"
+          >
+            Teléfono
+          </p>
+          <p class="truncate text-sm font-semibold text-gray-900 dark:text-gray-100">
+            {phoneLabel}
+          </p>
+        </div>
+      </a>
+    </div>
+
+    {/* Redes + llamada a la accion */}
+    <div
+      class="mt-6 flex flex-col items-center gap-5 border-t border-gray-900/10 pt-6 sm:flex-row sm:justify-between dark:border-white/10"
+    >
+      <div class="flex items-center gap-2">
+        {
+          itemsSocial.map((item) => (
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={item.name}
+              title={item.name}
+              class:list={[
+                "flex h-10 w-10 items-center justify-center rounded-xl border border-gray-900/10 text-gray-600 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/30 dark:border-white/[0.08] dark:text-gray-300",
+                item.style,
+              ]}
+            >
+              <Icon name={item.icon} class="h-[18px] w-[18px]" aria-hidden="true" />
+            </a>
+          ))
+        }
+      </div>
+
+      <a
+        href={`mailto:${email}`}
+        class="inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:opacity-90 dark:text-navy-950"
+      >
+        <Icon name="lucide:send" class="h-4 w-4" aria-hidden="true" />
+        Enviar un correo
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Copiar el correo al portapapeles; el icono cambia a un check un momento.
+  document.querySelectorAll<HTMLButtonElement>(".copy-email").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const email = btn.dataset.email ?? "";
+      try {
+        await navigator.clipboard.writeText(email);
+      } catch {
+        return;
+      }
+
+      const idle = btn.querySelector<SVGElement>(".copy-idle");
+      const done = btn.querySelector<SVGElement>(".copy-done");
+      idle?.classList.add("invisible");
+      done?.classList.remove("hidden");
+
+      window.setTimeout(() => {
+        idle?.classList.remove("invisible");
+        done?.classList.add("hidden");
+      }, 1500);
+    });
+  });
+</script>

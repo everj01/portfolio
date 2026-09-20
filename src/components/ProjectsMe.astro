@@ -1,0 +1,65 @@
+---
+import { Icon } from "astro-icon/components";
+import CardProject from "./CardProject.astro";
+import ModalProject from "./ModalProject.astro";
+import { itemsPorject } from "../data/data";
+import { hasPublicRepo } from "../utils/projects";
+
+const total = itemsPorject.length;
+const publicRepos = itemsPorject.filter(hasPublicRepo).length;
+---
+
+<div class="mx-auto w-[90%] max-w-7xl py-20 lg:py-28">
+  {/* --- Encabezado --- */}
+  <div
+    class="flex flex-col gap-6 border-b border-gray-200 pb-8 lg:flex-row lg:items-end lg:justify-between dark:border-white/10"
+  >
+    <div class="flex flex-col gap-3">
+      <h2
+        class="font-display text-3xl font-semibold tracking-[-0.02em] text-gray-900 md:text-4xl dark:text-white"
+      >
+        Proyectos Destacados
+      </h2>
+      <p class="max-w-xl text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+        Sistemas que he construido en mi proceso de desarrollador
+      </p>
+    </div>
+
+    {/* Resumen */}
+    <dl
+      class="flex shrink-0 items-center gap-6 font-mono text-xs text-gray-500 dark:text-gray-400"
+    >
+      <div class="flex flex-col gap-1">
+        <dt class="uppercase tracking-[0.18em] text-[10px]">Proyectos</dt>
+        <dd class="text-2xl font-semibold text-gray-900 dark:text-white">
+          {String(total).padStart(2, "0")}
+        </dd>
+      </div>
+      <div
+        class="h-10 w-px bg-gray-200 dark:bg-white/10"
+        aria-hidden="true"
+      >
+      </div>
+      <div class="flex flex-col gap-1">
+        <dt class="uppercase tracking-[0.18em] text-[10px]">Con repo público</dt>
+        <dd
+          class="flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+        >
+          <Icon
+            name="simple-icons:github"
+            class="h-5 w-5 text-gray-400 dark:text-gray-500"
+            aria-hidden="true"
+          />
+          {String(publicRepos).padStart(2, "0")}
+        </dd>
+      </div>
+    </dl>
+  </div>
+
+  {/* --- Rejilla --- */}
+  <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+    {itemsPorject.map((item, idx) => <CardProject {...item} index={idx} />)}
+  </div>
+
+  <ModalProject />
+</div>

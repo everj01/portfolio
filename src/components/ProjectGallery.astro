@@ -1,0 +1,154 @@
+---
+import { Icon } from "astro-icon/components";
+import type { NormalizedImage } from "../types";
+
+interface Props {
+  images: NormalizedImage[];
+  title?: string;
+}
+
+const { images, title = "" } = Astro.props;
+const multiple = images.length > 1;
+const total = String(images.length).padStart(2, "0");
+---
+
+<div class="flex flex-col gap-3" data-gallery data-gallery-count={images.length}>
+  {/* --- Escenario --- */}
+  <div
+    class="group/stage relative aspect-[16/10] w-full select-none overflow-hidden rounded-xl bg-gray-900 ring-1 ring-black/5 dark:ring-white/10"
+    data-gallery-stage
+  >
+    {
+      images.length === 0 && (
+        <div class="flex h-full w-full flex-col items-center justify-center gap-2 text-gray-500">
+          <Icon name="lucide:image-off" class="h-8 w-8" aria-hidden="true" />
+          <span class="text-xs">Sin capturas disponibles</span>
+        </div>
+      )
+    }
+
+    {
+      images.map((image, index) => (
+        <figure
+          class:list={[
+            "absolute inset-0 m-0 transition-opacity duration-300 ease-out",
+            index === 0 ? "opacity-100" : "pointer-events-none opacity-0",
+          ]}
+          data-slide={index}
+          data-active={index === 0 ? "true" : undefined}
+        >
+          {/* Fondo difuminado: rellena el marco cuando la captura no encaja. */}
+          <img
+            src={image.src}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+            class="absolute inset-0 h-full w-full scale-110 object-cover opacity-30 blur-2xl"
+          />
+          <img
+            src={image.src}
+            alt={image.caption || `${title} — captura ${index + 1}`}
+            data-caption={image.caption}
+            loading={index === 0 ? "eager" : "lazy"}
+            decoding="async"
+            class="relative h-full w-full object-contain"
+          />
+        </figure>
+      ))
+    }
+
+    {/* Contador */}
+    {
+      multiple && (
+        <span
+          class="pointer-events-none absolute left-3 top-3 rounded-md bg-black/55 px-2 py-1 font-mono text-[11px] tracking-widest text-white/90 backdrop-blur-sm"
+          data-gallery-counter
+        >
+          01 / {total}
+        </span>
+      )
+    }
+
+    {/* Ampliar */}
+    {
+      images.length > 0 && (
+        <button
+          type="button"
+          data-gallery-expand
+          class="absolute right-3 top-3 rounded-md bg-black/55 p-2 text-white/90 backdrop-blur-sm transition hover:bg-black/75 md:opacity-0 md:focus-visible:opacity-100 md:group-hover/stage:opacity-100"
+          aria-label="Ampliar imagen"
+        >
+          <Icon name="lucide:maximize-2" class="h-4 w-4" aria-hidden="true" />
+        </button>
+      )
+    }
+
+    {/* Flechas */}
+    {
+      multiple && (
+        <>
+          <button
+            type="button"
+            data-gallery-prev
+            class="absolute left-2 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-black/45 text-white backdrop-blur-sm transition hover:bg-black/70 focus-visible:ring-2 focus-visible:ring-white/70 md:opacity-0 md:focus-visible:opacity-100 md:group-hover/stage:opacity-100"
+            aria-label="Imagen anterior"
+          >
+            <Icon name="lucide:chevron-left" class="h-5 w-5" aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            data-gallery-next
+            class="absolute right-2 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-black/45 text-white backdrop-blur-sm transition hover:bg-black/70 focus-visible:ring-2 focus-visible:ring-white/70 md:opacity-0 md:focus-visible:opacity-100 md:group-hover/stage:opacity-100"
+            aria-label="Imagen siguiente"
+          >
+            <Icon name="lucide:chevron-right" class="h-5 w-5" aria-hidden="true" />
+          </button>
+        </>
+      )
+    }
+  </div>
+
+  {/* --- Descripcion de la imagen actual --- */}
+  <p
+    class="min-h-[1.25rem] text-xs leading-relaxed text-gray-500 dark:text-gray-400"
+    data-gallery-caption
+  >
+    {images[0]?.caption ?? ""}
+  </p>
+
+  {/* --- Miniaturas --- */}
+  {
+    multiple && (
+      <div
+        class="-mx-1 flex snap-x gap-2 overflow-x-auto px-1 pb-1 gallery-thumbs"
+        role="tablist"
+        aria-label="Capturas del proyecto"
+      >
+        {images.map((image, index) => (
+          <button
+            type="button"
+            data-gallery-thumb={index}
+            role="tab"
+            aria-selected={index === 0 ? "true" : "false"}
+            class:list={[
+              "relative h-14 w-24 shrink-0 snap-start overflow-hidden rounded-lg ring-2 transition",
+              index === 0
+                ? "ring-accent"
+                : "opacity-60 ring-transparent hover:opacity-100",
+            ]}
+          >
+            <img
+              src={image.src}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
+              class="h-full w-full object-cover"
+            />
+          </button>
+        ))}
+      </div>
+    )
+  }
+</div>

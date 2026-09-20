@@ -1,0 +1,38 @@
+---
+import { titles } from "../data/data";
+
+const names = titles.map((t) => t.name);
+---
+
+<div class="flex justify-start">
+  <span
+    id="title-perfil"
+    class="text-2xl font-semibold title-perfil-fade show"
+    data-titles={JSON.stringify(names)}
+  >
+    {names[0]}
+  </span>
+</div>
+
+<script>
+  const el = document.getElementById("title-perfil");
+
+  if (el) {
+    const titles: string[] = JSON.parse(el.dataset.titles ?? "[]");
+
+    if (titles.length > 1) {
+      let current = 0;
+
+      setInterval(() => {
+        // Fade out, cambia el texto a mitad de camino y vuelve a entrar.
+        el.classList.remove("show");
+
+        setTimeout(() => {
+          current = (current + 1) % titles.length;
+          el.textContent = titles[current] ?? "";
+          el.classList.add("show");
+        }, 400);
+      }, 2600);
+    }
+  }
+</script>

@@ -1,0 +1,354 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Color de acento del portafolio. Cambia estos dos valores (RGB) y cambia
+     todo el sitio: se expone en Tailwind como `accent` (text-accent, etc). */
+  :root {
+    --accent: 47 66 94; /* navy 700: azul marino apagado sobre blanco */
+  }
+
+  .dark {
+    --accent: 161 181 207; /* navy 300: el mismo azul, legible en oscuro */
+  }
+
+  html {
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  /* Los iconos de astro-icon heredan el color del texto. */
+  [data-icon] {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+/* ==========================================================================
+   ABOUT ME
+   ========================================================================== */
+
+/* Trama de puntos del fondo, difuminada hacia los bordes. */
+.bg-dot-grid {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgb(var(--accent) / 0.22) 1px,
+    transparent 0
+  );
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(
+    ellipse 75% 65% at 50% 45%,
+    #000 35%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 75% 65% at 50% 45%,
+    #000 35%,
+    transparent 100%
+  );
+}
+
+/* Subrayado tipo resaltador: bordes irregulares y algo torcido,
+   para que se vea trazado a mano y no generado. */
+.marker {
+  position: relative;
+  white-space: nowrap;
+}
+
+.marker::before {
+  content: "";
+  position: absolute;
+  left: -0.22em;
+  right: -0.22em;
+  bottom: 0.02em;
+  height: 0.62em;
+  z-index: -1;
+  background-color: rgb(var(--accent) / 0.18);
+  border-radius: 0.7em 0.25em 0.5em 0.35em / 0.5em 0.6em 0.3em 0.55em;
+  transform: rotate(-0.7deg);
+}
+
+/* ---- Entrada inicial: tarjeta, textos y foto ---- */
+@keyframes revealCard {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes revealPhoto {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.reveal-card {
+  animation: revealCard 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.reveal {
+  animation: revealUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+.reveal-photo {
+  animation: revealPhoto 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+/* ---- TitlePerfil ---- */
+.title-perfil-fade {
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.title-perfil-fade.show {
+  opacity: 1;
+}
+
+/* ---- Galeria de proyectos: barra de miniaturas ---- */
+.gallery-thumbs {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--accent) / 0.6) transparent;
+}
+
+.gallery-thumbs::-webkit-scrollbar {
+  height: 6px;
+}
+
+.gallery-thumbs::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.gallery-thumbs::-webkit-scrollbar-thumb {
+  background-color: rgb(var(--accent) / 0.5);
+  border-radius: 9999px;
+}
+
+/* Quien prefiere menos movimiento, no lo sufre. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   NAVBAR
+   Pastilla flotante con blur. Al bajar se compacta, se opaca y aparece la
+   barra de progreso de lectura.
+   ========================================================================== */
+
+.site-nav {
+  position: relative;
+  width: 100%;
+  max-width: 58rem;
+  border-color: transparent;
+  background-color: rgb(255 255 255 / 0.55);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  backdrop-filter: blur(14px) saturate(150%);
+  box-shadow: none;
+  transition:
+    max-width 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.dark .site-nav {
+  background-color: rgb(11 18 32 / 0.5);
+}
+
+.site-nav.is-scrolled {
+  max-width: 46rem;
+  background-color: rgb(255 255 255 / 0.82);
+  border-color: rgb(47 66 94 / 0.14);
+  box-shadow:
+    0 1px 0 0 rgb(255 255 255 / 0.6) inset,
+    0 14px 36px -18px rgb(11 18 32 / 0.45);
+}
+
+.dark .site-nav.is-scrolled {
+  background-color: rgb(11 18 32 / 0.75);
+  border-color: rgb(255 255 255 / 0.09);
+  box-shadow:
+    0 1px 0 0 rgb(255 255 255 / 0.06) inset,
+    0 14px 36px -16px rgb(0 0 0 / 0.85);
+}
+
+/* Con el menu movil abierto el nav no se encoge. */
+.site-nav.menu-open {
+  max-width: 58rem;
+}
+
+/* ---- Pastilla deslizante del enlace activo ---- */
+#navbar-indicator {
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease;
+}
+
+.nav-link.is-active {
+  color: rgb(var(--accent));
+}
+
+.dark .nav-link.is-active {
+  color: rgb(var(--accent));
+}
+
+/* ---- Brillo "tech" al pasar por encima ---- */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0.75rem;
+  pointer-events: none;
+  /* Detras del texto, delante de la pastilla deslizante. */
+  z-index: -1;
+  opacity: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgb(var(--accent) / 0.16) 50%,
+    transparent 80%
+  );
+  background-size: 220% 100%;
+  background-position: 130% 0;
+  transition:
+    opacity 0.3s ease,
+    background-position 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-link:hover::after {
+  opacity: 1;
+  background-position: -30% 0;
+}
+
+/* ---- Barra de progreso ---- */
+#navbar-progress {
+  transition:
+    transform 0.12s linear,
+    opacity 0.45s ease;
+}
+
+/* ---- Hamburguesa que se transforma en X ---- */
+.nav-burger-close {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.6);
+}
+
+#navbar-toggle.is-open .nav-burger-open {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.6);
+}
+
+#navbar-toggle.is-open .nav-burger-close {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+
+/* ---- Menu movil ---- */
+.site-nav-menu {
+  width: 100%;
+  max-width: 58rem;
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  border-color: transparent;
+  background-color: rgb(255 255 255 / 0.85);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
+  transform: translateY(-0.5rem);
+  transition:
+    max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease,
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease;
+}
+
+.dark .site-nav-menu {
+  background-color: rgb(11 18 32 / 0.85);
+}
+
+.site-nav-menu.is-open {
+  max-height: 24rem;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  border-color: rgb(47 66 94 / 0.14);
+  box-shadow: 0 18px 40px -20px rgb(11 18 32 / 0.5);
+}
+
+.dark .site-nav-menu.is-open {
+  border-color: rgb(255 255 255 / 0.09);
+  box-shadow: 0 18px 40px -18px rgb(0 0 0 / 0.9);
+}
+
+/* Entrada escalonada de cada enlace */
+.nav-mobile-item {
+  opacity: 0;
+  transform: translateY(-0.4rem);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-nav-menu.is-open .nav-mobile-item {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(var(--i, 0) * 55ms);
+}
+
+.nav-link-mobile.is-active {
+  background-color: rgb(var(--accent) / 0.12);
+  color: rgb(var(--accent));
+}
+
+/* ---- Interruptor de tema: sol en claro, luna en oscuro ---- */
+.theme-icon-moon {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.5);
+}
+
+.dark .theme-icon-sun {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.5);
+}
+
+.dark .theme-icon-moon {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}

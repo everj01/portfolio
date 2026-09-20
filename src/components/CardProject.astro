@@ -1,0 +1,162 @@
+---
+import { Icon } from "astro-icon/components";
+import TechChip from "./TechChip.astro";
+import type { ProjectCardProps } from "../types";
+import { hasPublicRepo, normalizeImages } from "../utils/projects";
+
+type Props = ProjectCardProps & { index: number };
+
+const props = Astro.props;
+const { index, title, description, tech = [], githubUrl, role, year } = props;
+
+const images = normalizeImages(props.image);
+const cover = images[0]?.src ?? "";
+const showGithub = hasPublicRepo(props);
+
+// Solo caben 4 etiquetas sin que la tarjeta se desordene; el resto se resume.
+const visibleTech = tech.slice(0, 4);
+const restTech = tech.length - visibleTech.length;
+
+const number = String(index + 1).padStart(2, "0");
+---
+
+<article
+  class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-[0_18px_25px_-20px_rgba(0,0,0,0.35)] focus-within:border-accent/50 dark:border-white/10 dark:bg-gray-800/70 dark:hover:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.9)]"
+>
+  {/* --- Portada --- */}
+  <div class="relative aspect-[16/10] w-full overflow-hidden bg-gray-100 dark:bg-gray-900">
+    {
+      cover ? (
+        <img
+          src={cover}
+          alt={`Portada de ${title}`}
+          loading="lazy"
+          decoding="async"
+          class="h-full w-full object-cover object-top saturate-[0.85] transition-all duration-500  "
+        />
+      ) : (
+        <div class="flex h-full w-full items-center justify-center text-gray-300 dark:text-gray-700">
+          <Icon name="lucide:image" class="h-10 w-10" aria-hidden="true" />
+        </div>
+      )
+    }
+
+    <div
+      class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent opacity-80"
+      aria-hidden="true"
+    >
+    </div>
+
+    {/* Numero de proyecto */}
+    <span
+      class="absolute left-3 top-3 rounded-md bg-black/45 px-2 py-0.5 font-mono text-[11px] font-medium tracking-widest text-white/90 backdrop-blur-sm"
+      aria-hidden="true"
+    >
+      {number}
+    </span>
+
+    {/* Disponibilidad del codigo */}
+    <span
+      class:list={[
+        "absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-[11px] font-medium backdrop-blur-sm",
+        showGithub
+          ? "bg-emerald-500/90 text-white"
+          : "bg-black/50 text-white/85",
+      ]}
+    >
+      <Icon
+        name={showGithub ? "simple-icons:github" : "lucide:lock"}
+        class="h-3.5 w-3.5"
+        aria-hidden="true"
+      />
+      {showGithub ? "Código público" : "Código privado"}
+    </span>
+
+    {/* Cantidad de capturas */}
+    {
+      images.length > 1 && (
+        <span class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-md bg-black/50 px-2 py-1 font-mono text-[11px] text-white/90 backdrop-blur-sm">
+          <Icon name="lucide:layers" class="h-3.5 w-3.5" aria-hidden="true" />
+          {images.length}
+        </span>
+      )
+    }
+  </div>
+
+  {/* --- Cuerpo --- */}
+  <div class="flex flex-1 flex-col gap-4 p-5">
+    <div class="space-y-2">
+      {
+        (role || year) && (
+          <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-400 dark:text-gray-500">
+            {[role, year].filter(Boolean).join(" · ")}
+          </p>
+        )
+      }
+      <h3
+        class="text-lg font-bold leading-snug text-gray-900 transition-colors group-hover:text-accent dark:text-white"
+      >
+        {title}
+      </h3>
+      <p class="line-clamp-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+        {description}
+      </p>
+    </div>
+
+    {/* Tecnologias */}
+    <div class="mt-auto flex flex-wrap gap-1.5">
+      {visibleTech.map((item) => <TechChip name={item} />)}
+      {
+        restTech > 0 && (
+          <span class="inline-flex items-center rounded-md border border-dashed border-gray-300 px-2.5 py-1 text-[11px] font-medium text-gray-500 dark:border-white/15 dark:text-gray-400">
+            +{restTech}
+          </span>
+        )
+      }
+    </div>
+
+    {/* Acciones */}
+    <div
+      class="flex items-center justify-between border-t border-gray-100 pt-4 dark:border-white/10"
+    >
+      {
+        showGithub ? (
+          <a
+            href={githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="relative z-20 inline-flex items-center gap-2 rounded-lg px-2 py-1 text-xs font-medium text-gray-600 transition-colors hover:text-accent dark:text-gray-400 dark:hover:text-accent"
+          >
+            <Icon name="simple-icons:github" class="h-4 w-4" aria-hidden="true" />
+            Repositorio
+          </a>
+        ) : (
+          <span class="inline-flex items-center gap-2 px-2 py-1 text-xs text-gray-400 dark:text-gray-500">
+            <Icon name="lucide:lock" class="h-3.5 w-3.5" aria-hidden="true" />
+            Sin repositorio público
+          </span>
+        )
+      }
+
+      <span
+        class="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-900 transition-colors group-hover:text-accent dark:text-white"
+      >
+        Ver detalle
+        <Icon
+          name="lucide:arrow-up-right"
+          class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+          aria-hidden="true"
+        />
+      </span>
+    </div>
+  </div>
+
+  {/* Toda la tarjeta abre el detalle; el enlace al repo queda por encima (z-20). */}
+  <button
+    type="button"
+    data-project-index={index}
+    class="project-view-more absolute inset-0 z-10 cursor-pointer rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900"
+  >
+    <span class="sr-only">Ver detalle de {title}</span>
+  </button>
+</article>
