@@ -6,7 +6,8 @@ import icon from 'astro-icon';
 export default defineConfig({
   // Mismo subdirectorio que usaba Vite (vite.config.ts -> base: '/portfolio/').
   // Si lo despliegas en la raiz de un dominio, borra esta linea.
-  base: '/portfolio/',
+  //base: '/portfolio/',
+  base: '/',
   integrations: [
     tailwind(),
     // Iconos como SVG inline en el build: sin CDN, sin kits externos,

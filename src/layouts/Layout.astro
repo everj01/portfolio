@@ -7,7 +7,7 @@ interface Props {
 }
 
 const {
-  title = "Ever Montero Minaya",
+  title = "Ever Jesús Montero Minaya",
   description = "Portafolio de Ever Jesús Montero Minaya — Desarrollador Full Stack.",
 } = Astro.props;
 
@@ -32,7 +32,7 @@ const base = import.meta.env.BASE_URL;
 
     <title>{title}</title>
 
-    {/* Aplica el tema ANTES del primer render para que no haya parpadeo claro/oscuro. */}
+    {/* Aplica el tema ANTES del primer render para que no haya problemas o bug del típico parpadeo (acordar). */}
     <script is:inline>
       (function () {
         try {
@@ -43,7 +43,6 @@ const base = import.meta.env.BASE_URL;
               window.matchMedia("(prefers-color-scheme: dark)").matches);
           document.documentElement.classList.toggle("dark", dark);
         } catch (e) {
-          /* noop */
         }
       })();
     </script>
