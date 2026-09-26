@@ -7,7 +7,7 @@ import { hasPublicRepo, normalizeImages } from "../utils/projects";
 type Props = ProjectCardProps & { index: number };
 
 const props = Astro.props;
-const { index, title, description, tech = [], githubUrl, role, year } = props;
+const { index, title, description, tech = [], githubUrl, role, year, status } = props;
 
 const images = normalizeImages(props.image);
 const cover = images[0]?.src ?? "";
@@ -71,6 +71,16 @@ const number = String(index + 1).padStart(2, "0");
       />
       {showGithub ? "Código público" : "Código privado"}
     </span>
+
+    {/* Estado del proyecto */}
+    {
+      status && (
+        <span class="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-md bg-amber-500/90 px-2 py-1 text-[11px] font-medium text-white backdrop-blur-sm">
+          <Icon name="lucide:loader" class="h-3.5 w-3.5" aria-hidden="true" />
+          {status}
+        </span>
+      )
+    }
 
     {/* Cantidad de capturas */}
     {

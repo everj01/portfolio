@@ -33,6 +33,8 @@ export interface ProjectCardProps {
   role?: string;
   /** Año o rango, ej: "2024" / "2023 - 2024". */
   year?: string;
+  /** Estado del proyecto, ej: "En desarrollo". Si falta, no se muestra nada. */
+  status?: string;
   image?: GalleryImage[];
   tech?: string[];
   githubUrl?: string | null;

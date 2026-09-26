@@ -48,6 +48,7 @@
       "title": "Sumak",
       "role": "Full Stack",
       "year": "2024",
+      "status": "",
       "description": "Plataforma colaborativa para compartir y descubrir lugares secretos en un mapa interactivo.",
       "overview": "PLANTILLA DE EJEMPLO (visible: false). Muestra todos los campos que acepta un proyecto. El campo overview es el texto largo del detalle; si lo dejas vacio se usa description.",
       "highlights": [
@@ -147,6 +148,49 @@
       "highlights": [],
       "image": ["https://i.ibb.co/PZ1qjqVV/image.png"],
       "tech": ["Laravel", "Javascript", "Alphine JS", "Tailwind CSS", "SQL Server", "Node JS"],
+      "githubUrl": "",
+      "liveUrl": "",
+      "privatePro": true
+    },
+    {
+      "visible": true,
+      "title": "Diario IA",
+      "role": "Full Stack",
+      "year": "2026",
+      "description": "Diario personal donde la IA lee cada entrada y devuelve un resumen, el estado de animo y patrones del dia.",
+      "overview": "Aplicacion de diario privado pensada para escribir sin fricciones y dejar que la IA haga la lectura. Cada entrada se analiza para extraer un resumen breve, el estado de animo y los temas recurrentes, y todo eso alimenta un panel con la evolucion emocional a lo largo del tiempo. Construida con Next.js y SQLite para que corra en local sin depender de servicios externos.",
+      "highlights": [
+        "Analisis automatico de cada entrada: resumen, estado de animo y temas detectados.",
+        "Panel con la evolucion del animo y los patrones que se repiten semana a semana.",
+        "Persistencia local con SQLite, sin servidor externo ni cuentas de terceros.",
+        "Editor enfocado en la escritura y busqueda rapida sobre el historial."
+      ],
+      "image": [
+        "https://i.ibb.co/jvWKQ9BR/Captura-de-pantalla-2026-09-25-225601.png",
+        "https://i.ibb.co/hxVN9xN3/Captura-de-pantalla-2026-09-25-225435.png",
+        "https://i.ibb.co/r297zqm4/Captura-de-pantalla-2026-09-25-225454.png"
+      ],
+      "tech": ["Next JS", "Typescript", "SQLite", "Tailwind CSS"],
+      "githubUrl": "",
+      "liveUrl": "",
+      "privatePro": true
+    },
+    {
+      "visible": true,
+      "title": "Sumak",
+      "role": "Full Stack",
+      "year": "2026",
+      "status": "En desarrollo",
+      "description": "Mapa colaborativo para guardar y descubrir lugares especiales, con fotos y notas de cada sitio.",
+      "overview": "Proyecto personal en curso: un mapa donde cualquiera puede marcar los lugares que valen la pena y contar por que, sumando fotos, una nota y categorias. La idea es que el descubrimiento venga de la gente y no de un ranking, asi que el foco esta en explorar el mapa y leer lo que otros dejaron. Todavia esta sin finalizar: el mapa, las fichas de lugar y la carga de imagenes ya funcionan, y queda pendiente cerrar la parte social y los filtros avanzados.",
+      "highlights": [
+        "Mapa interactivo con marcadores por categoria y ficha de cada lugar.",
+        "Carga de fotos y notas propias para describir cada sitio.",
+        "API en Laravel con autenticacion y permisos por usuario.",
+        "En progreso: perfiles, favoritos y filtros de busqueda avanzados."
+      ],
+      "image": ["https://i.ibb.co/ymBSSMzY/image.png"],
+      "tech": ["React", "Tailwind CSS", "Laravel", "MySQL", "Leaflet"],
       "githubUrl": "",
       "liveUrl": "",
       "privatePro": true
