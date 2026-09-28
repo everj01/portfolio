@@ -8,7 +8,7 @@
 
   "titles": [
     { "name": "Fullstack Developer" },
-    { "name": "Apps Developer" },
+    { "name": "App Developer" },
     { "name": "UI UX Designer" }
   ],
 
@@ -43,115 +43,6 @@
   ],
 
   "projects": [
-    {
-      "visible": false,
-      "title": "Sumak",
-      "role": "Full Stack",
-      "year": "2024",
-      "status": "",
-      "description": "Plataforma colaborativa para compartir y descubrir lugares secretos en un mapa interactivo.",
-      "overview": "PLANTILLA DE EJEMPLO (visible: false). Muestra todos los campos que acepta un proyecto. El campo overview es el texto largo del detalle; si lo dejas vacio se usa description.",
-      "highlights": [
-        "Los highlights se listan como puntos clave dentro del detalle.",
-        "Cada imagen puede llevar su propia descripcion usando { src, caption }.",
-        "Si privatePro es true o githubUrl esta vacio, la tarjeta marca el codigo como privado."
-      ],
-      "image": [
-        {
-          "src": "https://i.ibb.co/ymBSSMzY/image.png",
-          "caption": "Vista principal del mapa interactivo."
-        }
-      ],
-      "tech": ["Laravel", "React", "TailwindCSS", "MySql"],
-      "githubUrl": "https://github.com/usuario/proyecto",
-      "liveUrl": "https://proyecto-demo.vercel.app",
-      "privatePro": false
-    },
-    {
-      "visible": true,
-      "title": "Monitor",
-      "role": "",
-      "year": "",
-      "description": "Aplicacion Web para la gestión de auditoría y administración de trámites marítimos.",
-      "overview": "",
-      "highlights": [],
-      "image": [
-        "https://i.ibb.co/TB1tDhsy/image.png",
-        "https://i.ibb.co/q3r9b5mp/Screenshot-1.jpg"
-      ],
-      "tech": ["Codeigniter", "Javascript", "Jquery", "Bootstrap 5", "SQL Server"],
-      "githubUrl": "",
-      "liveUrl": "",
-      "privatePro": true
-    },
-    {
-      "visible": true,
-      "title": "Control Web",
-      "role": "",
-      "year": "",
-      "description": "Sistema de Seguridad Digitalizada para clientes de empresas marítimas de Solmar Security.",
-      "overview": "",
-      "highlights": [],
-      "image": [
-        "https://i.ibb.co/67YtvhFT/image.png",
-        "https://i.ibb.co/N2mhtkV3/1.png",
-        "https://i.ibb.co/zWpPyMWh/2.png"
-      ],
-      "tech": [
-        "Codeigniter",
-        "Javascript",
-        "Jquery",
-        "Bootstrap 5",
-        "SQL Server",
-        "AlphineJS",
-        "Tailwind CSS"
-      ],
-      "githubUrl": "",
-      "liveUrl": "",
-      "privatePro": true
-    },
-    {
-      "visible": true,
-      "title": "Pasarela de pagos",
-      "role": "",
-      "year": "",
-      "description": "Propuesta de una pasarela de pagos con la API Mercado Pago para la plataforma de ICMA.",
-      "overview": "",
-      "highlights": [],
-      "image": ["https://i.ibb.co/4C4364Z/image.png"],
-      "tech": ["Codeigniter", "Javascript", "Jquery", "Bootstrap 5", "API - Mercado Pago"],
-      "githubUrl": "",
-      "liveUrl": "",
-      "privatePro": true
-    },
-    {
-      "visible": true,
-      "title": "Reclutamiento",
-      "role": "",
-      "year": "",
-      "description": "Propuesta para la creación de una solución web que centralice y optimice el proceso de recepción y gestión de postulaciones.",
-      "overview": "",
-      "highlights": [],
-      "image": ["https://i.ibb.co/KxttvJ7H/image.png"],
-      "tech": ["Codeigniter", "Javascript", "Jquery", "Bootstrap 5", "SQL Server"],
-      "githubUrl": "",
-      "liveUrl": "",
-      "privatePro": true
-    },
-    {
-      "visible": true,
-      "title": "File Control",
-      "role": "",
-      "year": "",
-      "description": "ERP para la gestión de la información de Solmar Security.",
-      "overview": "",
-      "highlights": [],
-      "image": ["https://i.ibb.co/PZ1qjqVV/image.png"],
-      "tech": ["Laravel", "Javascript", "Alphine JS", "Tailwind CSS", "SQL Server", "Node JS"],
-      "githubUrl": "",
-      "liveUrl": "",
-      "privatePro": true
-    },
     {
       "visible": true,
       "title": "Diario IA",
@@ -194,7 +85,124 @@
       "githubUrl": "",
       "liveUrl": "",
       "privatePro": true
+    },
+    {
+      "visible": true,
+      "title": "Sisol - File Control",
+      "role": "",
+      "year": "",
+      "description": "ERP para la gestión de la información de Sol Security.",
+      "overview": "",
+      "highlights": [],
+      "image": [
+        "https://i.ibb.co/vC8zmDbb/sisol-01.png",
+        "https://i.ibb.co/NgWKrxRj/sisol-02.png",
+        "https://i.ibb.co/YBh9bcMC/sisol-03.png",
+        "https://i.ibb.co/dJmy7S5f/sisol-04.png",
+        "https://i.ibb.co/yBXffG1T/sisol-05.png"
+      ],
+      "tech": ["Laravel", "Javascript", "Alphine JS", "Tailwind CSS", "SQL Server", "Node JS"],
+      "githubUrl": "",
+      "liveUrl": "",
+      "privatePro": true
+    },
+    
+    {
+      "visible": true,
+      "title": "Monitor",
+      "role": "",
+      "year": "",
+      "description": "Aplicacion Web para la gestión de auditoría y administración de trámites marítimos.",
+      "overview": "",
+      "highlights": [],
+      "image": [
+        "https://i.ibb.co/jnn0qNx/Monitor-01.png",
+        "https://i.ibb.co/2YvFSYgy/Monitor-02.png",
+        "https://i.ibb.co/WSnBK7h/Monitor-03.png",
+        "https://i.ibb.co/tPwWd2Np/Monitor-04.png",
+        "https://i.ibb.co/39qQ3JG2/Monitor-05.png",
+        "https://i.ibb.co/99w8KntL/Monitor-06.png"
+      ],
+      "tech": ["Codeigniter", "Javascript", "Jquery", "Bootstrap 5", "SQL Server"],
+      "githubUrl": "",
+      "liveUrl": "",
+      "privatePro": true
+    },
+    {
+      "visible": true,
+      "title": "Control Web",
+      "role": "",
+      "year": "",
+      "description": "Sistema de Seguridad Digitalizada para clientes de empresas marítimas de Solmar Security.",
+      "overview": "",
+      "highlights": [],
+      "image": [
+        "https://i.ibb.co/d4JSnh15/control-01.png",
+        "https://i.ibb.co/TxWyYw2g/control-02.png",
+        "https://i.ibb.co/NdgrcpRq/control-03.png",
+        "https://i.ibb.co/gLJbqRm8/control-04.png",
+        "https://i.ibb.co/MDzh8v4c/control-05.png",
+        "https://i.ibb.co/8DGXZwnF/control-06.png",
+        "https://i.ibb.co/YBVzjqQ3/control-07.png",
+        "https://i.ibb.co/0yDtHJ7J/control-08.png",
+        "https://i.ibb.co/rRWfM0XB/control-09.png"
+      ],
+      "tech": [
+        "Codeigniter",
+        "Javascript",
+        "Jquery",
+        "Bootstrap 5",
+        "SQL Server",
+        "AlphineJS",
+        "Tailwind CSS"
+      ],
+      "githubUrl": "",
+      "liveUrl": "",
+      "privatePro": true
+    },
+    {
+      "visible": true,
+      "title": "Pasarela de pagos",
+      "role": "",
+      "year": "",
+      "description": "Propuesta de una pasarela de pagos con la API Mercado Pago para la plataforma de ICMA.",
+      "overview": "",
+      "highlights": [],
+      "image": [
+        "https://i.ibb.co/cSPXt9cb/pasarela-01.png",
+        "https://i.ibb.co/kvH1FGG/pasarela-02.png",
+        "https://i.ibb.co/TDDFNsnS/pasarela-03.png",
+        "https://i.ibb.co/BHJ6dBVz/pasarela-04.png",
+        "https://i.ibb.co/GvYZvTxF/pasarela-05.png"
+      ],
+      "tech": ["Codeigniter", "Javascript", "Jquery", "Bootstrap 5", "API - Mercado Pago"],
+      "githubUrl": "",
+      "liveUrl": "",
+      "privatePro": true
+    },
+    {
+      "visible": true,
+      "title": "Reclutamiento",
+      "role": "",
+      "year": "",
+      "description": "Propuesta para la creación de una solución web que centralice y optimice el proceso de recepción y gestión de postulaciones.",
+      "overview": "",
+      "highlights": [],
+      "image": [
+        "https://i.ibb.co/B5SWJ5c2/reclutamiento-01.png",
+        "https://i.ibb.co/jv3jstNN/reclutamiento-02.png",
+        "https://i.ibb.co/gZ5qrwYd/reclutamiento-03.png",
+        "https://i.ibb.co/xKC3H8f1/reclutamiento-04.png",
+        "https://i.ibb.co/m5PvH0ZR/reclutamiento-05.png",
+        "https://i.ibb.co/ks0z1swC/reclutamiento-06.png"
+      ],
+      "tech": ["Codeigniter", "Javascript", "Jquery", "Bootstrap 5", "SQL Server"],
+      "githubUrl": "",
+      "liveUrl": "",
+      "privatePro": true
     }
+    
+    
  
   ],
 
@@ -204,12 +212,14 @@
       "icon": "lucide:code",
       "color": "bg-blue-500",
       "skills": [
-        { "name": "JavaScript", "level": "advanced" },
-        { "name": "HTML y CSS", "level": "advanced" },
+        { "name": "HTML, CSS y JS", "level": "advanced" },
         { "name": "Tailwind CSS", "level": "advanced" },
         { "name": "Typescript", "level": "advanced" },
         { "name": "React JS", "level": "advanced" },
-        { "name": "Angular", "level": "advanced" }
+        { "name": "Angular", "level": "advanced" },
+        { "name": "Next JS", "level": "advanced" },
+        { "name": "Vite JS", "level": "advanced" },
+        { "name": "Astro", "level": "advanced" }
       ]
     },
     {
@@ -217,12 +227,14 @@
       "icon": "lucide:server",
       "color": "bg-green-500",
       "skills": [
-        { "name": "Laravel", "level": "advanced" },
-        { "name": "ASP.NET Core", "level": "advanced" },
-        { "name": "Codeigniter", "level": "advanced" },
-        { "name": "Node.js", "level": "basic" },
-        { "name": "Java Web", "level": "basic" },
-        { "name": "Spring Boot", "level": "basic" }
+        { "name": "PHP (Laravel)", "level": "advanced" },
+        { "name": "C# (ASP.NET Core)", "level": "advanced" },
+        { "name": "PHP (Codeigniter)", "level": "advanced" },
+        { "name": "Nest JS", "level": "basic" },
+        { "name": "Node.js", "level": "advanced" },
+        { "name": "Java Web", "level": "advanced" },
+        { "name": "Spring Boot", "level": "basic" },
+        { "name": "Python (Django)", "level": "basic" }
       ]
     },
     {
@@ -233,9 +245,10 @@
         { "name": "Git / Github / Gitlab", "level": "advanced" },
         { "name": "Postman", "level": "advanced" },
         { "name": "IIS (Windows Server)", "level": "advanced" },
-        { "name": "Nginx / Apache", "level": "basic" },
+        { "name": "Agents / Claude Code / Codex", "level": "advanced" },
+        { "name": "Nginx / Apache", "level": "advanced" },
         { "name": "Firebase", "level": "basic" },
-        { "name": "Docker", "level": "learning" }
+        { "name": "Docker", "level": "basic" }
       ]
     },
     {
@@ -245,8 +258,9 @@
       "skills": [
         { "name": "MySQL", "level": "advanced" },
         { "name": "SQL Server", "level": "advanced" },
+        { "name": "SQL Lite", "level": "advanced" },
         { "name": "PostgreSQL", "level": "basic" },
-        { "name": "MongoDB", "level": "learning" }
+        { "name": "MongoDB", "level": "basic" }
       ]
     },
     {
@@ -264,8 +278,10 @@
       "icon": "lucide:smartphone",
       "color": "bg-orange-500",
       "skills": [
+        { "name": "Java", "level": "advanced" },
+        { "name": "Kotlin", "level": "basic" },
         { "name": "React Native", "level": "basic" },
-        { "name": "Flutter", "level": "learning" }
+        { "name": "Flutter", "level": "basic" }
       ]
     }
   ]
