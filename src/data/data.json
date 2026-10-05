@@ -1,17 +1,37 @@
 {
   "navbar": [
-    { "name": "¿Quien soy?", "icon": "lucide:user-round", "section": "aboutme" },
-    { "name": "Proyectos", "icon": "lucide:folder-open", "section": "projectsme" },
-    { "name": "Habilidades", "icon": "lucide:sparkles", "section": "skillsme" },
-    { "name": "Contacto", "icon": "lucide:mail-open", "section": "contactme" }
+    {
+      "name": "¿Quien soy?",
+      "icon": "lucide:user-round",
+      "section": "aboutme"
+    },
+    {
+      "name": "Proyectos",
+      "icon": "lucide:folder-open",
+      "section": "projectsme"
+    },
+    {
+      "name": "Habilidades",
+      "icon": "lucide:sparkles",
+      "section": "skillsme"
+    },
+    {
+      "name": "Contacto",
+      "icon": "lucide:mail-open",
+      "section": "contactme"
+    }
   ],
-
   "titles": [
-    { "name": "Fullstack Developer" },
-    { "name": "App Developer" },
-    { "name": "UI UX Designer" }
+    {
+      "name": "Fullstack Developer"
+    },
+    {
+      "name": "App Developer"
+    },
+    {
+      "name": "UI UX Designer"
+    }
   ],
-
   "social": [
     {
       "name": "Github",
@@ -19,13 +39,12 @@
       "url": "https://github.com/everj01",
       "style": "hover:text-[#1F2328] dark:hover:text-[#95a0ad]"
     },
-     {
+    {
       "name": "Linkedin",
       "icon": "simple-icons:linkedin",
       "url": "https://www.linkedin.com/in/everjm01/",
       "style": "hover:text-[#0A66C2] dark:hover:text-[#67aaed]"
     },
-    
     {
       "name": "X",
       "icon": "simple-icons:x",
@@ -38,34 +57,8 @@
       "url": "https://www.instagram.com/ev01.m/",
       "style": "hover:text-[#C90071] dark:hover:text-[#e47f9b]"
     }
-   
-    
   ],
-
   "projects": [
-    {
-      "visible": true,
-      "title": "Diario IA",
-      "role": "Full Stack",
-      "year": "2026",
-      "description": "Diario personal donde la IA lee cada entrada y devuelve un resumen, el estado de animo y patrones del dia.",
-      "overview": "Aplicacion de diario privado pensada para escribir sin fricciones y dejar que la IA haga la lectura. Cada entrada se analiza para extraer un resumen breve, el estado de animo y los temas recurrentes, y todo eso alimenta un panel con la evolucion emocional a lo largo del tiempo. Construida con Next.js y SQLite para que corra en local sin depender de servicios externos.",
-      "highlights": [
-        "Analisis automatico de cada entrada: resumen, estado de animo y temas detectados.",
-        "Panel con la evolucion del animo y los patrones que se repiten semana a semana.",
-        "Persistencia local con SQLite, sin servidor externo ni cuentas de terceros.",
-        "Editor enfocado en la escritura y busqueda rapida sobre el historial."
-      ],
-      "image": [
-        "https://i.ibb.co/jvWKQ9BR/Captura-de-pantalla-2026-09-25-225601.png",
-        "https://i.ibb.co/hxVN9xN3/Captura-de-pantalla-2026-09-25-225435.png",
-        "https://i.ibb.co/r297zqm4/Captura-de-pantalla-2026-09-25-225454.png"
-      ],
-      "tech": ["Next JS", "Typescript", "SQLite", "Tailwind CSS"],
-      "githubUrl": "",
-      "liveUrl": "",
-      "privatePro": true
-    },
     {
       "visible": true,
       "title": "Sumak",
@@ -80,11 +73,136 @@
         "API en Laravel con autenticacion y permisos por usuario.",
         "En progreso: perfiles, favoritos y filtros de busqueda avanzados."
       ],
-      "image": ["https://i.ibb.co/ymBSSMzY/image.png"],
-      "tech": ["React", "Tailwind CSS", "Laravel", "MySQL", "Leaflet"],
+      "image": [
+        "https://i.ibb.co/ymBSSMzY/image.png"
+      ],
+      "tech": [
+        "React",
+        "Tailwind CSS",
+        "Laravel",
+        "MySQL",
+        "Leaflet"
+      ],
       "githubUrl": "",
       "liveUrl": "",
       "privatePro": true
+    },
+    {
+      "visible": true,
+      "title": "Diario IA",
+      "role": "Full Stack",
+      "year": "2026",
+      "description": "Diario personal donde la IA lee cada entrada y devuelve un resumen, el estado de animo y patrones del dia.",
+      "overview": "Aplicacion de diario privado pensada para escribir sin fricciones y dejar que la IA haga la lectura. Cada entrada se analiza para extraer un resumen breve, el estado de animo y los temas recurrentes, y todo eso alimenta un panel con la evolucion emocional a lo largo del tiempo. Construida con Next.js y SQLite para que corra en local sin depender de servicios externos.",
+      "highlights": [
+        "Analisis automatico de cada entrada: resumen, estado de animo y temas detectados.",
+        "Panel con la evolucion del animo y los patrones que se repiten semana a semana.",
+        "Persistencia local con SQLite, sin servidor externo ni cuentas de terceros.",
+        "Editor enfocado en la escritura y busqueda rapida sobre el historial."
+      ],
+      "image": [
+        "https://i.ibb.co/6cgJRyC0/diarioia-01.png",
+        "https://i.ibb.co/GfhLg94K/diarioia-02.png",
+        "https://i.ibb.co/F4MKpQ5v/diarioia-03.png",
+        "https://i.ibb.co/7dQbfK4G/diarioia-04.png"
+      ],
+      "tech": [
+        "Next JS",
+        "Typescript",
+        "SQLite",
+        "Tailwind CSS"
+      ],
+      "githubUrl": "https://github.com/everj01/app-web-diario-ia",
+      "liveUrl": "",
+      "privatePro": false
+    },
+    {
+      "visible": true,
+      "title": "Okumet Document",
+      "role": "Full Stack",
+      "year": "2026",
+      "description": "Sistema de gestión documental y seguimiento de expedientes para un estudio de abogados.",
+      "overview": "Plataforma pensada para digitalizar el trabajo de un despacho legal: cada expediente se organiza con sus documentos, estados y responsables, dejando atras las carpetas sueltas y el papeleo. La API en Laravel (protegida con Sanctum) centraliza la informacion y los permisos, mientras que el frontend en React + Vite se encarga de que cargar y revisar expedientes sea rapido y claro.",
+      "highlights": [
+        "Gestion completa de expedientes: documentos, estados y responsables en un solo lugar.",
+        "API en Laravel protegida con Laravel Sanctum, consumida por un frontend en React + Vite.",
+        "Carga y organizacion de documentos por expediente con control de acceso.",
+        "Pensado para el flujo real de trabajo de un despacho de abogados."
+      ],
+      "image": [
+        "https://i.ibb.co/0RQDz31q/okd-01.png",
+        "https://i.ibb.co/twFgTqYc/okd-02.png",
+        "https://i.ibb.co/BHL3tSPg/okd-03.png",
+        "https://i.ibb.co/svp5VnV7/okd-04.png",
+        "https://i.ibb.co/b5p02sSv/okd-05.png",
+        "https://i.ibb.co/C5zNSPJt/okd-06.png",
+        "https://i.ibb.co/qYqjwpHC/okd-07.png"
+      ],
+      "tech": [
+        "Laravel",
+        "Laravel Sanctum",
+        "React",
+        "Vite",
+        "Tailwind CSS",
+        "MySQL"
+      ],
+      "githubUrl": "https://github.com/everj01/web-okumet-document",
+      "liveUrl": "",
+      "privatePro": false
+    },
+    {
+      "visible": true,
+      "title": "MM Sublimados",
+      "role": "Frontend",
+      "year": "2026",
+      "description": "Pagina web comercial para un negocio de sublimado de tazas, cuadernos y articulos personalizados.",
+      "overview": "Sitio pensado para que un negocio de sublimacion muestre su catalogo de productos personalizados (tazas, cuadernos y mas) y facilite el contacto con los clientes. Construido con Astro y Tailwind CSS para priorizar la carga rapida y una presentacion visual clara del catalogo.",
+      "highlights": [
+        "Catalogo visual de productos sublimados listo para mostrar en movil y escritorio.",
+        "Sitio estatico con Astro, enfocado en velocidad de carga.",
+        "Diseño adaptado a un negocio pequeño orientado a ventas por redes."
+      ],
+      "image": [
+        "https://i.ibb.co/BHg77nWk/mmsubli-01.png",
+        "https://i.ibb.co/gbfVZhBp/mmsubli-02.png",
+        "https://i.ibb.co/bjwbZmnm/mmsubli-03.png"
+      ],
+      "tech": [
+        "Astro",
+        "Tailwind CSS"
+      ],
+      "githubUrl": "https://github.com/everj01/mm-sublimacion-web",
+      "liveUrl": "",
+      "privatePro": false
+    },
+    {
+      "visible": true,
+      "title": "Inventario Demo",
+      "role": "Full Stack",
+      "year": "2026",
+      "description": "Proyecto de practica: sistema de inventario con escaneo de codigos QR y de barras desde la camara.",
+      "overview": "Demo hecha para practicar un flujo de inventario completo: alta de productos, movimientos de stock y busqueda rapida escaneando codigos QR o de barras directamente con la camara del dispositivo, sin hardware adicional. El backend en Java expone la API que consume un frontend en Angular, con MySQL como persistencia.",
+      "highlights": [
+        "Escaneo de codigos QR y de barras usando la camara del navegador.",
+        "API en Java consumida por un frontend en Angular.",
+        "Gestion basica de productos y movimientos de inventario con MySQL."
+      ],
+      "image": [
+        "https://i.ibb.co/FqwtVCG8/inventario-01.png",
+        "https://i.ibb.co/TxxdJxTG/inventario-02.png",
+        "https://i.ibb.co/DHNkPCqv/inventario-03.png",
+        "https://i.ibb.co/nMR669LT/inventario-04.png",
+        "https://i.ibb.co/fgYchG3/inventario-05.png",
+        "https://i.ibb.co/8tkq4Hc/inventario-06.png"
+      ],
+      "tech": [
+        "Java",
+        "Angular",
+        "MySQL"
+      ],
+      "githubUrl": "https://github.com/everj01/web-inventario-ejemplo",
+      "liveUrl": "",
+      "privatePro": false
     },
     {
       "visible": true,
@@ -101,12 +219,18 @@
         "https://i.ibb.co/dJmy7S5f/sisol-04.png",
         "https://i.ibb.co/yBXffG1T/sisol-05.png"
       ],
-      "tech": ["Laravel", "Javascript", "Alphine JS", "Tailwind CSS", "SQL Server", "Node JS"],
+      "tech": [
+        "Laravel",
+        "Javascript",
+        "Alphine JS",
+        "Tailwind CSS",
+        "SQL Server",
+        "Node JS"
+      ],
       "githubUrl": "",
       "liveUrl": "",
       "privatePro": true
     },
-    
     {
       "visible": true,
       "title": "Monitor",
@@ -123,7 +247,13 @@
         "https://i.ibb.co/39qQ3JG2/Monitor-05.png",
         "https://i.ibb.co/99w8KntL/Monitor-06.png"
       ],
-      "tech": ["Codeigniter", "Javascript", "Jquery", "Bootstrap 5", "SQL Server"],
+      "tech": [
+        "Codeigniter",
+        "Javascript",
+        "Jquery",
+        "Bootstrap 5",
+        "SQL Server"
+      ],
       "githubUrl": "",
       "liveUrl": "",
       "privatePro": true
@@ -175,7 +305,13 @@
         "https://i.ibb.co/BHJ6dBVz/pasarela-04.png",
         "https://i.ibb.co/GvYZvTxF/pasarela-05.png"
       ],
-      "tech": ["Codeigniter", "Javascript", "Jquery", "Bootstrap 5", "API - Mercado Pago"],
+      "tech": [
+        "Codeigniter",
+        "Javascript",
+        "Jquery",
+        "Bootstrap 5",
+        "API - Mercado Pago"
+      ],
       "githubUrl": "",
       "liveUrl": "",
       "privatePro": true
@@ -196,30 +332,56 @@
         "https://i.ibb.co/m5PvH0ZR/reclutamiento-05.png",
         "https://i.ibb.co/ks0z1swC/reclutamiento-06.png"
       ],
-      "tech": ["Codeigniter", "Javascript", "Jquery", "Bootstrap 5", "SQL Server"],
+      "tech": [
+        "Codeigniter",
+        "Javascript",
+        "Jquery",
+        "Bootstrap 5",
+        "SQL Server"
+      ],
       "githubUrl": "",
       "liveUrl": "",
       "privatePro": true
     }
-    
-    
- 
   ],
-
   "skills": [
     {
       "title": "Frontend",
       "icon": "lucide:code",
       "color": "bg-blue-500",
       "skills": [
-        { "name": "HTML, CSS y JS", "level": "advanced" },
-        { "name": "Tailwind CSS", "level": "advanced" },
-        { "name": "Typescript", "level": "advanced" },
-        { "name": "React JS", "level": "advanced" },
-        { "name": "Angular", "level": "advanced" },
-        { "name": "Next JS", "level": "advanced" },
-        { "name": "Vite JS", "level": "advanced" },
-        { "name": "Astro", "level": "advanced" }
+        {
+          "name": "HTML, CSS y JS",
+          "level": "advanced"
+        },
+        {
+          "name": "Tailwind CSS",
+          "level": "advanced"
+        },
+        {
+          "name": "Typescript",
+          "level": "advanced"
+        },
+        {
+          "name": "React JS",
+          "level": "advanced"
+        },
+        {
+          "name": "Angular",
+          "level": "advanced"
+        },
+        {
+          "name": "Next JS",
+          "level": "advanced"
+        },
+        {
+          "name": "Vite JS",
+          "level": "advanced"
+        },
+        {
+          "name": "Astro",
+          "level": "advanced"
+        }
       ]
     },
     {
@@ -227,14 +389,38 @@
       "icon": "lucide:server",
       "color": "bg-green-500",
       "skills": [
-        { "name": "PHP (Laravel)", "level": "advanced" },
-        { "name": "C# (ASP.NET Core)", "level": "advanced" },
-        { "name": "PHP (Codeigniter)", "level": "advanced" },
-        { "name": "Nest JS", "level": "basic" },
-        { "name": "Node.js", "level": "advanced" },
-        { "name": "Java Web", "level": "advanced" },
-        { "name": "Spring Boot", "level": "basic" },
-        { "name": "Python (Django)", "level": "basic" }
+        {
+          "name": "PHP (Laravel)",
+          "level": "advanced"
+        },
+        {
+          "name": "C# (ASP.NET Core)",
+          "level": "advanced"
+        },
+        {
+          "name": "PHP (Codeigniter)",
+          "level": "advanced"
+        },
+        {
+          "name": "Nest JS",
+          "level": "basic"
+        },
+        {
+          "name": "Node.js",
+          "level": "advanced"
+        },
+        {
+          "name": "Java Web",
+          "level": "advanced"
+        },
+        {
+          "name": "Spring Boot",
+          "level": "basic"
+        },
+        {
+          "name": "Python (Django)",
+          "level": "basic"
+        }
       ]
     },
     {
@@ -242,13 +428,34 @@
       "icon": "lucide:sliders-horizontal",
       "color": "bg-gray-600",
       "skills": [
-        { "name": "Git / Github / Gitlab", "level": "advanced" },
-        { "name": "Postman", "level": "advanced" },
-        { "name": "IIS (Windows Server)", "level": "advanced" },
-        { "name": "Agents / Claude Code / Codex", "level": "advanced" },
-        { "name": "Nginx / Apache", "level": "advanced" },
-        { "name": "Firebase", "level": "basic" },
-        { "name": "Docker", "level": "basic" }
+        {
+          "name": "Git / Github / Gitlab",
+          "level": "advanced"
+        },
+        {
+          "name": "Postman",
+          "level": "advanced"
+        },
+        {
+          "name": "IIS (Windows Server)",
+          "level": "advanced"
+        },
+        {
+          "name": "Agents / Claude Code / Codex",
+          "level": "advanced"
+        },
+        {
+          "name": "Nginx / Apache",
+          "level": "advanced"
+        },
+        {
+          "name": "Firebase",
+          "level": "basic"
+        },
+        {
+          "name": "Docker",
+          "level": "basic"
+        }
       ]
     },
     {
@@ -256,11 +463,26 @@
       "icon": "lucide:database",
       "color": "bg-purple-500",
       "skills": [
-        { "name": "MySQL", "level": "advanced" },
-        { "name": "SQL Server", "level": "advanced" },
-        { "name": "SQL Lite", "level": "advanced" },
-        { "name": "PostgreSQL", "level": "basic" },
-        { "name": "MongoDB", "level": "basic" }
+        {
+          "name": "MySQL",
+          "level": "advanced"
+        },
+        {
+          "name": "SQL Server",
+          "level": "advanced"
+        },
+        {
+          "name": "SQL Lite",
+          "level": "advanced"
+        },
+        {
+          "name": "PostgreSQL",
+          "level": "basic"
+        },
+        {
+          "name": "MongoDB",
+          "level": "basic"
+        }
       ]
     },
     {
@@ -268,9 +490,18 @@
       "icon": "lucide:pen-tool",
       "color": "bg-pink-500",
       "skills": [
-        { "name": "Figma", "level": "advanced" },
-        { "name": "Photoshop", "level": "advanced" },
-        { "name": "Illustrator", "level": "basic" }
+        {
+          "name": "Figma",
+          "level": "advanced"
+        },
+        {
+          "name": "Photoshop",
+          "level": "advanced"
+        },
+        {
+          "name": "Illustrator",
+          "level": "basic"
+        }
       ]
     },
     {
@@ -278,10 +509,22 @@
       "icon": "lucide:smartphone",
       "color": "bg-orange-500",
       "skills": [
-        { "name": "Java", "level": "advanced" },
-        { "name": "Kotlin", "level": "basic" },
-        { "name": "React Native", "level": "basic" },
-        { "name": "Flutter", "level": "basic" }
+        {
+          "name": "Java",
+          "level": "advanced"
+        },
+        {
+          "name": "Kotlin",
+          "level": "basic"
+        },
+        {
+          "name": "React Native",
+          "level": "basic"
+        },
+        {
+          "name": "Flutter",
+          "level": "basic"
+        }
       ]
     }
   ]

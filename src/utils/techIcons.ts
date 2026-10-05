@@ -39,8 +39,8 @@ const MAP: Record<string, TechIcon> = {
   node: { icon: "simple-icons:nodedotjs", color: "#5FA04E" },
   aspnetcore: { icon: "simple-icons:dotnet", color: "#512BD4" },
   dotnet: { icon: "simple-icons:dotnet", color: "#512BD4" },
-  javaweb: { icon: "simple-icons:openjdk", color: "#C74634" },
-  java: { icon: "simple-icons:openjdk", color: "#C74634" },
+  javaweb: { icon: "simple-icons:openjdk", color: "#437291" },
+  java: { icon: "simple-icons:openjdk", color: "#437291" },
   springboot: { icon: "simple-icons:springboot", color: "#6DB33F" },
 
   // Datos
