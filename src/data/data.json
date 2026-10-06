@@ -121,6 +121,7 @@
       "title": "Okumet Document",
       "role": "Full Stack",
       "year": "2026",
+      "status": "En desarrollo",
       "description": "Sistema de gestión documental y seguimiento de expedientes para un estudio de abogados.",
       "overview": "Plataforma pensada para digitalizar el trabajo de un despacho legal: cada expediente se organiza con sus documentos, estados y responsables, dejando atras las carpetas sueltas y el papeleo. La API en Laravel (protegida con Sanctum) centraliza la informacion y los permisos, mientras que el frontend en React + Vite se encarga de que cargar y revisar expedientes sea rapido y claro.",
       "highlights": [
