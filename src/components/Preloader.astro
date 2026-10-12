@@ -1,0 +1,101 @@
+---
+---
+
+<div id="preloader" class="preloader" role="status" aria-live="polite" aria-label="Cargando">
+  <div class="preloader-bg" aria-hidden="true">
+    <div class="preloader-dots"></div>
+    <div class="preloader-glow preloader-glow-a"></div>
+    <div class="preloader-glow preloader-glow-b"></div>
+  </div>
+
+  <div class="preloader-content">
+    <div class="preloader-ring-wrap">
+      <span class="preloader-ring"></span>
+      <span class="preloader-ring preloader-ring-2"></span>
+      <span class="preloader-mark font-display" aria-hidden="true">
+        <span class="preloader-letter" style="--i:0">E</span>
+        <span class="preloader-letter" style="--i:1">M</span>
+      </span>
+    </div>
+
+    <div class="preloader-bar-track">
+      <span id="preloader-bar-fill" class="preloader-bar-fill"></span>
+    </div>
+    <span id="preloader-percent" class="preloader-percent">0%</span>
+  </div>
+</div>
+
+<noscript>
+  <style>
+    #preloader {
+      display: none !important;
+    }
+    body {
+      overflow: visible !important;
+    }
+  </style>
+</noscript>
+
+<script is:inline>
+  (function () {
+    var pre = document.getElementById("preloader");
+    if (!pre) return;
+
+    var fill = document.getElementById("preloader-bar-fill");
+    var percentEl = document.getElementById("preloader-percent");
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    var progress = 0;
+    var done = false;
+    var minTime = reduced ? 0 : 1000;
+    var start = Date.now();
+
+    function setProgress(p) {
+      progress = p > 100 ? 100 : p;
+      if (fill) fill.style.width = progress + "%";
+      if (percentEl) percentEl.textContent = Math.floor(progress) + "%";
+    }
+
+    function tick() {
+      if (!done) {
+        if (progress < 90) {
+          progress += (90 - progress) * 0.06 + 0.3;
+          setProgress(progress);
+        }
+        requestAnimationFrame(tick);
+      }
+    }
+    if (!reduced) requestAnimationFrame(tick);
+
+    function hide() {
+      document.body.classList.add("is-loaded");
+      pre.classList.add("preloader-hide");
+      setTimeout(
+        function () {
+          if (pre.parentNode) pre.parentNode.removeChild(pre);
+        },
+        reduced ? 0 : 700
+      );
+    }
+
+    function finish() {
+      if (done) return;
+      done = true;
+      var elapsed = Date.now() - start;
+      var wait = Math.max(minTime - elapsed, 0);
+      setTimeout(function () {
+        setProgress(100);
+        setTimeout(hide, reduced ? 0 : 220);
+      }, wait);
+    }
+
+    if (document.readyState === "complete") {
+      finish();
+    } else {
+      window.addEventListener("load", finish);
+    }
+
+    // Red de seguridad: nunca dejar al usuario atrapado tras el preloader.
+    setTimeout(finish, 6000);
+  })();
+</script>
