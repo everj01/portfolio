@@ -1,4 +1,5 @@
 {
+  "cvUrl": "https://drive.google.com/uc?export=download&id=1Ui9dEm5OprPl-Cg52XqB1pKduiEv4Brs",
   "navbar": [
     {
       "name": "¿Quien soy?",
@@ -26,10 +27,10 @@
       "name": "Fullstack Developer"
     },
     {
-      "name": "App Developer"
+      "name": "Database Administrator"
     },
     {
-      "name": "UI UX Designer"
+      "name": "Android Developer"
     }
   ],
   "social": [
@@ -216,11 +217,11 @@
       "overview": "",
       "highlights": [],
       "image": [
-        "https://i.ibb.co/vC8zmDbb/sisol-01.png",
-        "https://i.ibb.co/NgWKrxRj/sisol-02.png",
-        "https://i.ibb.co/YBh9bcMC/sisol-03.png",
-        "https://i.ibb.co/dJmy7S5f/sisol-04.png",
-        "https://i.ibb.co/yBXffG1T/sisol-05.png"
+        "sisol/01.png",
+        "sisol/02.png",
+        "sisol/03.png",
+        "sisol/04.png",
+        "sisol/05.png"
       ],
       "tech": [
         "Laravel",
@@ -243,12 +244,12 @@
       "overview": "",
       "highlights": [],
       "image": [
-        "https://i.ibb.co/jnn0qNx/Monitor-01.png",
-        "https://i.ibb.co/2YvFSYgy/Monitor-02.png",
-        "https://i.ibb.co/WSnBK7h/Monitor-03.png",
-        "https://i.ibb.co/tPwWd2Np/Monitor-04.png",
-        "https://i.ibb.co/39qQ3JG2/Monitor-05.png",
-        "https://i.ibb.co/99w8KntL/Monitor-06.png"
+        "Monitor/01.png",
+        "Monitor/02.png",
+        "Monitor/03.png",
+        "Monitor/04.png",
+        "Monitor/05.png",
+        "Monitor/06.png"
       ],
       "tech": [
         "Codeigniter",
@@ -270,15 +271,15 @@
       "overview": "",
       "highlights": [],
       "image": [
-        "https://i.ibb.co/d4JSnh15/control-01.png",
-        "https://i.ibb.co/TxWyYw2g/control-02.png",
-        "https://i.ibb.co/NdgrcpRq/control-03.png",
-        "https://i.ibb.co/gLJbqRm8/control-04.png",
-        "https://i.ibb.co/MDzh8v4c/control-05.png",
-        "https://i.ibb.co/8DGXZwnF/control-06.png",
-        "https://i.ibb.co/YBVzjqQ3/control-07.png",
-        "https://i.ibb.co/0yDtHJ7J/control-08.png",
-        "https://i.ibb.co/rRWfM0XB/control-09.png"
+        "control/01.png",
+        "control/02.png",
+        "control/03.png",
+        "control/04.png",
+        "control/05.png",
+        "control/06.png",
+        "control/07.png",
+        "control/08.png",
+        "control/09.png"
       ],
       "tech": [
         "Codeigniter",
@@ -302,11 +303,11 @@
       "overview": "",
       "highlights": [],
       "image": [
-        "https://i.ibb.co/cSPXt9cb/pasarela-01.png",
-        "https://i.ibb.co/kvH1FGG/pasarela-02.png",
-        "https://i.ibb.co/TDDFNsnS/pasarela-03.png",
-        "https://i.ibb.co/BHJ6dBVz/pasarela-04.png",
-        "https://i.ibb.co/GvYZvTxF/pasarela-05.png"
+        "pasarela/01.png",
+        "pasarela/02.png",
+        "pasarela/03.png",
+        "pasarela/04.png",
+        "pasarela/05.png"
       ],
       "tech": [
         "Codeigniter",
@@ -328,12 +329,12 @@
       "overview": "",
       "highlights": [],
       "image": [
-        "https://i.ibb.co/B5SWJ5c2/reclutamiento-01.png",
-        "https://i.ibb.co/jv3jstNN/reclutamiento-02.png",
-        "https://i.ibb.co/gZ5qrwYd/reclutamiento-03.png",
-        "https://i.ibb.co/xKC3H8f1/reclutamiento-04.png",
-        "https://i.ibb.co/m5PvH0ZR/reclutamiento-05.png",
-        "https://i.ibb.co/ks0z1swC/reclutamiento-06.png"
+        "reclutamiento/01.png",
+        "reclutamiento/02.png",
+        "reclutamiento/03.png",
+        "reclutamiento/04.png",
+        "reclutamiento/05.png",
+        "reclutamiento/06.png"
       ],
       "tech": [
         "Codeigniter",

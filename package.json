@@ -8,11 +8,13 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
+    "test": "vitest run",
     "astro": "astro",
     "deploy": "powershell -ExecutionPolicy Bypass -File deploy.ps1"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
+    "@astrojs/sitemap": "^3.7.4",
     "@astrojs/tailwind": "^6.0.2",
     "@iconify-json/lucide": "^1.2.134",
     "@iconify-json/simple-icons": "^1.2.96",
@@ -20,5 +22,8 @@
     "astro-icon": "^1.2.0",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "vitest": "^5.0.5"
   }
 }

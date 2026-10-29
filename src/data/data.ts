@@ -9,6 +9,9 @@ import type {
 } from "../types";
 import data from "./data.json";
 
+// CV descargable (link de Google Drive)
+export const cvUrl: string = data.cvUrl;
+
 // NAVBAR
 export const itemsNav: ItemsNavbar[] = data.navbar;
 

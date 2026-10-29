@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
 import type { NormalizedImage } from "../types";
 
 interface Props {
@@ -38,22 +39,48 @@ const total = String(images.length).padStart(2, "0");
           data-active={index === 0 ? "true" : undefined}
         >
           {/* Fondo difuminado: rellena el marco cuando la captura no encaja. */}
-          <img
-            src={image.src}
-            alt=""
-            aria-hidden="true"
-            loading="lazy"
-            decoding="async"
-            class="absolute inset-0 h-full w-full scale-110 object-cover opacity-30 blur-2xl"
-          />
-          <img
-            src={image.src}
-            alt={image.caption || `${title} — captura ${index + 1}`}
-            data-caption={image.caption}
-            loading={index === 0 ? "eager" : "lazy"}
-            decoding="async"
-            class="relative h-full w-full object-contain"
-          />
+          {image.local ? (
+            <Image
+              src={image.local}
+              alt=""
+              aria-hidden="true"
+              width={640}
+              height={400}
+              loading="lazy"
+              decoding="async"
+              class="absolute inset-0 h-full w-full scale-110 object-cover opacity-30 blur-2xl"
+            />
+          ) : (
+            <img
+              src={image.src}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
+              class="absolute inset-0 h-full w-full scale-110 object-cover opacity-30 blur-2xl"
+            />
+          )}
+          {image.local ? (
+            <Image
+              src={image.local}
+              alt={image.caption || `${title} — captura ${index + 1}`}
+              data-caption={image.caption}
+              width={1200}
+              height={750}
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+              class="relative h-full w-full object-contain"
+            />
+          ) : (
+            <img
+              src={image.src}
+              alt={image.caption || `${title} — captura ${index + 1}`}
+              data-caption={image.caption}
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+              class="relative h-full w-full object-contain"
+            />
+          )}
         </figure>
       ))
     }
@@ -138,14 +165,27 @@ const total = String(images.length).padStart(2, "0");
                 : "opacity-60 ring-transparent hover:opacity-100",
             ]}
           >
-            <img
-              src={image.src}
-              alt=""
-              aria-hidden="true"
-              loading="lazy"
-              decoding="async"
-              class="h-full w-full object-cover"
-            />
+            {image.local ? (
+              <Image
+                src={image.local}
+                alt=""
+                aria-hidden="true"
+                width={192}
+                height={112}
+                loading="lazy"
+                decoding="async"
+                class="h-full w-full object-cover"
+              />
+            ) : (
+              <img
+                src={image.src}
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+                decoding="async"
+                class="h-full w-full object-cover"
+              />
+            )}
           </button>
         ))}
       </div>

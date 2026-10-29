@@ -47,6 +47,8 @@ export interface ProjectCardProps {
 export interface NormalizedImage {
   src: string;
   caption: string;
+  /** Presente solo si `src` es una captura empaquetada en src/assets. */
+  local?: import("astro").ImageMetadata;
 }
 
 export type SkillLevel = "basic" | "learning" | "advanced" | "";

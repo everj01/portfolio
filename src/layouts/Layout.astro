@@ -1,6 +1,8 @@
 ---
 import "../styles/global.css";
 import Preloader from "../components/Preloader.astro";
+import { getImage } from "astro:assets";
+import perfil from "../assets/images/perfil.jpg";
 
 interface Props {
   title?: string;
@@ -13,6 +15,15 @@ const {
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = await getImage({ src: perfil, width: 1200, height: 1200 });
+const ogImageURL = new URL(ogImage.src, Astro.site);
+
+// Google Analytics solo se carga en produccion y si hay ID configurado
+// (variable de entorno PUBLIC_GA_ID). Asi el trafico de "npm run dev" no
+// contamina las metricas.
+const gaId = import.meta.env.PUBLIC_GA_ID;
+const loadAnalytics = import.meta.env.PROD && Boolean(gaId);
 ---
 
 <!doctype html>
@@ -23,6 +34,22 @@ const base = import.meta.env.BASE_URL;
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
     <link rel="shortcut icon" href={`${base}code.ico`} type="image/x-icon" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:locale" content="es_PE" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -33,6 +60,25 @@ const base = import.meta.env.BASE_URL;
 
     <title>{title}</title>
 
+    {
+      loadAnalytics && (
+        <>
+          <script
+            is:inline
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+          />
+          <script is:inline define:vars={{ gaId }}>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+              dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", gaId);
+          </script>
+        </>
+      )
+    }
 
     <script is:inline>
       (function () {

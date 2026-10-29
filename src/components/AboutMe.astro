@@ -1,8 +1,9 @@
 ---
 import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
 import ItemSocial from "./ItemSocial.astro";
 import TitlePerfil from "./TitlePerfil.astro";
-import { itemsSocial } from "../data/data";
+import { itemsSocial, cvUrl } from "../data/data";
 import imgPerfil from "../assets/images/perfil.jpg";
 ---
 
@@ -111,19 +112,31 @@ import imgPerfil from "../assets/images/perfil.jpg";
           </p>
 
           <div
-            class="reveal mt-8 flex items-center gap-1 border-t border-gray-900/10 pt-6 dark:border-white/15"
+            class="reveal mt-8 flex flex-wrap items-center gap-4 border-t border-gray-900/10 pt-6 dark:border-white/15"
             style="--d: 0.4s"
           >
-            {
-              itemsSocial.map((item) => (
-                <ItemSocial
-                  url={item.url}
-                  icon={item.icon}
-                  name={item.name}
-                  style={item.style}
-                />
-              ))
-            }
+            <a
+              href={cvUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_20px_-10px_rgba(0,0,0,0.5)] transition-transform duration-300 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-navy-800"
+            >
+              <Icon name="lucide:download" class="h-4 w-4" aria-hidden="true" />
+              Descargar CV
+            </a>
+
+            <div class="flex items-center gap-1">
+              {
+                itemsSocial.map((item) => (
+                  <ItemSocial
+                    url={item.url}
+                    icon={item.icon}
+                    name={item.name}
+                    style={item.style}
+                  />
+                ))
+              }
+            </div>
           </div>
         </div>
 
@@ -137,11 +150,13 @@ import imgPerfil from "../assets/images/perfil.jpg";
             <div
               class="relative -rotate-2 rounded-lg bg-white p-2.5 shadow-[0_18px_40px_-18px_rgba(11,18,32,0.55)] transition-transform duration-500 ease-out hover:rotate-0 dark:bg-navy-200 dark:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.8)]"
             >
-              <img
-                src={imgPerfil.src}
+              <Image
+                src={imgPerfil}
                 alt="Ever Montero"
-                width="300"
-                height="300"
+                width={540}
+                height={540}
+                loading="eager"
+                fetchpriority="high"
                 class="w-44 rounded-[3px] object-cover sm:w-52 lg:w-[270px]"
               />
             </div>
