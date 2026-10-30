@@ -1,0 +1,48 @@
+---
+import { Icon } from "astro-icon/components";
+import { educationItems } from "../data/data";
+---
+
+<div class="flex flex-col items-center justify-center px-4 sm:px-6">
+  <div class="mb-12 mt-32 text-center">
+    <h2
+      class="font-display text-3xl font-bold tracking-[-0.02em] text-gray-900 md:text-4xl dark:text-white"
+    >
+      Educación
+    </h2>
+    <p class="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-gray-600 dark:text-gray-400">
+      Formación académica y certificaciones.
+    </p>
+    <div class="mx-auto mt-6 h-px w-24 bg-gradient-to-r from-transparent via-accent/50 to-transparent"></div>
+  </div>
+
+  <div class="grid w-full max-w-4xl grid-cols-1 gap-4 sm:grid-cols-3">
+    {
+      educationItems.map((item) => (
+        <article class="group flex flex-col items-start gap-3 rounded-2xl border border-gray-900/10 bg-white/80 p-5 shadow-[0_18px_44px_-32px_rgba(11,18,32,0.55)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 dark:border-white/[0.09] dark:bg-navy-800/50 dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05),0_24px_60px_-34px_rgba(0,0,0,0.9)] dark:hover:border-accent/40">
+          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent ring-1 ring-accent/20 transition-transform duration-300 group-hover:scale-105">
+            <Icon name="lucide:graduation-cap" class="h-5 w-5" aria-hidden="true" />
+          </span>
+
+          <div>
+            <p class="text-[15px] font-semibold leading-snug text-gray-900 dark:text-white">
+              {item.title}
+            </p>
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{item.institution}</p>
+            <p class="mt-1 text-xs font-medium text-accent">{item.year}</p>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+
+  <a
+    href="https://everjm.xyz/certificados"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="mt-6 inline-flex items-center gap-2 rounded-xl border border-gray-900/10 bg-white/80 px-5 py-2.5 text-sm font-semibold text-gray-700 backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/30 hover:text-accent dark:border-white/[0.09] dark:bg-navy-800/50 dark:text-gray-200 dark:hover:border-accent/40"
+  >
+    <Icon name="lucide:award" class="h-4 w-4" aria-hidden="true" />
+    Ver certificados
+  </a>
+</div>

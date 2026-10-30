@@ -2,9 +2,14 @@
   "cvUrl": "https://drive.google.com/uc?export=download&id=1Ui9dEm5OprPl-Cg52XqB1pKduiEv4Brs",
   "navbar": [
     {
-      "name": "¿Quien soy?",
+      "name": "Sobre mí",
       "icon": "lucide:user-round",
       "section": "aboutme"
+    },
+    {
+      "name": "Experiencia",
+      "icon": "lucide:briefcase",
+      "section": "experienceme"
     },
     {
       "name": "Proyectos",
@@ -15,6 +20,11 @@
       "name": "Habilidades",
       "icon": "lucide:sparkles",
       "section": "skillsme"
+    },
+    {
+      "name": "Educación",
+      "icon": "lucide:graduation-cap",
+      "section": "educationme"
     },
     {
       "name": "Contacto",
@@ -346,6 +356,46 @@
       "githubUrl": "",
       "liveUrl": "",
       "privatePro": true
+    }
+  ],
+  "experience": [
+    {
+      "company": "Sol Security S.A.C.",
+      "role": "Desarrollador Web / Asistente de Sistemas",
+      "period": "Ago 2023 - Sep 2026",
+      "bullets": [
+        "Migré módulos de sistemas legados (VB.NET, PowerBuilder) hacia Laravel y CodeIgniter, rediseñando la lógica de negocio sobre una arquitectura API REST.",
+        "Optimicé procedimientos almacenados e índices en SQL Server, mejorando los tiempos de respuesta en módulos con alto volumen de información.",
+        "Desarrollé de principio a fin 3 sistemas en producción: gestión de auditorías y trámites (Monitor), seguridad para el sector marítimo (Control Web) y una pasarela de pagos (ICMA).",
+        "Administré bases de datos MariaDB, MySQL y SQL Server, y brindé soporte a aplicaciones en producción atendiendo incidencias de alta prioridad."
+      ]
+    },
+    {
+      "company": "I.E. Cap. de Amor (PRÁCTICAS)",
+      "role": "Practicante de Ingeniería de Sistemas",
+      "period": "Ago 2022 - Nov 2022",
+      "bullets": [
+        "Desarrollé un sistema web de gestión de asistencia estudiantil con PHP y MySQL, integrado con una app Android para el escaneo de códigos en carnés.",
+        "Implementé módulos de administración de estudiantes, docentes, cursos y horarios en una sola plataforma.",
+        "Brindé soporte técnico a los equipos informáticos y usuarios de la institución."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "Ingeniero de Sistemas",
+      "institution": "Universidad Católica Los Ángeles de Chimbote",
+      "year": "2026"
+    },
+    {
+      "title": "Especialización en React JS y Angular",
+      "institution": "Instituto Cibertec",
+      "year": "2024"
+    },
+    {
+      "title": "Curso de React JS",
+      "institution": "Coderhouse",
+      "year": "2024"
     }
   ],
   "skills": [

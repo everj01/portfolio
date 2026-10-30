@@ -311,10 +311,8 @@ body:not(.is-loaded) .reveal-photo {
 
 .preloader-mark {
   display: flex;
-  gap: 0.05em;
-  font-size: 1.75rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  align-items: center;
+  justify-content: center;
   color: rgb(var(--accent));
 }
 
@@ -384,7 +382,7 @@ body:not(.is-loaded) .reveal-photo {
 .site-nav {
   position: relative;
   width: 100%;
-  max-width: 58rem;
+  max-width: 72rem;
   border-color: transparent;
   background-color: rgb(255 255 255 / 0.55);
   -webkit-backdrop-filter: blur(14px) saturate(150%);
@@ -402,7 +400,7 @@ body:not(.is-loaded) .reveal-photo {
 }
 
 .site-nav.is-scrolled {
-  max-width: 46rem;
+  max-width: 58rem;
   background-color: rgb(255 255 255 / 0.82);
   border-color: rgb(47 66 94 / 0.14);
   box-shadow:

@@ -1,6 +1,8 @@
 // Toda la informacion editable del portafolio vive en data.json.
 // Este archivo solo la tipa y la reparte; no deberia hacer falta tocarlo.
 import type {
+  EducationItem,
+  ExperienceItem,
   ItemsNavbar,
   ProjectCardProps,
   SkillsCat,
@@ -27,3 +29,9 @@ export const itemsPorject: ProjectCardProps[] = (data.projects as ProjectCardPro
 
 // HABILIDADES
 export const skillCategories: SkillsCat[] = data.skills as SkillsCat[];
+
+// EXPERIENCIA LABORAL
+export const experienceItems: ExperienceItem[] = data.experience as ExperienceItem[];
+
+// EDUCACION Y CERTIFICACIONES
+export const educationItems: EducationItem[] = data.education as EducationItem[];

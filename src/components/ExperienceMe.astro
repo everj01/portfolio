@@ -1,0 +1,58 @@
+---
+import { Icon } from "astro-icon/components";
+import { experienceItems } from "../data/data";
+---
+
+<div class="flex flex-col items-center justify-center px-4 sm:px-6">
+  <div class="mb-12 mt-32 text-center">
+    <h2
+      class="font-display text-3xl font-bold tracking-[-0.02em] text-gray-900 md:text-4xl dark:text-white"
+    >
+      Experiencia Laboral
+    </h2>
+    <p class="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-gray-600 dark:text-gray-400">
+      Mi trayectoria profesional como desarrollador.
+    </p>
+    <div class="mx-auto mt-6 h-px w-24 bg-gradient-to-r from-transparent via-accent/50 to-transparent"></div>
+  </div>
+
+  <div class="w-full max-w-3xl space-y-5">
+    {
+      experienceItems.map((item) => (
+        <article class="group relative rounded-2xl border border-gray-900/10 bg-white/80 p-6 shadow-[0_18px_44px_-32px_rgba(11,18,32,0.55)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 sm:p-8 dark:border-white/[0.09] dark:bg-navy-800/50 dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05),0_24px_60px_-34px_rgba(0,0,0,0.9)] dark:hover:border-accent/40">
+          <span
+            class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-accent/70 to-transparent"
+            aria-hidden="true"
+          />
+
+          <div class="flex flex-wrap items-start justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent ring-1 ring-accent/20 transition-transform duration-300 group-hover:scale-105">
+                <Icon name="lucide:briefcase" class="h-5 w-5" aria-hidden="true" />
+              </span>
+              <div>
+                <h3 class="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">
+                  {item.role}
+                </h3>
+                <p class="text-sm font-medium text-accent">{item.company}</p>
+              </div>
+            </div>
+
+            <span class="shrink-0 rounded-full bg-gray-900/5 px-3 py-1 text-xs font-medium text-gray-600 ring-1 ring-gray-900/10 dark:bg-white/5 dark:text-gray-300 dark:ring-white/10">
+              {item.period}
+            </span>
+          </div>
+
+          <ul class="mt-5 space-y-2.5 border-t border-gray-900/10 pt-5 dark:border-white/10">
+            {item.bullets?.map((bullet) => (
+              <li class="flex items-start gap-2.5 text-[15px] leading-relaxed text-gray-600 dark:text-gray-300">
+                <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/60" aria-hidden="true" />
+                {bullet}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))
+    }
+  </div>
+</div>

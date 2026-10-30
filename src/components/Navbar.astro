@@ -7,11 +7,11 @@ import { itemsNav as itemsNavbar } from "../data/data";
 <header class="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:pt-4">
   <nav
     id="navbar"
-    class="site-nav mx-auto flex items-center gap-2 rounded-2xl border px-2 py-2 sm:px-3 md:grid md:grid-cols-[1fr_auto_1fr]"
+    class="site-nav mx-auto flex items-center gap-2 rounded-2xl border px-2 py-2 sm:px-3 lg:grid lg:grid-cols-[1fr_auto_1fr]"
     aria-label="Navegación principal"
   >
     {/* ---------- Marca ---------- */}
-    <div class="flex items-center md:justify-self-start">
+    <div class="flex items-center lg:justify-self-start">
       <button
       type="button"
       id="navbar-brand"
@@ -29,7 +29,7 @@ import { itemsNav as itemsNavbar } from "../data/data";
     {/* ---------- Enlaces (escritorio) ---------- */}
     <ul
       id="navbar-links"
-      class="relative hidden items-center gap-0.5 md:flex md:justify-self-center"
+      class="relative hidden items-center gap-0.5 lg:flex lg:justify-self-center"
       role="list"
     >
       {/* Pastilla que se desliza bajo el enlace activo */}
@@ -46,7 +46,7 @@ import { itemsNav as itemsNavbar } from "../data/data";
             <button
               type="button"
               data-section={item.section}
-              class="nav-link group relative flex items-center gap-2 whitespace-nowrap rounded-xl px-3 py-2 text-[13px] font-medium text-gray-600 transition-colors duration-300 hover:text-gray-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 dark:text-gray-400 dark:hover:text-white"
+              class="nav-link group relative flex items-center gap-1.5 whitespace-nowrap rounded-xl px-2.5 py-2 text-[12.5px] font-medium text-gray-600 transition-colors duration-300 hover:text-gray-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 dark:text-gray-400 dark:hover:text-white xl:gap-2 xl:px-3 xl:text-[13px]"
             >
               <Icon
                 name={item.icon}
@@ -61,20 +61,20 @@ import { itemsNav as itemsNavbar } from "../data/data";
     </ul>
 
     {/* ---------- Acciones ---------- */}
-    <div class="ms-auto flex shrink-0 items-center gap-2 md:ms-0 md:justify-self-end">
+    <div class="ms-auto flex shrink-0 items-center gap-2 lg:ms-0 lg:justify-self-end">
       <span
-        class="hidden h-6 w-px bg-gray-900/10 md:block dark:bg-white/10"
+        class="hidden h-6 w-px bg-gray-900/10 lg:block dark:bg-white/10"
         aria-hidden="true"
       >
       </span>
 
       <SwitchTheme />
 
-      {/* Hamburguesa: solo movil */}
+      {/* Hamburguesa: pantallas que no caben los enlaces completos */}
       <button
         id="navbar-toggle"
         type="button"
-        class="relative grid h-9 w-9 place-items-center rounded-xl border border-gray-900/10 text-gray-700 transition-colors duration-300 hover:bg-gray-900/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 md:hidden dark:border-white/10 dark:text-gray-200 dark:hover:bg-white/5"
+        class="relative grid h-9 w-9 place-items-center rounded-xl border border-gray-900/10 text-gray-700 transition-colors duration-300 hover:bg-gray-900/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 lg:hidden dark:border-white/10 dark:text-gray-200 dark:hover:bg-white/5"
         aria-label="Abrir menú"
         aria-expanded="false"
         aria-controls="navbar-menu"
@@ -104,7 +104,7 @@ import { itemsNav as itemsNavbar } from "../data/data";
   {/* ---------- Menu movil ---------- */}
   <div
     id="navbar-menu"
-    class="site-nav-menu mx-auto mt-2 overflow-hidden rounded-2xl border md:hidden"
+    class="site-nav-menu mx-auto mt-2 overflow-hidden rounded-2xl border lg:hidden"
   >
     <ul class="flex flex-col gap-1 p-2" role="list">
       {
@@ -171,7 +171,7 @@ import { itemsNav as itemsNavbar } from "../data/data";
     if (!menu.contains(target) && !nav?.contains(target)) setMenu(false);
   });
 
-  window.matchMedia("(min-width: 768px)").addEventListener("change", (event) => {
+  window.matchMedia("(min-width: 1024px)").addEventListener("change", (event) => {
     if (event.matches) setMenu(false);
   });
 

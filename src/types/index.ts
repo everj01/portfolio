@@ -65,3 +65,17 @@ export interface SkillsCat {
   color?: string;
   skills?: Skill[];
 }
+
+export interface ExperienceItem {
+  company: string;
+  role: string;
+  /** Ej: "Ago 2023 - Sep 2026" */
+  period: string;
+  bullets?: string[];
+}
+
+export interface EducationItem {
+  title: string;
+  institution: string;
+  year: string;
+}
