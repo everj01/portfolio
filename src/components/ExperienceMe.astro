@@ -5,6 +5,7 @@ import { experienceItems } from "../data/data";
 
 <div class="flex flex-col items-center justify-center px-4 sm:px-6">
   <div class="mb-12 mt-32 text-center">
+    <p class="section-tag mb-2">// 02 — experience.ts</p>
     <h2
       class="font-display text-3xl font-bold tracking-[-0.02em] text-gray-900 md:text-4xl dark:text-white"
     >
@@ -16,10 +17,21 @@ import { experienceItems } from "../data/data";
     <div class="mx-auto mt-6 h-px w-24 bg-gradient-to-r from-transparent via-accent/50 to-transparent"></div>
   </div>
 
-  <div class="w-full max-w-3xl space-y-5">
+  <div class="relative w-full max-w-3xl space-y-5 pl-7 sm:pl-9">
+    {/* Riel vertical: conecta las tarjetas como un log de commits */}
+    <span
+      class="pointer-events-none absolute left-0 top-10 h-[calc(100%-4rem)] w-px -translate-x-1/2 bg-accent/20"
+      aria-hidden="true"
+    />
+
     {
       experienceItems.map((item) => (
         <article class="group relative rounded-2xl border border-gray-900/10 bg-white/80 p-6 shadow-[0_18px_44px_-32px_rgba(11,18,32,0.55)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 sm:p-8 dark:border-white/[0.09] dark:bg-navy-800/50 dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05),0_24px_60px_-34px_rgba(0,0,0,0.9)] dark:hover:border-accent/40">
+          {/* Nodo del commit, alineado con la linea del riel */}
+          <span
+            class="pointer-events-none absolute -left-7 top-10 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-accent ring-4 ring-white dark:ring-gray-900 sm:-left-9"
+            aria-hidden="true"
+          />
           <span
             class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-accent/70 to-transparent"
             aria-hidden="true"

@@ -29,11 +29,20 @@ import ContactMe from "../components/ContactMe.astro";
       class="mt-auto w-full bg-gray-100 dark:bg-gray-800 py-6 border-t border-gray-300 dark:border-gray-700"
     >
       <p
-        class="text-center text-sm text-gray-600 dark:text-gray-400 tracking-wide"
+        class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 px-4 text-center font-mono text-xs text-gray-500 dark:text-gray-400"
       >
-        © 2025 · Hecho con Astro por <span
-          class="font-semibold text-gray-800 dark:text-white">Ever Montero</span
+        <span class="text-accent">ever@portfolio</span><span>:</span><span
+          class="text-accent">~$</span
         >
+        <span
+          >echo "Hecho con Astro por <span
+            class="font-semibold text-gray-700 dark:text-gray-200">Ever Montero</span
+          > © 2025"</span
+        >
+        <span
+          class="inline-block h-3 w-[2px] animate-animateCaret bg-accent align-middle"
+          aria-hidden="true"
+        ></span>
       </p>
     </footer>
   </div>

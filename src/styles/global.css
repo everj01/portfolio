@@ -166,6 +166,20 @@
 }
 
 /* ==========================================================================
+   ETIQUETA DE SECCION
+   Mini "comentario de codigo" (// 02 — experience.ts) que antecede al
+   titulo de cada seccion. Reutiliza la misma fuente mono y el mismo tono
+   de acento que ya se usan en el contador del preloader.
+   ========================================================================== */
+
+.section-tag {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: rgb(var(--accent) / 0.65);
+}
+
+/* ==========================================================================
    PRELOADER
    Pantalla de carga: se muestra al entrar y se desvanece cuando la pagina
    esta lista. Mientras tanto, las animaciones de entrada del contenido

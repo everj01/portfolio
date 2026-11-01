@@ -19,11 +19,32 @@ const visibleTech = tech.slice(0, 4);
 const restTech = tech.length - visibleTech.length;
 
 const number = String(index + 1).padStart(2, "0");
+
+// Slug corto para la barra tipo terminal: "Sistema de Control" -> "sistema-de-control"
+const slug = (title ?? "")
+  .toLowerCase()
+  .normalize("NFD")
+  .replace(/[̀-ͯ]/g, "")
+  .replace(/[^a-z0-9]+/g, "-")
+  .replace(/^-+|-+$/g, "");
 ---
 
 <article
   class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-[0_18px_25px_-20px_rgba(0,0,0,0.35)] focus-within:border-accent/50 dark:border-white/10 dark:bg-gray-800/70 dark:hover:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.9)]"
 >
+  {/* --- Barra de ventana, tipo terminal/editor --- */}
+  <div
+    class="flex items-center gap-1.5 border-b border-gray-100 bg-gray-50/80 px-3 py-1.5 dark:border-white/10 dark:bg-white/[0.03]"
+    aria-hidden="true"
+  >
+    <span class="h-2 w-2 rounded-full bg-red-400/70"></span>
+    <span class="h-2 w-2 rounded-full bg-amber-400/70"></span>
+    <span class="h-2 w-2 rounded-full bg-emerald-400/70"></span>
+    <span class="ml-2 truncate font-mono text-[10px] text-gray-400 dark:text-gray-500">
+      ~/projects/{slug}
+    </span>
+  </div>
+
   {/* --- Portada --- */}
   <div class="relative aspect-[16/10] w-full overflow-hidden bg-gray-100 dark:bg-gray-900">
     {

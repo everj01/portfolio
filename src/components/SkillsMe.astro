@@ -71,17 +71,27 @@ const levelText: Record<SkillLevel, string> = {
   "": "",
 };
 
-const levelStyle: Record<SkillLevel, string> = {
+/* Medidor de 3 puntos, estilo barra de senal: cuantos puntos van rellenos
+   y de que color, segun el nivel. "advanced" no lleva medidor (igual que
+   antes, para no saturar la lista con lo que ya se da por hecho). */
+const levelDots: Record<SkillLevel, number> = {
+  advanced: 0,
+  basic: 1,
+  learning: 2,
+  "": 0,
+};
+
+const levelDotFill: Record<SkillLevel, string> = {
   advanced: "",
-  basic: "bg-amber-500/10 text-amber-700 ring-amber-500/25 dark:bg-amber-400/10 dark:text-amber-300 dark:ring-amber-400/25",
-  learning:
-    "bg-sky-500/10 text-sky-700 ring-sky-500/25 dark:bg-sky-400/10 dark:text-sky-300 dark:ring-sky-400/25",
-  "": "bg-gray-500/10 text-gray-600 ring-gray-500/20 dark:bg-white/5 dark:text-gray-300 dark:ring-white/10",
+  basic: "bg-amber-500",
+  learning: "bg-sky-500",
+  "": "bg-gray-400",
 };
 ---
 
 <div class="flex flex-col items-center justify-center px-4 sm:px-6">
   <div class="mb-12 mt-32 text-center">
+    <p class="section-tag mb-2">// 04 — skills.json</p>
     <h2
       class="font-display text-3xl font-bold tracking-[-0.02em] text-gray-900 md:text-4xl dark:text-white"
     >
@@ -136,14 +146,22 @@ const levelStyle: Record<SkillLevel, string> = {
                     />
                     {skill.name}
                   </span>
-                  {levelText[skill.level] && (
+                  {levelDots[skill.level] > 0 && (
                     <span
-                      class:list={[
-                        "shrink-0 rounded-full px-2 py-0.5 text-[11px] font-medium ring-1",
-                        levelStyle[skill.level],
-                      ]}
+                      class="flex shrink-0 items-center gap-1"
+                      title={levelText[skill.level]}
+                      aria-label={levelText[skill.level]}
                     >
-                      {levelText[skill.level]}
+                      {[0, 1, 2].map((i) => (
+                        <span
+                          class:list={[
+                            "h-1.5 w-1.5 rounded-full transition-colors",
+                            i < levelDots[skill.level]
+                              ? levelDotFill[skill.level]
+                              : "bg-gray-300/50 dark:bg-white/10",
+                          ]}
+                        />
+                      ))}
                     </span>
                   )}
                 </li>

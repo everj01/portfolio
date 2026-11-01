@@ -8,13 +8,17 @@ import imgPerfil from "../assets/images/perfil.jpg";
 ---
 
 <div
+  id="hero-section"
   class="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-28 sm:px-6 sm:py-32"
 >
   {/* ---------- Fondo: trama de puntos + formas flotando ---------- */}
   <div class="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
     <div class="absolute inset-0 bg-dot-grid opacity-70 dark:opacity-40"></div>
 
-    <div class="absolute inset-0 blur-2xl opacity-40 dark:opacity-30">
+    <div
+      id="hero-parallax"
+      class="absolute inset-0 blur-2xl opacity-40 transition-transform duration-300 ease-out dark:opacity-30"
+    >
       {/* Circulo grande */}
       <div
         class="animate-scaleUp absolute h-32 w-32 rounded-full bg-navy-500/50"
@@ -92,6 +96,7 @@ import imgPerfil from "../assets/images/perfil.jpg";
       <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16">
         {/* --- Info --- */}
         <div class="reveal order-2 flex flex-col lg:order-1" style="--d: 0.1s">
+          <p class="section-tag mb-2">// 01 — whoami</p>
           <h1
             class="font-display text-[2.35rem] font-semibold leading-[1.05] tracking-[-0.03em] text-gray-900 sm:text-5xl dark:text-white"
           >
@@ -106,9 +111,9 @@ import imgPerfil from "../assets/images/perfil.jpg";
           </div>
 
           <p class="mt-6 max-w-xl text-[15px] leading-[1.75] text-gray-600 dark:text-gray-300">
-            <b class="font-semibold text-gray-900 dark:text-white">Hola, soy Ever Montero ✌️</b
+            <b class="font-semibold text-gray-900 dark:text-white">No solo desarrollo software, construyo soluciones que generan valor.</b
             ><br />
-            Soy Ingeniero de sistemas y desarrollador Full-stack con experiencia en desarrollo web utilizando Laravel, React y MySQL. Me apasiona construir soluciones funcionales y eficientes, desde el backend hasta el frontend.
+            Soy Ingeniero de Sistemas y desarrollador Full Stack. Combino ingeniería de software, tecnologías modernas e inteligencia artificial para crear experiencias digitales eficientes, escalables y preparadas para el futuro.
           </p>
 
           <div
@@ -178,3 +183,28 @@ import imgPerfil from "../assets/images/perfil.jpg";
     />
   </div>
 </div>
+
+<script>
+  // Parallax sutil: las formas del fondo siguen el mouse unos pocos px.
+  // Se desactiva con prefers-reduced-motion y en pantallas tactiles.
+  const hero = document.getElementById("hero-section");
+  const shapes = document.getElementById("hero-parallax");
+
+  if (
+    hero &&
+    shapes &&
+    window.matchMedia("(pointer: fine)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
+    hero.addEventListener("mousemove", (e) => {
+      const rect = hero.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      shapes.style.transform = `translate3d(${x * 24}px, ${y * 24}px, 0)`;
+    });
+
+    hero.addEventListener("mouseleave", () => {
+      shapes.style.transform = "translate3d(0, 0, 0)";
+    });
+  }
+</script>
