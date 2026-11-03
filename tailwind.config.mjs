@@ -67,7 +67,11 @@ export default {
           '0%': { opacity: '1' },
           '50%': { opacity: '0' },
           '100%': { opacity: '1' },
-        }
+        },
+        scrollNudge: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(6px)' },
+        },
       },
       animation: {
         fadeIn: 'fadeIn 0.5s ease-in-out',
@@ -77,7 +81,8 @@ export default {
         scaleUp: 'scaleUp 5s ease-in-out infinite',
         moveDiagonal: 'moveDiagonal 7s ease-in-out infinite',
         moveDiagonal2: 'moveDiagonal2 7s ease-in-out infinite',
-        animateCaret: 'animateCaret 1s step-end infinite'
+        animateCaret: 'animateCaret 1s step-end infinite',
+        scrollNudge: 'scrollNudge 1.8s cubic-bezier(0.65,0,0.35,1) infinite',
       }
     },
   },

@@ -1,91 +1,30 @@
 ---
 import { Icon } from "astro-icon/components";
 import { skillCategories } from "../data/data";
-import type { SkillLevel } from "../types";
 
 /* Tailwind no escanea data.json, asi que las clases que vienen de ahi
    ("bg-blue-500"...) nunca se generan. Por eso el color del JSON solo se usa
    como *nombre* y el estilo real se escribe aqui, estatico y visible para
    Tailwind. Ademas asi el icono se ve igual de bien en claro y en oscuro. */
-type Tone = { chip: string; bar: string };
-
-const TONES: Record<string, Tone> = {
-  blue: {
-    chip: "bg-blue-500/10 text-blue-600 ring-blue-500/20 dark:bg-blue-400/10 dark:text-blue-300 dark:ring-blue-400/20",
-    bar: "from-blue-500/70",
-  },
-  green: {
-    chip: "bg-emerald-500/10 text-emerald-600 ring-emerald-500/20 dark:bg-emerald-400/10 dark:text-emerald-300 dark:ring-emerald-400/20",
-    bar: "from-emerald-500/70",
-  },
-  emerald: {
-    chip: "bg-emerald-500/10 text-emerald-600 ring-emerald-500/20 dark:bg-emerald-400/10 dark:text-emerald-300 dark:ring-emerald-400/20",
-    bar: "from-emerald-500/70",
-  },
-  purple: {
-    chip: "bg-purple-500/10 text-purple-600 ring-purple-500/20 dark:bg-purple-400/10 dark:text-purple-300 dark:ring-purple-400/20",
-    bar: "from-purple-500/70",
-  },
-  pink: {
-    chip: "bg-pink-500/10 text-pink-600 ring-pink-500/20 dark:bg-pink-400/10 dark:text-pink-300 dark:ring-pink-400/20",
-    bar: "from-pink-500/70",
-  },
-  orange: {
-    chip: "bg-orange-500/10 text-orange-600 ring-orange-500/20 dark:bg-orange-400/10 dark:text-orange-300 dark:ring-orange-400/20",
-    bar: "from-orange-500/70",
-  },
-  amber: {
-    chip: "bg-amber-500/10 text-amber-600 ring-amber-500/20 dark:bg-amber-400/10 dark:text-amber-300 dark:ring-amber-400/20",
-    bar: "from-amber-500/70",
-  },
-  red: {
-    chip: "bg-red-500/10 text-red-600 ring-red-500/20 dark:bg-red-400/10 dark:text-red-300 dark:ring-red-400/20",
-    bar: "from-red-500/70",
-  },
-  cyan: {
-    chip: "bg-cyan-500/10 text-cyan-600 ring-cyan-500/20 dark:bg-cyan-400/10 dark:text-cyan-300 dark:ring-cyan-400/20",
-    bar: "from-cyan-500/70",
-  },
-  gray: {
-    chip: "bg-navy-500/10 text-navy-700 ring-navy-500/20 dark:bg-navy-300/10 dark:text-navy-200 dark:ring-navy-300/20",
-    bar: "from-navy-500/70",
-  },
+const TONES: Record<string, string> = {
+  blue: "bg-blue-500/10 text-blue-600 ring-blue-500/20 dark:bg-blue-400/10 dark:text-blue-300 dark:ring-blue-400/20",
+  green: "bg-emerald-500/10 text-emerald-600 ring-emerald-500/20 dark:bg-emerald-400/10 dark:text-emerald-300 dark:ring-emerald-400/20",
+  emerald: "bg-emerald-500/10 text-emerald-600 ring-emerald-500/20 dark:bg-emerald-400/10 dark:text-emerald-300 dark:ring-emerald-400/20",
+  purple: "bg-purple-500/10 text-purple-600 ring-purple-500/20 dark:bg-purple-400/10 dark:text-purple-300 dark:ring-purple-400/20",
+  pink: "bg-pink-500/10 text-pink-600 ring-pink-500/20 dark:bg-pink-400/10 dark:text-pink-300 dark:ring-pink-400/20",
+  orange: "bg-orange-500/10 text-orange-600 ring-orange-500/20 dark:bg-orange-400/10 dark:text-orange-300 dark:ring-orange-400/20",
+  amber: "bg-amber-500/10 text-amber-600 ring-amber-500/20 dark:bg-amber-400/10 dark:text-amber-300 dark:ring-amber-400/20",
+  red: "bg-red-500/10 text-red-600 ring-red-500/20 dark:bg-red-400/10 dark:text-red-300 dark:ring-red-400/20",
+  cyan: "bg-cyan-500/10 text-cyan-600 ring-cyan-500/20 dark:bg-cyan-400/10 dark:text-cyan-300 dark:ring-cyan-400/20",
+  gray: "bg-navy-500/10 text-navy-700 ring-navy-500/20 dark:bg-navy-300/10 dark:text-navy-200 dark:ring-navy-300/20",
 };
 
 /* "bg-blue-500" -> "blue". Si no esta mapeado, cae en el acento del sitio. */
-const FALLBACK: Tone = {
-  chip: "bg-accent/10 text-accent ring-accent/20",
-  bar: "from-accent/70",
-};
+const FALLBACK = "bg-accent/10 text-accent ring-accent/20";
 
-const toneOf = (color?: string): Tone => {
+const toneOf = (color?: string): string => {
   const key = color?.match(/bg-([a-z]+)-\d+/)?.[1] ?? "";
   return TONES[key] ?? FALLBACK;
-};
-
-// "advanced" no muestra etiqueta (igual que en la version React).
-const levelText: Record<SkillLevel, string> = {
-  advanced: "",
-  basic: "Básico",
-  learning: "Aprendiendo",
-  "": "",
-};
-
-/* Medidor de 3 puntos, estilo barra de senal: cuantos puntos van rellenos
-   y de que color, segun el nivel. "advanced" no lleva medidor (igual que
-   antes, para no saturar la lista con lo que ya se da por hecho). */
-const levelDots: Record<SkillLevel, number> = {
-  advanced: 0,
-  basic: 1,
-  learning: 2,
-  "": 0,
-};
-
-const levelDotFill: Record<SkillLevel, string> = {
-  advanced: "",
-  basic: "bg-amber-500",
-  learning: "bg-sky-500",
-  "": "bg-gray-400",
 };
 ---
 
@@ -111,20 +50,11 @@ const levelDotFill: Record<SkillLevel, string> = {
           <article
             class="group relative overflow-hidden rounded-2xl border border-gray-900/10 bg-white/80 p-6 shadow-[0_18px_44px_-32px_rgba(11,18,32,0.55)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 hover:shadow-[0_26px_60px_-32px_rgba(11,18,32,0.6)] dark:border-white/[0.09] dark:bg-navy-800/50 dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05),0_24px_60px_-34px_rgba(0,0,0,0.9)] dark:hover:border-accent/40"
           >
-            {/* Filo de color de la categoria */}
-            <span
-              class:list={[
-                "pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r to-transparent",
-                tone.bar,
-              ]}
-              aria-hidden="true"
-            />
-
             <div class="mb-5 flex items-center gap-3">
               <div
                 class:list={[
                   "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ring-1 transition-transform duration-300 group-hover:scale-105",
-                  tone.chip,
+                  tone,
                 ]}
               >
                 {category.icon && (
@@ -138,32 +68,12 @@ const levelDotFill: Record<SkillLevel, string> = {
 
             <ul class="divide-y divide-gray-900/[0.06] dark:divide-white/[0.06]">
               {category.skills?.map((skill) => (
-                <li class="flex items-center justify-between gap-3 py-2.5">
-                  <span class="flex items-center gap-2.5 text-[15px] font-medium text-gray-700 dark:text-gray-300">
-                    <span
-                      class="h-1.5 w-1.5 shrink-0 rounded-full bg-accent/60"
-                      aria-hidden="true"
-                    />
-                    {skill.name}
-                  </span>
-                  {levelDots[skill.level] > 0 && (
-                    <span
-                      class="flex shrink-0 items-center gap-1"
-                      title={levelText[skill.level]}
-                      aria-label={levelText[skill.level]}
-                    >
-                      {[0, 1, 2].map((i) => (
-                        <span
-                          class:list={[
-                            "h-1.5 w-1.5 rounded-full transition-colors",
-                            i < levelDots[skill.level]
-                              ? levelDotFill[skill.level]
-                              : "bg-gray-300/50 dark:bg-white/10",
-                          ]}
-                        />
-                      ))}
-                    </span>
-                  )}
+                <li class="flex items-center gap-2.5 py-2.5 text-[15px] font-medium text-gray-700 dark:text-gray-300">
+                  <span
+                    class="h-1.5 w-1.5 shrink-0 rounded-full bg-accent/60"
+                    aria-hidden="true"
+                  />
+                  {skill.name}
                 </li>
               ))}
             </ul>

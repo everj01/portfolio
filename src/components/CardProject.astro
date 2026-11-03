@@ -57,7 +57,7 @@ const slug = (title ?? "")
             height={400}
             loading="lazy"
             decoding="async"
-            class="h-full w-full object-cover object-top saturate-[0.85] transition-all duration-500  "
+            class="h-full w-full object-cover object-top saturate-[0.85] transition-[filter,transform] duration-500 group-hover:scale-[1.03] group-hover:saturate-100"
           />
         ) : (
           <img
@@ -65,7 +65,7 @@ const slug = (title ?? "")
             alt={`Portada de ${title}`}
             loading="lazy"
             decoding="async"
-            class="h-full w-full object-cover object-top saturate-[0.85] transition-all duration-500  "
+            class="h-full w-full object-cover object-top saturate-[0.85] transition-[filter,transform] duration-500 group-hover:scale-[1.03] group-hover:saturate-100"
           />
         )
       ) : (

@@ -13,9 +13,9 @@ const { url, icon, name, style } = Astro.props;
   rel="noopener noreferrer"
   aria-label={name}
   class:list={[
-    "group transition-all duration-100 p-0 m-0 hover:-translate-y-1 hover:scale-125 pe-8 text-glow",
+    "group flex h-9 w-9 items-center justify-center rounded-xl text-gray-600 transition-all duration-300 hover:-translate-y-0.5 hover:scale-110 dark:text-gray-300",
     style,
   ]}
 >
-  <Icon name={icon} class="h-6 w-6 transition-transform duration-100" aria-hidden="true" />
+  <Icon name={icon} class="h-5 w-5 transition-transform duration-300" aria-hidden="true" />
 </a>

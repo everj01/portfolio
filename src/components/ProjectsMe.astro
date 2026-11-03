@@ -12,8 +12,14 @@ const publicRepos = itemsPorject.filter(hasPublicRepo).length;
 <div class="mx-auto w-[90%] max-w-7xl py-20 lg:py-28">
   {/* --- Encabezado --- */}
   <div
-    class="flex flex-col gap-6 border-b border-gray-200 pb-8 lg:flex-row lg:items-end lg:justify-between dark:border-white/10"
+    class="relative flex flex-col gap-6 overflow-hidden border-b border-gray-200 pb-8 lg:flex-row lg:items-end lg:justify-between dark:border-white/10"
   >
+    <div
+      class="pointer-events-none absolute inset-0 -z-10 bg-dot-grid opacity-40 dark:opacity-20"
+      aria-hidden="true"
+    >
+    </div>
+
     <div class="flex flex-col gap-3">
       <p class="section-tag">// 03 — projects.tsx</p>
       <h2
