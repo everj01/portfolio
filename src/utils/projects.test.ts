@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { hasLiveDemo, hasPublicRepo, normalizeImages } from "./projects";
+import {
+  hasLiveDemo,
+  hasPublicRepo,
+  normalizeImages,
+  normalizeRepos,
+} from "./projects";
 
 describe("normalizeImages", () => {
   it("acepta strings y objetos { src, caption }", () => {
@@ -47,5 +52,71 @@ describe("hasLiveDemo", () => {
     expect(hasLiveDemo({ liveUrl: "" })).toBe(false);
     expect(hasLiveDemo({ liveUrl: "   " })).toBe(false);
     expect(hasLiveDemo({})).toBe(false);
+  });
+});
+
+describe("normalizeRepos", () => {
+  it("usa githubUrl cuando no hay lista de repos", () => {
+    expect(normalizeRepos({ githubUrl: "https://github.com/x" })).toEqual([
+      { name: "Repositorio", url: "https://github.com/x" },
+    ]);
+  });
+
+  it("devuelve varios repos y respeta nombre, icono y descripcion", () => {
+    const repos = normalizeRepos({
+      repos: [
+        { name: "Frontend", url: "https://github.com/x/front", description: "React" },
+        { name: "Backend", url: "https://github.com/x/back", icon: "simple-icons:laravel" },
+      ],
+    });
+
+    expect(repos).toHaveLength(2);
+    expect(repos[0]).toEqual({
+      name: "Frontend",
+      url: "https://github.com/x/front",
+      description: "React",
+    });
+    expect(repos[1].icon).toBe("simple-icons:laravel");
+  });
+
+  it("repos tiene prioridad sobre githubUrl", () => {
+    const repos = normalizeRepos({
+      githubUrl: "https://github.com/x/viejo",
+      repos: [{ name: "API", url: "https://github.com/x/api" }],
+    });
+
+    expect(repos).toEqual([{ name: "API", url: "https://github.com/x/api" }]);
+  });
+
+  it("descarta repos sin url y pone un nombre por defecto", () => {
+    const repos = normalizeRepos({
+      repos: [
+        { name: "", url: "   " },
+        { name: "  ", url: " https://github.com/x/api " },
+      ],
+    });
+
+    expect(repos).toEqual([{ name: "Repositorio 2", url: "https://github.com/x/api" }]);
+  });
+
+  it("no expone nada si el proyecto es privado", () => {
+    expect(
+      normalizeRepos({
+        privatePro: true,
+        repos: [{ name: "Frontend", url: "https://github.com/x/front" }],
+      })
+    ).toEqual([]);
+  });
+});
+
+describe("hasPublicRepo con varios repos", () => {
+  it("true si hay al menos un repo en la lista", () => {
+    expect(
+      hasPublicRepo({ repos: [{ name: "Frontend", url: "https://github.com/x" }] })
+    ).toBe(true);
+  });
+
+  it("false si la lista viene vacia y no hay githubUrl", () => {
+    expect(hasPublicRepo({ repos: [] })).toBe(false);
   });
 });

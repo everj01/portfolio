@@ -85,11 +85,24 @@ const total = String(images.length).padStart(2, "0");
       ))
     }
 
+    {/* Toda la imagen amplia: es el gesto que la gente intenta primero. */}
+    {
+      images.length > 0 && (
+        <button
+          type="button"
+          data-gallery-expand
+          class="absolute inset-0 z-10 cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent"
+        >
+          <span class="sr-only">Ampliar imagen</span>
+        </button>
+      )
+    }
+
     {/* Contador */}
     {
       multiple && (
         <span
-          class="pointer-events-none absolute left-3 top-3 rounded-md bg-black/55 px-2 py-1 font-mono text-[11px] tracking-widest text-white/90 backdrop-blur-sm"
+          class="pointer-events-none absolute left-3 top-3 z-20 rounded-md bg-black/55 px-2 py-1 font-mono text-[11px] tracking-widest text-white/90 backdrop-blur-sm"
           data-gallery-counter
         >
           01 / {total}
@@ -97,17 +110,16 @@ const total = String(images.length).padStart(2, "0");
       )
     }
 
-    {/* Ampliar */}
+    {/* Pista de ampliar */}
     {
       images.length > 0 && (
-        <button
-          type="button"
-          data-gallery-expand
-          class="absolute right-3 top-3 rounded-md bg-black/55 p-2 text-white/90 backdrop-blur-sm transition hover:bg-black/75 md:opacity-0 md:focus-visible:opacity-100 md:group-hover/stage:opacity-100"
-          aria-label="Ampliar imagen"
+        <span
+          class="pointer-events-none absolute right-3 top-3 z-20 inline-flex items-center gap-1.5 rounded-md bg-black/55 px-2 py-1 text-[11px] font-medium text-white/90 backdrop-blur-sm transition-opacity md:opacity-0 md:group-hover/stage:opacity-100"
+          aria-hidden="true"
         >
-          <Icon name="lucide:maximize-2" class="h-4 w-4" aria-hidden="true" />
-        </button>
+          <Icon name="lucide:maximize-2" class="h-3.5 w-3.5" />
+          Ampliar
+        </span>
       )
     }
 
@@ -118,7 +130,7 @@ const total = String(images.length).padStart(2, "0");
           <button
             type="button"
             data-gallery-prev
-            class="absolute left-2 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-black/45 text-white backdrop-blur-sm transition hover:bg-black/70 focus-visible:ring-2 focus-visible:ring-white/70 md:opacity-0 md:focus-visible:opacity-100 md:group-hover/stage:opacity-100"
+            class="absolute left-2 top-1/2 z-20 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-black/45 text-white backdrop-blur-sm transition hover:bg-black/70 focus-visible:ring-2 focus-visible:ring-white/70 md:opacity-0 md:focus-visible:opacity-100 md:group-hover/stage:opacity-100"
             aria-label="Imagen anterior"
           >
             <Icon name="lucide:chevron-left" class="h-5 w-5" aria-hidden="true" />
@@ -126,7 +138,7 @@ const total = String(images.length).padStart(2, "0");
           <button
             type="button"
             data-gallery-next
-            class="absolute right-2 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-black/45 text-white backdrop-blur-sm transition hover:bg-black/70 focus-visible:ring-2 focus-visible:ring-white/70 md:opacity-0 md:focus-visible:opacity-100 md:group-hover/stage:opacity-100"
+            class="absolute right-2 top-1/2 z-20 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-black/45 text-white backdrop-blur-sm transition hover:bg-black/70 focus-visible:ring-2 focus-visible:ring-white/70 md:opacity-0 md:focus-visible:opacity-100 md:group-hover/stage:opacity-100"
             aria-label="Imagen siguiente"
           >
             <Icon name="lucide:chevron-right" class="h-5 w-5" aria-hidden="true" />

@@ -1,4 +1,9 @@
-import type { GalleryImage, NormalizedImage, ProjectCardProps } from "../types";
+import type {
+  GalleryImage,
+  NormalizedImage,
+  ProjectCardProps,
+  RepoLink,
+} from "../types";
 import { getLocalProjectImage } from "./localProjectImages";
 
 /**
@@ -17,11 +22,32 @@ export const normalizeImages = (images: GalleryImage[] = []): NormalizedImage[] 
     })
     .filter((item) => item.src !== "");
 
-/** Hay repositorio publico solo si no es privado y la url no viene vacia. */
+/**
+ * Lista de repositorios publicos del proyecto.
+ * Un proyecto puede tener varios (frontend, backend, movil...): en ese caso se
+ * usa `repos`. Si solo hay uno basta `githubUrl`, que se sigue soportando.
+ * Si el proyecto es privado no se expone ninguno.
+ */
+export const normalizeRepos = (project: ProjectCardProps): RepoLink[] => {
+  if (project.privatePro) return [];
+
+  const list = (project.repos ?? [])
+    .map((repo, index) => ({
+      ...repo,
+      name: repo?.name?.trim() || `Repositorio ${index + 1}`,
+      url: typeof repo?.url === "string" ? repo.url.trim() : "",
+    }))
+    .filter((repo) => repo.url !== "");
+
+  if (list.length > 0) return list;
+
+  const single = typeof project.githubUrl === "string" ? project.githubUrl.trim() : "";
+  return single ? [{ name: "Repositorio", url: single }] : [];
+};
+
+/** Hay repositorio publico solo si no es privado y queda al menos una url. */
 export const hasPublicRepo = (project: ProjectCardProps): boolean =>
-  !project.privatePro &&
-  typeof project.githubUrl === "string" &&
-  project.githubUrl.trim() !== "";
+  normalizeRepos(project).length > 0;
 
 /** Hay demo solo si la url no viene vacia. */
 export const hasLiveDemo = (project: ProjectCardProps): boolean =>

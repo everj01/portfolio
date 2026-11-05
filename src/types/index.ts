@@ -17,6 +17,17 @@ export interface SocialItem {
   style: string;
 }
 
+/** Un repositorio del proyecto. Si hay varios se ofrece un selector. */
+export interface RepoLink {
+  /** Etiqueta visible, ej: "Frontend" / "Backend" / "API". */
+  name: string;
+  url: string;
+  /** Nombre Iconify opcional, ej: "simple-icons:github". */
+  icon?: string;
+  /** Nota corta opcional, ej: "React + Vite". */
+  description?: string;
+}
+
 /** Una imagen de la galeria: solo la url, o url + descripcion propia. */
 export type GalleryImage = string | { src: string; caption?: string };
 
@@ -38,6 +49,8 @@ export interface ProjectCardProps {
   image?: GalleryImage[];
   tech?: string[];
   githubUrl?: string | null;
+  /** Varios repositorios (frontend, backend, movil...). Tiene prioridad sobre githubUrl. */
+  repos?: RepoLink[];
   liveUrl?: string;
   /** true => el codigo es privado, no se ofrece enlace a GitHub. */
   privatePro?: boolean;

@@ -3,7 +3,7 @@ import { Icon } from "astro-icon/components";
 import ProjectGallery from "./ProjectGallery.astro";
 import TechChip from "./TechChip.astro";
 import type { ProjectCardProps } from "../types";
-import { hasLiveDemo, hasPublicRepo, normalizeImages } from "../utils/projects";
+import { hasLiveDemo, normalizeImages, normalizeRepos } from "../utils/projects";
 
 type Props = ProjectCardProps & { index: number };
 
@@ -15,7 +15,6 @@ const {
   overview,
   highlights = [],
   tech = [],
-  githubUrl,
   liveUrl,
   role,
   year,
@@ -23,7 +22,11 @@ const {
 } = props;
 
 const images = normalizeImages(props.image);
-const showGithub = hasPublicRepo(props);
+
+// Un repo => boton directo. Varios => el boton abre el selector.
+const repos = normalizeRepos(props);
+const showGithub = repos.length > 0;
+const singleRepo = repos.length === 1 ? repos[0] : null;
 const showDemo = hasLiveDemo(props);
 const body = overview?.trim() ? overview : description;
 const meta = [role, year].filter(Boolean).join(" · ");
@@ -74,7 +77,13 @@ const meta = [role, year].filter(Boolean).join(" · ");
             class="h-3.5 w-3.5"
             aria-hidden="true"
           />
-          {showGithub ? "Código público" : "Código privado"}
+          {
+            showGithub
+              ? repos.length > 1
+                ? `${repos.length} repos públicos`
+                : "Código público"
+              : "Código privado"
+          }
         </span>
 
         {
@@ -144,9 +153,9 @@ const meta = [role, year].filter(Boolean).join(" · ");
       class="mt-auto flex flex-col gap-3 border-t border-gray-100 pt-5 sm:flex-row dark:border-white/10"
     >
       {
-        showGithub ? (
+        singleRepo ? (
           <a
-            href={githubUrl}
+            href={singleRepo.url}
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-gray-700 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
@@ -154,6 +163,15 @@ const meta = [role, year].filter(Boolean).join(" · ");
             <Icon name="simple-icons:github" class="h-4 w-4" aria-hidden="true" />
             Ver repositorio
           </a>
+        ) : showGithub ? (
+          <button
+            type="button"
+            data-repo-trigger={index}
+            class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-gray-700 focus-visible:ring-2 focus-visible:ring-accent dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
+          >
+            <Icon name="simple-icons:github" class="h-4 w-4" aria-hidden="true" />
+            Ver repositorios ({repos.length})
+          </button>
         ) : (
           <p class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-dashed border-gray-300 px-4 py-2.5 text-xs text-gray-500 dark:border-white/15 dark:text-gray-400">
             <Icon name="lucide:lock" class="h-4 w-4 shrink-0" aria-hidden="true" />

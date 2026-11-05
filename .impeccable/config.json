@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "src/components/ModalProject.astro"
+        ],
+        "createdAt": "2026-11-05T17:36:42.675Z",
+        "reason": "lightbox <img> con src vacio a proposito: JS lo rellena al abrir la imagen ampliada (ya era asi antes del cambio)"
+      }
+    ]
+  }
+}

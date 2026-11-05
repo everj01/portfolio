@@ -3,16 +3,20 @@ import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import TechChip from "./TechChip.astro";
 import type { ProjectCardProps } from "../types";
-import { hasPublicRepo, normalizeImages } from "../utils/projects";
+import { normalizeImages, normalizeRepos } from "../utils/projects";
 
 type Props = ProjectCardProps & { index: number };
 
 const props = Astro.props;
-const { index, title, description, tech = [], githubUrl, role, year, status } = props;
+const { index, title, description, tech = [], role, year, status } = props;
 
 const images = normalizeImages(props.image);
 const cover = images[0];
-const showGithub = hasPublicRepo(props);
+
+// Un repo => enlace directo. Varios => se abre el selector.
+const repos = normalizeRepos(props);
+const showGithub = repos.length > 0;
+const singleRepo = repos.length === 1 ? repos[0] : null;
 
 // Solo caben 4 etiquetas sin que la tarjeta se desordene; el resto se resume.
 const visibleTech = tech.slice(0, 4);
@@ -164,9 +168,9 @@ const slug = (title ?? "")
       class="flex items-center justify-between border-t border-gray-100 pt-4 dark:border-white/10"
     >
       {
-        showGithub ? (
+        singleRepo ? (
           <a
-            href={githubUrl}
+            href={singleRepo.url}
             target="_blank"
             rel="noopener noreferrer"
             class="relative z-20 inline-flex items-center gap-2 rounded-lg px-2 py-1 text-xs font-medium text-gray-600 transition-colors hover:text-accent dark:text-gray-400 dark:hover:text-accent"
@@ -174,6 +178,15 @@ const slug = (title ?? "")
             <Icon name="simple-icons:github" class="h-4 w-4" aria-hidden="true" />
             Repositorio
           </a>
+        ) : showGithub ? (
+          <button
+            type="button"
+            data-repo-trigger={index}
+            class="relative z-20 inline-flex items-center gap-2 rounded-lg px-2 py-1 text-xs font-medium text-gray-600 transition-colors hover:text-accent focus-visible:ring-2 focus-visible:ring-accent dark:text-gray-400 dark:hover:text-accent"
+          >
+            <Icon name="simple-icons:github" class="h-4 w-4" aria-hidden="true" />
+            {repos.length} repositorios
+          </button>
         ) : (
           <span class="inline-flex items-center gap-2 px-2 py-1 text-xs text-gray-400 dark:text-gray-500">
             <Icon name="lucide:lock" class="h-3.5 w-3.5" aria-hidden="true" />

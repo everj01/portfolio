@@ -112,10 +112,8 @@
         "Editor enfocado en la escritura y busqueda rapida sobre el historial."
       ],
       "image": [
-        "https://i.ibb.co/6cgJRyC0/diarioia-01.png",
-        "https://i.ibb.co/GfhLg94K/diarioia-02.png",
-        "https://i.ibb.co/F4MKpQ5v/diarioia-03.png",
-        "https://i.ibb.co/7dQbfK4G/diarioia-04.png"
+        "diarioia/1.png",
+        "diarioia/2.png"
       ],
       "tech": [
         "Next JS",
@@ -132,7 +130,7 @@
       "title": "Okumet Document",
       "role": "Full Stack",
       "year": "2026",
-      "status": "En desarrollo",
+
       "description": "Sistema de gestión documental y seguimiento de expedientes para un estudio de abogados.",
       "overview": "Plataforma pensada para digitalizar el trabajo de un despacho legal: cada expediente se organiza con sus documentos, estados y responsables, dejando atras las carpetas sueltas y el papeleo. La API en Laravel (protegida con Sanctum) centraliza la informacion y los permisos, mientras que el frontend en React + Vite se encarga de que cargar y revisar expedientes sea rapido y claro.",
       "highlights": [
@@ -142,15 +140,13 @@
         "Pensado para el flujo real de trabajo de un despacho de abogados."
       ],
       "image": [
-        "https://i.ibb.co/nMWxkFDM/okd-dd.png",
-        "https://i.ibb.co/LdWLggKx/okd-dd-2.png",
-        "https://i.ibb.co/0RQDz31q/okd-01.png",
-        "https://i.ibb.co/twFgTqYc/okd-02.png",
-        "https://i.ibb.co/BHL3tSPg/okd-03.png",
-        "https://i.ibb.co/svp5VnV7/okd-04.png",
-        "https://i.ibb.co/b5p02sSv/okd-05.png",
-        "https://i.ibb.co/C5zNSPJt/okd-06.png",
-        "https://i.ibb.co/qYqjwpHC/okd-07.png"
+        "okumetdoc/1.png",
+       "okumetdoc/2.png",
+        "okumetdoc/3.png",
+       "okumetdoc/4.png",
+      "okumetdoc/5.png",
+      "okumetdoc/6.png",
+      "okumetdoc/7.png"
       ],
       "tech": [
         "Laravel",
@@ -160,7 +156,21 @@
         "Tailwind CSS",
         "MySQL"
       ],
-      "githubUrl": "https://github.com/everj01/web-okumet-document",
+      "repos": [
+        {
+          "name": "Frontend",
+          "url": "https://github.com/everj01/web-okumet-document",
+          "icon": "simple-icons:github"
+        },
+        {
+          "name": "Backend",
+          "url": "https://github.com/everj01/api-okumet-document"
+        },
+        {
+          "name": "Extension",
+          "url": "https://github.com/everj01/okd-extension"
+        }
+      ],
       "liveUrl": "",
       "privatePro": false
     },
@@ -177,9 +187,9 @@
         "Diseño adaptado a un negocio pequeño orientado a ventas por redes."
       ],
       "image": [
-        "https://i.ibb.co/BHg77nWk/mmsubli-01.png",
-        "https://i.ibb.co/gbfVZhBp/mmsubli-02.png",
-        "https://i.ibb.co/bjwbZmnm/mmsubli-03.png"
+         "mmsublimados/1.png",
+         "mmsublimados/2.png",
+        "mmsublimados/3.png"
       ],
       "tech": [
         "Astro",
@@ -191,7 +201,7 @@
     },
     {
       "visible": true,
-      "title": "Inventario Demo",
+      "title": "Inventario Admin",
       "role": "Full Stack",
       "year": "2026",
       "description": "Proyecto de practica: sistema de inventario con escaneo de codigos QR y de barras desde la camara.",
@@ -202,27 +212,37 @@
         "Gestion basica de productos y movimientos de inventario con MySQL."
       ],
       "image": [
-        "https://i.ibb.co/FqwtVCG8/inventario-01.png",
-        "https://i.ibb.co/TxxdJxTG/inventario-02.png",
-        "https://i.ibb.co/DHNkPCqv/inventario-03.png",
-        "https://i.ibb.co/nMR669LT/inventario-04.png",
-        "https://i.ibb.co/fgYchG3/inventario-05.png",
-        "https://i.ibb.co/8tkq4Hc/inventario-06.png"
+        "inventario/1.png",
+        "inventario/2.png",
+        "inventario/3.png",
+        "inventario/4.png",
+        "inventario/5.png",
+        "inventario/6.png"
       ],
       "tech": [
         "Java",
         "Angular",
         "MySQL"
       ],
-      "githubUrl": "https://github.com/everj01/web-inventario-ejemplo",
+      "repos": [
+        {
+          "name": "Frontend",
+          "url": "https://github.com/everj01/web-inventario-ejemplo",
+          "icon": "simple-icons:github"
+        },
+        {
+          "name": "Backend",
+          "url": "https://github.com/everj01/api-inventario-ejemplo"
+        }
+      ],
       "liveUrl": "",
       "privatePro": false
     },
     {
       "visible": true,
       "title": "Sisol - File Control",
-      "role": "",
-      "year": "",
+       "role": "Full Stack",
+      "year": "2026",
       "description": "ERP para la gestión de la información de Sol Security.",
       "overview": "",
       "highlights": [],
@@ -248,8 +268,8 @@
     {
       "visible": true,
       "title": "Monitor",
-      "role": "",
-      "year": "",
+       "role": "Full Stack",
+      "year": "2024",
       "description": "Aplicacion Web para la gestión de auditoría y administración de trámites marítimos.",
       "overview": "",
       "highlights": [],
@@ -273,10 +293,11 @@
       "privatePro": true
     },
     {
+     
       "visible": true,
       "title": "Control Web",
-      "role": "",
-      "year": "",
+       "role": "Full Stack",
+      "year": "2025",
       "description": "Sistema de Seguridad Digitalizada para clientes de empresas marítimas de Solmar Security.",
       "overview": "",
       "highlights": [],
@@ -307,8 +328,8 @@
     {
       "visible": true,
       "title": "Pasarela de pagos",
-      "role": "",
-      "year": "",
+       "role": "Full Stack",
+      "year": "2026",
       "description": "Propuesta de una pasarela de pagos con la API Mercado Pago para la plataforma de ICMA.",
       "overview": "",
       "highlights": [],
@@ -333,8 +354,8 @@
     {
       "visible": true,
       "title": "Reclutamiento",
-      "role": "",
-      "year": "",
+       "role": "Full Stack",
+      "year": "2024",
       "description": "Propuesta para la creación de una solución web que centralice y optimice el proceso de recepción y gestión de postulaciones.",
       "overview": "",
       "highlights": [],
