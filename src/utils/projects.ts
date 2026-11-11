@@ -24,7 +24,7 @@ export const normalizeImages = (images: GalleryImage[] = []): NormalizedImage[] 
 
 /**
  * Lista de repositorios publicos del proyecto.
- * Un proyecto puede tener varios (frontend, backend, movil...): en ese caso se
+ * Un proyecto puede tener varios (frontend, backend, móvil...): en ese caso se
  * usa `repos`. Si solo hay uno basta `githubUrl`, que se sigue soportando.
  * Si el proyecto es privado no se expone ninguno.
  */
@@ -45,7 +45,7 @@ export const normalizeRepos = (project: ProjectCardProps): RepoLink[] => {
   return single ? [{ name: "Repositorio", url: single }] : [];
 };
 
-/** Hay repositorio publico solo si no es privado y queda al menos una url. */
+/** Hay repositorio público solo si no es privado y queda al menos una url. */
 export const hasPublicRepo = (project: ProjectCardProps): boolean =>
   normalizeRepos(project).length > 0;
 

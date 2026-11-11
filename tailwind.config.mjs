@@ -30,8 +30,12 @@ export default {
         Github: '#1F2328',
       },
       fontFamily: {
-        // Solo para el logotipo del navbar.
-        display: ['"Space Grotesk"', 'Inter', 'system-ui', 'sans-serif'],
+        // Unica voz de display del sitio: logotipo, nombre del hero, su frase,
+        // titulos de seccion, monograma de la carga y numeros de las tarjetas.
+        // Grotesca firme y vertical; pide pesos altos (700/800) y tracking
+        // negativo en tamanos grandes. Arial queda como respaldo por metricas
+        // parecidas.
+        display: ['Archivo', '"Helvetica Neue"', 'Arial', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       keyframes: {

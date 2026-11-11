@@ -19,7 +19,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImage = await getImage({ src: perfil, width: 1200, height: 1200 });
 const ogImageURL = new URL(ogImage.src, Astro.site);
 
-// Google Analytics solo se carga en produccion y si hay ID configurado
+// Google Analytics solo se carga en producción y si hay ID configurado
 // (variable de entorno PUBLIC_GA_ID). Asi el trafico de "npm run dev" no
 // contamina las metricas.
 const gaId = import.meta.env.PUBLIC_GA_ID;
@@ -54,7 +54,7 @@ const loadAnalytics = import.meta.env.PROD && Boolean(gaId);
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
 

@@ -7,6 +7,14 @@ import { hasPublicRepo } from "../utils/projects";
 
 const total = itemsPorject.length;
 const publicRepos = itemsPorject.filter(hasPublicRepo).length;
+
+// Paginado: 9 tarjetas por pagina (3 filas completas en la rejilla de 3).
+// Se renderizan todas en el servidor y solo se muestra la pagina activa, asi
+// el modal sigue teniendo el detalle de cada proyecto siempre disponible.
+const PER_PAGE = 9;
+const totalPages = Math.ceil(total / PER_PAGE);
+const pageOf = (index: number) => Math.floor(index / PER_PAGE) + 1;
+const pad = (n: number) => String(n).padStart(2, "0");
 ---
 
 <div class="mx-auto w-[90%] max-w-7xl py-20 lg:py-28">
@@ -64,9 +72,134 @@ const publicRepos = itemsPorject.filter(hasPublicRepo).length;
   </div>
 
   {/* --- Rejilla --- */}
-  <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-    {itemsPorject.map((item, idx) => <CardProject {...item} index={idx} />)}
+  <div
+    id="projects-grid"
+    class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3"
+  >
+    {
+      itemsPorject.map((item, idx) => (
+        <div class="h-full" data-project-page={pageOf(idx)} hidden={idx >= PER_PAGE}>
+          <CardProject {...item} index={idx} />
+        </div>
+      ))
+    }
   </div>
+
+  {/* --- Paginacion --- */}
+  {
+    totalPages > 1 && (
+      <nav
+        class="mt-12 flex flex-col items-center gap-5 border-t border-gray-200 pt-8 dark:border-white/10"
+        aria-label="Paginación de proyectos"
+        data-pagination
+      >
+        <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-400 dark:text-gray-500">
+          <span data-page-range>{pad(1)} — {pad(Math.min(PER_PAGE, total))}</span> de{" "}
+          {pad(total)}
+        </p>
+
+        <div class="flex items-center gap-1.5">
+          <button
+            type="button"
+            data-page-prev
+            disabled
+            class="page-arrow"
+            aria-label="Página anterior"
+          >
+            <Icon name="lucide:arrow-left" class="h-4 w-4" aria-hidden="true" />
+          </button>
+
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
+            <button
+              type="button"
+              data-page-go={n}
+              class="page-link"
+              aria-current={n === 1 ? "page" : undefined}
+              aria-label={`Ir a la página ${n}`}
+            >
+              {pad(n)}
+            </button>
+          ))}
+
+          <button
+            type="button"
+            data-page-next
+            class="page-arrow"
+            aria-label="Página siguiente"
+          >
+            <Icon name="lucide:arrow-right" class="h-4 w-4" aria-hidden="true" />
+          </button>
+        </div>
+      </nav>
+    )
+  }
 
   <ModalProject />
 </div>
+
+<script>
+  import { scrollToSection } from "../utils/scrollToSection";
+
+  const grid = document.getElementById("projects-grid");
+  const nav = document.querySelector<HTMLElement>("[data-pagination]");
+
+  if (grid && nav) {
+    const items = Array.from(
+      grid.querySelectorAll<HTMLElement>("[data-project-page]")
+    );
+    const links = Array.from(nav.querySelectorAll<HTMLButtonElement>("[data-page-go]"));
+    const prev = nav.querySelector<HTMLButtonElement>("[data-page-prev]");
+    const next = nav.querySelector<HTMLButtonElement>("[data-page-next]");
+    const range = nav.querySelector<HTMLElement>("[data-page-range]");
+
+    const pageOf = (el: HTMLElement) => Number(el.dataset.projectPage);
+    const pages = Math.max(...items.map(pageOf));
+    // El tamano de pagina se deduce del DOM para no repetir la constante.
+    const perPage = items.filter((el) => pageOf(el) === 1).length;
+    const pad = (n: number) => String(n).padStart(2, "0");
+
+    let current = 1;
+
+    const render = (page: number) => {
+      current = Math.min(Math.max(page, 1), pages);
+
+      items.forEach((el) => {
+        el.hidden = pageOf(el) !== current;
+      });
+
+      links.forEach((link) => {
+        if (Number(link.dataset.pageGo) === current) {
+          link.setAttribute("aria-current", "page");
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      });
+
+      if (prev) prev.disabled = current === 1;
+      if (next) next.disabled = current === pages;
+
+      if (range) {
+        const from = (current - 1) * perPage + 1;
+        const to = from + items.filter((el) => pageOf(el) === current).length - 1;
+        range.textContent = `${pad(from)} — ${pad(to)}`;
+      }
+    };
+
+    // Al cambiar de pagina se vuelve al encabezado de la seccion: si no, el
+    // visitante queda a media lista mirando tarjetas que acaban de cambiar.
+    const goTo = (page: number) => {
+      if (page === current || page < 1 || page > pages) return;
+      render(page);
+      const header = document.querySelector<HTMLElement>("header");
+      scrollToSection("projectsme", (header?.offsetHeight ?? 56) + 24);
+    };
+
+    links.forEach((link) => {
+      link.addEventListener("click", () => goTo(Number(link.dataset.pageGo)));
+    });
+    prev?.addEventListener("click", () => goTo(current - 1));
+    next?.addEventListener("click", () => goTo(current + 1));
+
+    render(1);
+  }
+</script>

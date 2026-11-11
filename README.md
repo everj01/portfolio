@@ -1,7 +1,7 @@
 # Portfolio — Ever Montero - Astro
 
 Version en Astro de mi portafolio (Anteriormente en React):
-todo es HTML estatico con scripts vanilla. Ya no se carga ninguna
+todo es HTML estático con scripts vanilla. Ya no se carga ninguna
 libreria JS de terceros en el navegador (la galeria del modal es propia).
 Se utiliza de forma escensial Astro, Tailwind CSS.
 

@@ -101,7 +101,7 @@ import { itemsNav as itemsNavbar } from "../data/data";
     </span>
   </nav>
 
-  {/* ---------- Menu movil ---------- */}
+  {/* ---------- Menu móvil ---------- */}
   <div
     id="navbar-menu"
     class="site-nav-menu mx-auto mt-2 overflow-hidden rounded-2xl border lg:hidden"
@@ -150,7 +150,7 @@ import { itemsNav as itemsNavbar } from "../data/data";
   // Altura del navbar flotante: lo que hay que descontar al hacer scroll.
   const navOffset = () => (nav?.offsetHeight ?? 56) + 24;
 
-  /* ---------- Menu movil ---------- */
+  /* ---------- Menu móvil ---------- */
 
   const setMenu = (open: boolean) => {
     menu?.classList.toggle("is-open", open);
@@ -234,7 +234,7 @@ import { itemsNav as itemsNavbar } from "../data/data";
       progress.style.opacity = y > 24 ? "1" : "0";
     }
 
-    // Seccion visible: la ultima cuyo inicio ya paso la linea de referencia.
+    // Seccion visible: la ultima cuyo inicio ya paso la línea de referencia.
     const line = y + navOffset() + window.innerHeight * 0.2;
     let current = sections[0]?.id ?? "";
 

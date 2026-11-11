@@ -3,8 +3,14 @@ import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import ItemSocial from "./ItemSocial.astro";
 import TitlePerfil from "./TitlePerfil.astro";
-import { itemsSocial, cvUrl } from "../data/data";
+import { itemsSocial, cvUrl, certificatesUrl } from "../data/data";
 import imgPerfil from "../assets/images/perfil.jpg";
+
+// Certificados: con url propia se abre fuera; sin ella, el boton baja a la
+// seccion de educacion, que ya lista la formacion y las certificaciones.
+const certsUrl = certificatesUrl?.trim() ?? "";
+const certsHref = certsUrl || "#educationme";
+const certsExternal = Boolean(certsUrl);
 ---
 
 <div
@@ -17,60 +23,60 @@ import imgPerfil from "../assets/images/perfil.jpg";
 
     <div
       id="hero-parallax"
-      class="absolute inset-0 blur-2xl opacity-40 transition-transform duration-300 ease-out dark:opacity-30"
+      class="absolute inset-0 blur-[40px] opacity-40 transition-transform duration-300 ease-out dark:opacity-70 dark:saturate-150 dark:brightness-110"
     >
       {/* Circulo grande */}
       <div
-        class="animate-scaleUp absolute h-32 w-32 rounded-full bg-navy-500/50"
+        class="animate-scaleUp absolute h-40 w-40 rounded-full bg-navy-500/50 dark:bg-navy-300/50"
         style="top: 18%; left: 12%;"
       >
       </div>
       {/* Rombo que cruza */}
       <div
-        class="animate-moveDiagonal absolute h-32 w-32 rotate-45 bg-black/35 dark:bg-white/35"
+        class="animate-moveDiagonal absolute h-40 w-40 rotate-45 bg-black/35 dark:bg-white/35"
         style="top: 68%; left: 22%;"
       >
       </div>
       {/* Circulo que baja */}
       <div
-        class="animate-moveDiagonal2 absolute h-32 w-32 rounded-full bg-navy-400/45"
+        class="animate-moveDiagonal2 absolute h-40 w-40 rounded-full bg-navy-400/45 dark:bg-navy-200/45"
         style="top: 16%; left: 52%;"
       >
       </div>
       {/* Cuadrado que gira */}
       <div
-        class="animate-wiggle absolute h-28 w-28 bg-black/30 dark:bg-white/30"
+        class="animate-wiggle absolute h-36 w-36 bg-black/30 dark:bg-white/30"
         style="top: 62%; left: 8%;"
       >
       </div>
       {/* Rombo pequeno pulsando */}
       <div
-        class="animate-wiggle animate-scaleUp absolute h-24 w-24 rotate-45 bg-navy-600/40 dark:bg-navy-300/40"
+        class="animate-wiggle animate-scaleUp absolute h-32 w-32 rotate-45 bg-navy-600/40 dark:bg-navy-300/40"
         style="top: 78%; left: 66%;"
       >
       </div>
       <div
-        class="animate-float absolute h-40 w-40 rounded-full bg-navy-500/35"
+        class="animate-float absolute h-52 w-52 rounded-full bg-navy-500/35 dark:bg-navy-300/40"
         style="top: 8%; left: 78%;"
       >
       </div>
       <div
-        class="animate-moveDiagonal2 absolute h-20 w-20 rounded-full bg-black/30 dark:bg-white/25"
+        class="animate-moveDiagonal2 absolute h-24 w-24 rounded-full bg-black/30 dark:bg-white/25"
         style="top: 46%; left: 88%;"
       >
       </div>
       <div
-        class="animate-float absolute h-24 w-24 rotate-12 rounded-[2rem] bg-navy-400/40"
+        class="animate-float absolute h-32 w-32 rotate-12 rounded-[2rem] bg-navy-400/40 dark:bg-navy-200/40"
         style="top: 84%; left: 40%; animation-duration: 7s;"
       >
       </div>
       <div
-        class="animate-scaleUp absolute h-16 w-16 rounded-full bg-navy-600/45 dark:bg-navy-200/35"
+        class="animate-scaleUp absolute h-20 w-20 rounded-full bg-navy-600/45 dark:bg-navy-200/35"
         style="top: 34%; left: 34%; animation-duration: 6s;"
       >
       </div>
       <div
-        class="animate-moveDiagonal absolute h-14 w-14 rotate-45 bg-navy-500/40"
+        class="animate-moveDiagonal absolute h-[4.5rem] w-[4.5rem] rotate-45 bg-navy-500/40 dark:bg-navy-300/45"
         style="top: 12%; left: 30%; animation-duration: 9s;"
       >
       </div>
@@ -89,20 +95,32 @@ import imgPerfil from "../assets/images/perfil.jpg";
   </div>
 
   {/* ---------- Tarjeta ---------- */}
-  <div class="relative z-10 w-full max-w-5xl">
+  <div class="relative z-10 w-full max-w-6xl">
     <div
-      class="reveal-card relative rounded-3xl border border-gray-900/10 bg-white/70 px-6 py-9 shadow-[0_30px_80px_-40px_rgba(11,18,32,0.45)] backdrop-blur-xl sm:px-10 sm:py-12 lg:py-14 lg:pe-12 lg:ps-14 dark:border-white/[0.14] dark:bg-navy-800/55 dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.07),0_30px_80px_-30px_rgba(0,0,0,0.85)]"
+      class="reveal-card relative rounded-3xl border border-gray-900/10 bg-white/70 px-6 py-10 shadow-[0_30px_80px_-40px_rgba(11,18,32,0.45)] backdrop-blur-xl sm:px-12 sm:py-14 lg:py-16 lg:pe-14 lg:ps-16 dark:border-white/[0.14] dark:bg-black/60 dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.07),0_26px_72px_-30px_rgba(161,181,207,0.22)]"
     >
+      {/* Marcas de corte: enmarcan la tarjeta como una retícula de imprenta,
+          sin sumar otro borde. Solo en pantallas anchas. */}
+      <div class="pointer-events-none absolute -inset-3 hidden lg:block" aria-hidden="true">
+        <span class="absolute left-0 top-0 h-5 w-px bg-accent/30"></span>
+        <span class="absolute left-0 top-0 h-px w-5 bg-accent/30"></span>
+        <span class="absolute right-0 top-0 h-5 w-px bg-accent/30"></span>
+        <span class="absolute right-0 top-0 h-px w-5 bg-accent/30"></span>
+        <span class="absolute bottom-0 left-0 h-5 w-px bg-accent/30"></span>
+        <span class="absolute bottom-0 left-0 h-px w-5 bg-accent/30"></span>
+        <span class="absolute bottom-0 right-0 h-5 w-px bg-accent/30"></span>
+        <span class="absolute bottom-0 right-0 h-px w-5 bg-accent/30"></span>
+      </div>
       <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16">
         {/* --- Info --- */}
         <div class="reveal order-2 flex flex-col lg:order-1" style="--d: 0.1s">
-          <p class="section-tag mb-2">// 01 — whoami</p>
+          <p class="section-tag mb-2">// 01 — whoami?</p>
           <h1
-            class="font-display text-[2.35rem] font-semibold leading-[1.05] tracking-[-0.03em] text-gray-900 sm:text-5xl dark:text-white"
+            class="font-display text-[clamp(1.75rem,7.5vw,3.75rem)] font-bold leading-[0.98] tracking-[-0.03em] text-gray-900 xl:text-[4.5rem] dark:text-white"
           >
             Ever Jesús<br /> Montero Minaya
             <span
-              class="ml-1 inline-block h-8 w-[3px] animate-animateCaret bg-accent align-middle sm:h-10"
+              class="ml-1.5 inline-block h-[0.68em] w-[3px] animate-animateCaret bg-accent align-[-0.06em]"
               aria-hidden="true"></span>
           </h1>
 
@@ -110,25 +128,40 @@ import imgPerfil from "../assets/images/perfil.jpg";
             <TitlePerfil />
           </div>
 
-          <p class="mt-6 max-w-xl text-[15px] leading-[1.75] text-gray-600 dark:text-gray-300">
-            <b class="font-semibold text-gray-900 dark:text-white">No solo desarrollo software, construyo soluciones que generan valor.</b
-            ><br />
-            Soy Ingeniero de Sistemas y desarrollador Full Stack. Combino ingeniería de software, tecnologías modernas e inteligencia artificial para crear experiencias digitales eficientes, escalables y preparadas para el futuro.
+          <p class="mt-6 max-w-[62ch] text-base leading-[1.7] text-pretty text-gray-600 dark:text-gray-300">
+            <b class="font-semibold text-gray-900 dark:text-white"
+              >Desarrollador Full Stack e Ingeniero de Sistemas.</b
+            > Construyo aplicaciones web de principio a fin: desde el análisis y diseño
+            hasta el despliegue y soporte. He desarrollado sistemas en producción, migrado
+            aplicaciones legadas a arquitecturas API REST y optimizado bases de datos de
+            alto volumen.
           </p>
 
           <div
             class="reveal mt-8 flex flex-wrap items-center gap-4 border-t border-gray-900/10 pt-6 dark:border-white/15"
             style="--d: 0.4s"
           >
-            <a
-              href={cvUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_20px_-10px_rgba(0,0,0,0.5)] transition-transform duration-300 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-navy-800"
-            >
-              <Icon name="lucide:download" class="h-4 w-4" aria-hidden="true" />
-              Descargar CV
-            </a>
+            <div class="flex flex-wrap items-center gap-3">
+              <a
+                href={cvUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_20px_-10px_rgba(0,0,0,0.5)] transition-transform duration-300 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-navy-800"
+              >
+                <Icon name="lucide:download" class="h-4 w-4" aria-hidden="true" />
+                Descargar CV
+              </a>
+
+              <a
+                href={certsHref}
+                target={certsExternal ? "_blank" : undefined}
+                rel={certsExternal ? "noopener noreferrer" : undefined}
+                class="inline-flex items-center gap-2 rounded-xl border border-gray-900/15 px-4 py-2.5 text-sm font-semibold text-gray-800 transition-[transform,border-color,color] duration-300 hover:-translate-y-0.5 hover:border-accent hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 dark:border-white/20 dark:text-gray-100 dark:hover:border-accent dark:focus-visible:ring-offset-navy-800"
+              >
+                <Icon name="lucide:award" class="h-4 w-4" aria-hidden="true" />
+                Ver certificados
+              </a>
+            </div>
 
             <div class="flex items-center gap-1">
               {
@@ -148,12 +181,18 @@ import imgPerfil from "../assets/images/perfil.jpg";
 
         <div class="order-1 flex justify-center lg:order-2 lg:-me-4 lg:-mt-20">
           <div class="reveal-photo relative" style="--d: 0.15s">
+            {/* Resplandor: en la noche la lamina tiene que parecer iluminada,
+                no un recorte pegado sobre el negro. */}
+            <span
+              class="hero-photo-glow pointer-events-none absolute -inset-6 hidden dark:block"
+              aria-hidden="true"></span>
+
             <span
               class="absolute inset-0 translate-x-3 translate-y-3 rounded-lg bg-navy-600/20 dark:bg-navy-400/25"
               aria-hidden="true"></span>
 
             <div
-              class="relative -rotate-2 rounded-lg bg-white p-2.5 shadow-[0_18px_40px_-18px_rgba(11,18,32,0.55)] transition-transform duration-500 ease-out hover:rotate-0 dark:bg-navy-200 dark:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.8)]"
+              class="relative -rotate-2 rounded-lg bg-white p-2.5 shadow-[0_18px_40px_-18px_rgba(11,18,32,0.55)] transition-transform duration-500 ease-out hover:rotate-0 dark:bg-gray-100 dark:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.8)]"
             >
               <Image
                 src={imgPerfil}
@@ -168,6 +207,19 @@ import imgPerfil from "../assets/images/perfil.jpg";
           </div>
         </div>
       </div>
+    </div>
+
+    {/* ---------- La frase, debajo de la tarjeta ---------- */}
+    {/* El padding lateral repite el de la tarjeta para que la frase arranque
+        en la misma vertical que el nombre. */}
+    <div class="reveal mt-10 px-6 sm:mt-12 sm:px-12 lg:ps-16" style="--d: 0.55s">
+      <p
+        class="max-w-[46ch] font-display text-[clamp(1.25rem,2.4vw,1.875rem)] font-medium leading-[1.4] tracking-[-0.01em] text-balance text-gray-800 sm:max-w-[52ch] dark:text-gray-100"
+      >
+        <span class="mb-5 block h-px w-10 bg-accent/70" aria-hidden="true"></span>
+        <i class="italic">"Toda gran experiencia descansa sobre una estructura que nadie ve.</i>
+        <span class="text-accent">Yo diseño esa estructura y le doy forma a lo que se ve."</span>
+      </p>
     </div>
   </div>
 

@@ -1,7 +1,3 @@
----
-import { Icon } from "astro-icon/components";
----
-
 <div id="preloader" class="preloader" role="status" aria-live="polite" aria-label="Cargando">
   <div class="preloader-bg" aria-hidden="true">
     <div class="preloader-dots"></div>
@@ -14,9 +10,8 @@ import { Icon } from "astro-icon/components";
       <span class="preloader-ring"></span>
       <span class="preloader-ring preloader-ring-2"></span>
       <span class="preloader-mark" aria-hidden="true">
-        <span class="preloader-letter" style="--i:0">
-          <Icon name="lucide:square-terminal" class="h-7 w-7" aria-hidden="true" />
-        </span>
+        <span class="preloader-letter" style="--i:0">E</span>
+        <span class="preloader-letter preloader-letter-accent" style="--i:1">M</span>
       </span>
     </div>
 

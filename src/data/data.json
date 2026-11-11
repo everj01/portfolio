@@ -1,5 +1,6 @@
 {
   "cvUrl": "https://drive.google.com/uc?export=download&id=1Ui9dEm5OprPl-Cg52XqB1pKduiEv4Brs",
+  "certificatesUrl": "",
   "navbar": [
     {
       "name": "Sobre mí",
@@ -57,12 +58,6 @@
       "style": "hover:text-[#0A66C2] dark:hover:text-[#67aaed]"
     },
     {
-      "name": "X",
-      "icon": "simple-icons:x",
-      "url": "https://x.com/CoddiDv",
-      "style": "hover:text-[#15202B] dark:hover:text-[#8997a4]"
-    },
-    {
       "name": "Instagram",
       "icon": "simple-icons:instagram",
       "url": "https://www.instagram.com/ev01.m/",
@@ -72,72 +67,19 @@
   "projects": [
     {
       "visible": true,
-      "title": "Sumak",
-      "role": "Full Stack",
-      "year": "2026",
-      "status": "En desarrollo",
-      "description": "Mapa colaborativo para guardar y descubrir lugares especiales, con fotos y notas de cada sitio.",
-      "overview": "Proyecto personal en curso: un mapa donde cualquiera puede marcar los lugares que valen la pena y contar por que, sumando fotos, una nota y categorias. La idea es que el descubrimiento venga de la gente y no de un ranking, asi que el foco esta en explorar el mapa y leer lo que otros dejaron. Todavia esta sin finalizar: el mapa, las fichas de lugar y la carga de imagenes ya funcionan, y queda pendiente cerrar la parte social y los filtros avanzados.",
-      "highlights": [
-        "Mapa interactivo con marcadores por categoria y ficha de cada lugar.",
-        "Carga de fotos y notas propias para describir cada sitio.",
-        "API en Laravel con autenticacion y permisos por usuario.",
-        "En progreso: perfiles, favoritos y filtros de busqueda avanzados."
-      ],
-      "image": [
-        "https://i.ibb.co/ymBSSMzY/image.png"
-      ],
-      "tech": [
-        "React",
-        "Tailwind CSS",
-        "Laravel",
-        "MySQL",
-        "Leaflet"
-      ],
-      "githubUrl": "",
-      "liveUrl": "",
-      "privatePro": true
-    },
-    {
-      "visible": true,
-      "title": "Diario IA",
-      "role": "Full Stack",
-      "year": "2026",
-      "description": "Diario personal donde la IA lee cada entrada y devuelve un resumen, el estado de animo y patrones del dia.",
-      "overview": "Aplicacion de diario privado pensada para escribir sin fricciones y dejar que la IA haga la lectura. Cada entrada se analiza para extraer un resumen breve, el estado de animo y los temas recurrentes, y todo eso alimenta un panel con la evolucion emocional a lo largo del tiempo. Construida con Next.js y SQLite para que corra en local sin depender de servicios externos.",
-      "highlights": [
-        "Analisis automatico de cada entrada: resumen, estado de animo y temas detectados.",
-        "Panel con la evolucion del animo y los patrones que se repiten semana a semana.",
-        "Persistencia local con SQLite, sin servidor externo ni cuentas de terceros.",
-        "Editor enfocado en la escritura y busqueda rapida sobre el historial."
-      ],
-      "image": [
-        "diarioia/1.png",
-        "diarioia/2.png"
-      ],
-      "tech": [
-        "Next JS",
-        "Typescript",
-        "SQLite",
-        "Tailwind CSS"
-      ],
-      "githubUrl": "https://github.com/everj01/app-web-diario-ia",
-      "liveUrl": "",
-      "privatePro": false
-    },
-    {
-      "visible": true,
       "title": "Okumet Document",
       "role": "Full Stack",
       "year": "2026",
 
       "description": "Sistema de gestión documental y seguimiento de expedientes para un estudio de abogados.",
-      "overview": "Plataforma pensada para digitalizar el trabajo de un despacho legal: cada expediente se organiza con sus documentos, estados y responsables, dejando atras las carpetas sueltas y el papeleo. La API en Laravel (protegida con Sanctum) centraliza la informacion y los permisos, mientras que el frontend en React + Vite se encarga de que cargar y revisar expedientes sea rapido y claro.",
+      "overview": "Plataforma pensada para digitalizar el trabajo de un despacho legal: cada expediente se organiza con sus documentos, estados y responsables, dejando atrás las carpetas sueltas y el papeleo. La API en Laravel (protegida con Sanctum) centraliza la información y los permisos, mientras que el frontend en React + Vite se encarga de que cargar y revisar expedientes sea rapido y claro.",
       "highlights": [
         "Gestion completa de expedientes: documentos, estados y responsables en un solo lugar.",
         "API en Laravel protegida con Laravel Sanctum, consumida por un frontend en React + Vite.",
-        "Carga y organizacion de documentos por expediente con control de acceso.",
-        "Pensado para el flujo real de trabajo de un despacho de abogados."
+        "Carga y organización de documentos por expediente con control de acceso.",
+        "Pensado para el flujo real de trabajo de un despacho de abogados.",
+        "Implementacion de IA con claude para la extraccion de datos y resumen de expedientes.",
+        "(Próximamente) implementación de una pasarela de pagos para controlar las suscripciones"
       ],
       "image": [
         "okumetdoc/1.png",
@@ -171,19 +113,73 @@
           "url": "https://github.com/everj01/okd-extension"
         }
       ],
+      "liveUrl": "https://document.okumet.com/",
+      "privatePro": false
+    },
+    {
+      "visible": true,
+      "title": "Diario IA",
+      "role": "Full Stack",
+      "year": "2026",
+      "description": "Diario personal donde la IA lee cada entrada y devuelve un resumen, el estado de ánimo y patrones del dia.",
+      "overview": "Aplicacion de diario privado pensada para escribir sin fricciones y dejar que la IA haga la lectura. Cada entrada se analiza para extraer un resumen breve, el estado de animo y los temas recurrentes, y todo eso alimenta un panel con la evolución emocional a lo largo del tiempo. Construida con Next.js y SQLite",
+      "highlights": [
+        "Análisis automatico de cada entrada: resumen, estado de animo y temas detectados.",
+        "Panel con la evolución del animo y los patrones que se repiten semana a semana.",
+        "Editor enfocado en la escritura y búsqueda rápida sobre el historial."
+      ],
+      "image": [
+        "diarioia/1.png",
+        "diarioia/2.png"
+      ],
+      "tech": [
+        "Next JS",
+        "TypeScript",
+        "SQLite",
+        "Tailwind CSS"
+      ],
+      "githubUrl": "https://github.com/everj01/app-web-diario-ia",
       "liveUrl": "",
       "privatePro": false
+    },
+    
+    {
+      "visible": true,
+      "title": "Sumak",
+      "role": "Full Stack",
+      "year": "2026",
+      "description": "Mapa colaborativo para guardar y descubrir lugares especiales, con fotos y notas de cada sitio.",
+      "overview": "Proyecto personal en curso: un mapa donde cualquiera puede marcar los lugares que valen la pena y contar por qué, sumando fotos, una nota y categorías. La idea es que el descubrimiento venga de la gente y no de un ranking, asi que el foco esta en explorar el mapa y leer lo que otros dejaron. Todavia esta sin finalizar: el mapa, las fichas de lugar y la carga de imagenes ya funcionan, y queda pendiente cerrar la parte social y los filtros avanzados.",
+      "highlights": [
+        "Mapa interactivo con marcadores por categoría y ficha de cada lugar.",
+        "Carga de fotos y notas propias para describir cada sitio.",
+        "API en Laravel con autenticación y permisos por usuario.",
+        "En progreso: perfiles, favoritos y filtros de búsqueda avanzados."
+      ],
+      "image": [
+        "https://i.ibb.co/ymBSSMzY/image.png"
+      ],
+      "tech": [
+        "React",
+        "Tailwind CSS",
+        "Laravel",
+        "MySQL",
+        "Leaflet"
+      ],
+      "githubUrl": "",
+      "liveUrl": "",
+      "privatePro": true
     },
     {
       "visible": true,
       "title": "MM Sublimados",
       "role": "Frontend",
       "year": "2026",
-      "description": "Pagina web comercial para un negocio de sublimado de tazas, cuadernos y articulos personalizados.",
-      "overview": "Sitio pensado para que un negocio de sublimacion muestre su catalogo de productos personalizados (tazas, cuadernos y mas) y facilite el contacto con los clientes. Construido con Astro y Tailwind CSS para priorizar la carga rapida y una presentacion visual clara del catalogo.",
+      "description": "Página web comercial para un negocio de sublimado de tazas, cuadernos y artículos personalizados.",
+      "overview": "Sitio pensado para que un negocio de sublimacion muestre su catálogo de productos personalizados (tazas, cuadernos y mas) y facilite el contacto con los clientes. Construido con Astro y Tailwind CSS para priorizar la carga rápida y una presentacion visual clara del catálogo.",
       "highlights": [
-        "Catalogo visual de productos sublimados listo para mostrar en movil y escritorio.",
-        "Sitio estatico con Astro, enfocado en velocidad de carga.",
+        "catálogo visual de productos sublimados listo para mostrar en móvil y escritorio.",
+        "Sitio estático con Astro, enfocado en velocidad de carga.",
         "Diseño adaptado a un negocio pequeño orientado a ventas por redes."
       ],
       "image": [
@@ -196,7 +192,7 @@
         "Tailwind CSS"
       ],
       "githubUrl": "https://github.com/everj01/mm-sublimacion-web",
-      "liveUrl": "",
+      "liveUrl": "https://mmsublimados.com/",
       "privatePro": false
     },
     {
@@ -204,11 +200,11 @@
       "title": "Inventario Admin",
       "role": "Full Stack",
       "year": "2026",
-      "description": "Proyecto de practica: sistema de inventario con escaneo de codigos QR y de barras desde la camara.",
-      "overview": "Demo hecha para practicar un flujo de inventario completo: alta de productos, movimientos de stock y busqueda rapida escaneando codigos QR o de barras directamente con la camara del dispositivo, sin hardware adicional. El backend en Java expone la API que consume un frontend en Angular, con MySQL como persistencia.",
+      "description": "Proyecto de práctica: sistema de inventario con escaneo de códigos QR y de barras desde la cámara.",
+      "overview": "Demo hecha para practicar un flujo de inventario completo: alta de productos, movimientos de stock y búsqueda rápida escaneando códigos QR o de barras directamente con la cámara del dispositivo, sin hardware adicional. El backend en Java expone la API que consume un frontend en Angular, con MySQL como persistencia.",
       "highlights": [
-        "Escaneo de codigos QR y de barras usando la camara del navegador.",
-        "API en Java consumida por un frontend en Angular.",
+        "Escaneo de códigos QR y de barras usando la cámara del navegador.",
+        "API en Spring Boot (Java) consumida por un frontend en Angular.",
         "Gestion basica de productos y movimientos de inventario con MySQL."
       ],
       "image": [
@@ -240,12 +236,17 @@
     },
     {
       "visible": true,
-      "title": "Sisol - File Control",
+      "title": "Sisol File Control",
        "role": "Full Stack",
-      "year": "2026",
-      "description": "ERP para la gestión de la información de Sol Security.",
-      "overview": "",
-      "highlights": [],
+      "year": "2025",
+      "description": "ERP para la gestión de la información de Sol Security. (antes Solmar Security)",
+      "overview": "ERP interno desarrollado para centralizar la información operativa de Sol Security, que antes vivia repartida entre sistemas legados (PowerBuilder) y hojas de calculo. El sistema concentra la gestión de archivos y expedientes de la empresa junto a los módulos administrativos que los alimentan, con control de accesos por rol. Esta construido sobre Laravel con Alpine JS y Tailwind CSS en la interfaz, y se conecta a la base de datos corporativa en SQL Server para trabajar con la información que ya existia en producción.",
+      "highlights": [
+        "Centralizacion de la información de la empresa en una sola plataforma.",
+        "Migracion de módulos heredados hacia Laravel (desde PowerBuilder), rediseñando la lógica de negocio sobre una API REST.",
+        "Interfaz reactiva con Alpine JS y Tailwind CSS sobre la base de datos corporativa en SQL Server.",
+        "Permisos y accesos diferenciados según el area y el rol de cada usuario."
+      ],
       "image": [
         "sisol/01.png",
         "sisol/02.png",
@@ -255,8 +256,8 @@
       ],
       "tech": [
         "Laravel",
-        "Javascript",
-        "Alphine JS",
+        "JavaScript",
+        "Alpine.js",
         "Tailwind CSS",
         "SQL Server",
         "Node JS"
@@ -270,9 +271,14 @@
       "title": "Monitor",
        "role": "Full Stack",
       "year": "2024",
-      "description": "Aplicacion Web para la gestión de auditoría y administración de trámites marítimos.",
-      "overview": "",
-      "highlights": [],
+      "description": "Aplicación Web para la gestión de auditoría y administración de trámites marítimos.",
+      "overview": "Aplicación web para la gestión de auditorías y el seguimiento de trámites del sector marítimo, usada internamente por el area de operaciones. Cada tramite queda registrado con su estado, responsable y documentacion, de modo que el avance se puede auditar sin depender de reportes manuales. Fue desarrollada de principio a fin con CodeIgniter y SQL Server, trabajando sobre un volumen alto de información historica.",
+      "highlights": [
+        "Seguimiento de trámites maritimos con estados, responsables y trazabilidad de cada movimiento.",
+        "Modulo de auditoria que deja registro de los cambios realizados sobre la información en cada embarcación.",
+        "Reportes y busquedas sobre un volumen alto de datos en SQL Server, con consultas optimizadas.",
+        "Desarrollo completo del sistema y puesta en producción para el area de operaciones."
+      ],
       "image": [
         "Monitor/01.png",
         "Monitor/02.png",
@@ -282,14 +288,14 @@
         "Monitor/06.png"
       ],
       "tech": [
-        "Codeigniter",
-        "Javascript",
-        "Jquery",
+        "CodeIgniter",
+        "JavaScript",
+        "jQuery",
         "Bootstrap 5",
         "SQL Server"
       ],
       "githubUrl": "",
-      "liveUrl": "",
+      "liveUrl": "https://sistemas.gruposolmar.pe/apps/monitor/",
       "privatePro": true
     },
     {
@@ -299,8 +305,13 @@
        "role": "Full Stack",
       "year": "2025",
       "description": "Sistema de Seguridad Digitalizada para clientes de empresas marítimas de Solmar Security.",
-      "overview": "",
-      "highlights": [],
+      "overview": "Sistema de seguridad digitalizada creado para los clientes de empresas maritimas de Solmar Security, pensado para reemplazar los controles manuales que se llevaban en campo. La plataforma registra las incidencias y los controles de seguridad de cada cliente y los deja disponibles en línea, con reportes que antes tomaban dias en consolidarse. Combina CodeIgniter en el backend con una interfaz modernizada con Alpine JS y Tailwind CSS sobre SQL Server.",
+      "highlights": [
+        "digitalización de los controles de seguridad que antes se registraban en papel.",
+        "Registro de incidencias y consulta en línea de la información por parte de cada cliente.",
+        "Reportes consolidados que reducen el tiempo de preparacion de la información.",
+        "Interfaz renovada con Alpine JS y Tailwind CSS sobre un backend en CodeIgniter y SQL Server."
+      ],
       "image": [
         "control/01.png",
         "control/02.png",
@@ -313,16 +324,16 @@
         "control/09.png"
       ],
       "tech": [
-        "Codeigniter",
-        "Javascript",
-        "Jquery",
+        "CodeIgniter",
+        "JavaScript",
+        "JQuery",
         "Bootstrap 5",
         "SQL Server",
-        "AlphineJS",
+        "Alpine.js",
         "Tailwind CSS"
       ],
       "githubUrl": "",
-      "liveUrl": "",
+      "liveUrl": "https://sistemas.gruposolmar.pe/apps/control-web-oficial/",
       "privatePro": true
     },
     {
@@ -330,9 +341,14 @@
       "title": "Pasarela de pagos",
        "role": "Full Stack",
       "year": "2026",
-      "description": "Propuesta de una pasarela de pagos con la API Mercado Pago para la plataforma de ICMA.",
-      "overview": "",
-      "highlights": [],
+      "description": "Pasarela de pagos con la API Mercado Pago para la plataforma de ICMA Extranet.",
+      "overview": "Propuesta e implementación de una pasarela de pagos en línea para la plataforma de ICMA, integrando la API de Mercado Pago para que los pagos de los trámites se pudieran hacer directamente desde la web. El flujo cubre la generacion de la orden, la redireccion al checkout y la confirmacion automatica del pago mediante notificaciones, dejando cada operación conciliada en el sistema. Se desarrollo sobre la base existente en CodeIgniter para integrarse con los módulos que ya estaban en producción.",
+      "highlights": [
+        "integración completa con la API de Mercado Pago: orden, checkout y confirmacion de pago.",
+        "Procesamiento de notificaciones para actualizar el estado de cada operación de forma automatica.",
+        "Registro y conciliacion de los pagos dentro de la plataforma de trámites.",
+        "Implementada sobre el sistema existente en CodeIgniter sin interrumpir los módulos en producción."
+      ],
       "image": [
         "pasarela/01.png",
         "pasarela/02.png",
@@ -341,24 +357,29 @@
         "pasarela/05.png"
       ],
       "tech": [
-        "Codeigniter",
-        "Javascript",
-        "Jquery",
+        "CodeIgniter",
+        "JavaScript",
+        "JQuery",
         "Bootstrap 5",
         "API - Mercado Pago"
       ],
       "githubUrl": "",
-      "liveUrl": "",
+      "liveUrl": "https://sistemas.gruposolmar.pe/apps/icma-extranet/login",
       "privatePro": true
     },
     {
       "visible": true,
-      "title": "Reclutamiento",
+      "title": "Reclutamiento Solmar",
        "role": "Full Stack",
-      "year": "2024",
-      "description": "Propuesta para la creación de una solución web que centralice y optimice el proceso de recepción y gestión de postulaciones.",
-      "overview": "",
-      "highlights": [],
+      "year": "2025",
+      "description": "Solución web Propuesta para la creación de una solución web que centralice y optimice el proceso de recepción y gestión de postulaciones.",
+      "overview": "Solución web propuesta para centralizar la recepción y gestión de postulaciones, que hasta ese momento llegaban dispersas por correo y mensajeria. La plataforma ofrece un formulario público para los postulantes y un panel interno donde el area de recursos humanos puede filtrar, revisar y mover a cada candidato por las etapas del proceso. Desarrollada con CodeIgniter y SQL Server, reutilizando la infraestructura interna de la empresa.",
+      "highlights": [
+        "Formulario público de postulacion con carga de documentos y validación de datos.",
+        "Panel interno para filtrar y revisar candidatos, con seguimiento por etapas del proceso.",
+        "Centralizacion de las postulaciones que antes se recibian por correo y mensajeria.",
+        "Base de datos de postulantes consultable para futuras convocatorias."
+      ],
       "image": [
         "reclutamiento/01.png",
         "reclutamiento/02.png",
@@ -368,20 +389,20 @@
         "reclutamiento/06.png"
       ],
       "tech": [
-        "Codeigniter",
-        "Javascript",
-        "Jquery",
+        "CodeIgniter",
+        "JavaScript",
+        "JQuery",
         "Bootstrap 5",
         "SQL Server"
       ],
       "githubUrl": "",
-      "liveUrl": "",
+      "liveUrl": "https://sistemas.gruposolmar.pe/apps/reclutamiento/",
       "privatePro": true
     }
   ],
   "experience": [
     {
-      "company": "Sol Security S.A.C.",
+      "company": "Sol Security S.A.C. (antes Solmar Security)",
       "role": "Desarrollador Web / Asistente de Sistemas",
       "period": "Ago 2023 - Sep 2026",
       "bullets": [
@@ -434,10 +455,6 @@
           "level": "advanced"
         },
         {
-          "name": "Typescript",
-          "level": "advanced"
-        },
-        {
           "name": "React JS",
           "level": "advanced"
         },
@@ -447,10 +464,6 @@
         },
         {
           "name": "Next JS",
-          "level": "advanced"
-        },
-        {
-          "name": "Vite JS",
           "level": "advanced"
         },
         {
@@ -465,28 +478,20 @@
       "color": "bg-green-500",
       "skills": [
         {
-          "name": "PHP (Laravel)",
+          "name": "Laravel",
           "level": "advanced"
         },
         {
-          "name": "C# (ASP.NET Core)",
+          "name": "ASP.NET Core",
           "level": "advanced"
         },
         {
-          "name": "PHP (Codeigniter)",
+          "name": "CodeIgniter",
           "level": "advanced"
         },
         {
           "name": "Nest JS",
           "level": "basic"
-        },
-        {
-          "name": "Node.js",
-          "level": "advanced"
-        },
-        {
-          "name": "Java Web",
-          "level": "advanced"
         },
         {
           "name": "Spring Boot",
@@ -547,7 +552,7 @@
           "level": "advanced"
         },
         {
-          "name": "SQL Lite",
+          "name": "SQLite",
           "level": "advanced"
         },
         {
@@ -589,16 +594,8 @@
           "level": "advanced"
         },
         {
-          "name": "Kotlin",
-          "level": "basic"
-        },
-        {
-          "name": "React Native",
-          "level": "basic"
-        },
-        {
           "name": "Flutter",
-          "level": "basic"
+          "level": "advanced"
         }
       ]
     }

@@ -49,7 +49,7 @@ export interface ProjectCardProps {
   image?: GalleryImage[];
   tech?: string[];
   githubUrl?: string | null;
-  /** Varios repositorios (frontend, backend, movil...). Tiene prioridad sobre githubUrl. */
+  /** Varios repositorios (frontend, backend, móvil...). Tiene prioridad sobre githubUrl. */
   repos?: RepoLink[];
   liveUrl?: string;
   /** true => el codigo es privado, no se ofrece enlace a GitHub. */

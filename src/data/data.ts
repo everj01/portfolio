@@ -1,4 +1,4 @@
-// Toda la informacion editable del portafolio vive en data.json.
+// Toda la información editable del portafolio vive en data.json.
 // Este archivo solo la tipa y la reparte; no deberia hacer falta tocarlo.
 import type {
   EducationItem,
@@ -13,6 +13,10 @@ import data from "./data.json";
 
 // CV descargable (link de Google Drive)
 export const cvUrl: string = data.cvUrl;
+
+// Certificados. Si se deja vacio, el boton del hero lleva a la seccion de
+// educacion en lugar de abrir un enlace externo.
+export const certificatesUrl: string = data.certificatesUrl;
 
 // NAVBAR
 export const itemsNav: ItemsNavbar[] = data.navbar;
