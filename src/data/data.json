@@ -196,6 +196,37 @@
       "privatePro": false
     },
     {
+        "visible": true,
+        "title": "Mi Clima",
+        "role": "Mobile",
+        "year": "2026",
+        "description": "Aplicación móvil del clima construida en Flutter, con pronóstico por hora y por día, calidad del aire y ubicación por GPS.",
+        "overview": "Aplicación móvil que muestra el clima actual, el pronóstico de las próximas 24 horas y de 7 días para la ubicación del usuario o para las ciudades que guarde. Consume la API pública de Open-Meteo para clima, calidad del aire y búsqueda de ciudades, y usa el GPS del dispositivo con geocodificación inversa para resolver el nombre del lugar. Las ciudades  favoritas y las preferencias de unidades se guardan localmente, y el fondo de la pantalla cambia de degradado según el código del clima y si es de día o de noche.",
+        "highlights": [
+          "Detección de ubicación por GPS con manejo de los tres estados de permiso y geocodificación inversa para obtener la ciudad.",
+          "Búsqueda de ciudades y lista de favoritas persistida en el dispositivo, con navegación entre ellas mediante PageView.",
+          "Pronóstico por hora y por día, calidad del aire (AQI), viento, sol y detalles como humedad, presión y visibilidad.",
+          "Interfaz con fondo degradado dinámico según el clima, pull to refresh y estados de carga y error con reintento."
+        ],
+        "image": [
+          "app_miclima/01.png",
+          "app_miclima/02.png",
+          "app_miclima/03.png",
+          "app_miclima/04.png"
+        ],
+        "tech": [
+          "Flutter",
+          "Dart",
+          "Open-Meteo API",
+          "Geolocator",
+          "SharedPreferences",
+          "REST / JSON"
+        ],
+        "githubUrl": "https://github.com/everj01/app_old_miclima",
+        "liveUrl": "",
+        "privatePro": false
+      },
+      {
       "visible": true,
       "title": "Inventario Admin",
       "role": "Full Stack",
@@ -234,6 +265,39 @@
       "liveUrl": "",
       "privatePro": false
     },
+      {
+      "visible": true,
+      "title": "Pasarela de pagos",
+       "role": "Full Stack",
+      "year": "2026",
+      "description": "Pasarela de pagos con la API Mercado Pago para la plataforma de ICMA Extranet.",
+      "overview": "Propuesta e implementación de una pasarela de pagos en línea para la plataforma de ICMA, integrando la API de Mercado Pago para que los pagos de los trámites se pudieran hacer directamente desde la web. El flujo cubre la generacion de la orden, la redireccion al checkout y la confirmacion automatica del pago mediante notificaciones, dejando cada operación conciliada en el sistema. Se desarrollo sobre la base existente en CodeIgniter para integrarse con los módulos que ya estaban en producción.",
+      "highlights": [
+        "integración completa con la API de Mercado Pago: orden, checkout y confirmacion de pago.",
+        "Procesamiento de notificaciones para actualizar el estado de cada operación de forma automatica.",
+        "Registro y conciliacion de los pagos dentro de la plataforma de trámites.",
+        "Implementada sobre el sistema existente en CodeIgniter sin interrumpir los módulos en producción."
+      ],
+      "image": [
+        "pasarela/01.png",
+        "pasarela/02.png",
+        "pasarela/03.png",
+        "pasarela/04.png",
+        "pasarela/05.png"
+      ],
+      "tech": [
+        "CodeIgniter",
+        "JavaScript",
+        "JQuery",
+        "Bootstrap 5",
+        "API - Mercado Pago"
+      ],
+      "githubUrl": "",
+      "liveUrl": "https://sistemas.gruposolmar.pe/apps/icma-extranet/login",
+      "privatePro": true
+    },
+    
+    
     {
       "visible": true,
       "title": "Sisol File Control",
@@ -266,38 +330,36 @@
       "liveUrl": "",
       "privatePro": true
     },
-    {
-      "visible": true,
-      "title": "Monitor",
-       "role": "Full Stack",
-      "year": "2024",
-      "description": "Aplicación Web para la gestión de auditoría y administración de trámites marítimos.",
-      "overview": "Aplicación web para la gestión de auditorías y el seguimiento de trámites del sector marítimo, usada internamente por el area de operaciones. Cada tramite queda registrado con su estado, responsable y documentacion, de modo que el avance se puede auditar sin depender de reportes manuales. Fue desarrollada de principio a fin con CodeIgniter y SQL Server, trabajando sobre un volumen alto de información historica.",
-      "highlights": [
-        "Seguimiento de trámites maritimos con estados, responsables y trazabilidad de cada movimiento.",
-        "Modulo de auditoria que deja registro de los cambios realizados sobre la información en cada embarcación.",
-        "Reportes y busquedas sobre un volumen alto de datos en SQL Server, con consultas optimizadas.",
-        "Desarrollo completo del sistema y puesta en producción para el area de operaciones."
-      ],
-      "image": [
-        "Monitor/01.png",
-        "Monitor/02.png",
-        "Monitor/03.png",
-        "Monitor/04.png",
-        "Monitor/05.png",
-        "Monitor/06.png"
-      ],
-      "tech": [
-        "CodeIgniter",
-        "JavaScript",
-        "jQuery",
-        "Bootstrap 5",
-        "SQL Server"
-      ],
-      "githubUrl": "",
-      "liveUrl": "https://sistemas.gruposolmar.pe/apps/monitor/",
-      "privatePro": true
-    },
+        
+      {
+        "visible": true,
+        "title": "Calculadora",
+        "role": "Mobile",
+        "year": "2025",
+        "description": "Calculadora móvil de operaciones básicas en Flutter, con interfaz oscura y animación de respuesta en cada tecla.",
+        "overview": "Calculadora de operaciones básicas desarrollada en Flutter como ejercicio de interfaz y manejo de estado. Permite encadenar sumas, restas, multiplicaciones y divisiones, trabajar con decimales, porcentaje y cambio de signo, y controla casos límite como la división entre cero. El resultado se ajusta automáticamente al ancho disponible y cada tecla responde con una animación de escala. La lógica está cubierta con tests de widget.",
+        "highlights": [
+          "Operaciones encadenadas con decimales, porcentaje, cambio de signo, borrado de dígito y limpieza total.",
+          "División entre cero controlada: muestra un estado de error del que la calculadora se recupera sola.",
+          "Interfaz oscura con degradados, botón de resultado destacado y animación de presión en cada tecla.",
+          "Cinco tests de widget que validan el cálculo, los decimales, el encadenado y el manejo de errores."
+        ],
+        "image": [
+          "app_calculadora/01.png",
+          "app_calculadora/02.png"
+        ],
+        "tech": [
+          "Flutter",
+          "Dart",
+          "Material 3",
+          "Google Fonts",
+          "Flutter Test"
+        ],
+        "githubUrl": "https://github.com/everj01/app_old_calculadora",
+        "liveUrl": "",
+        "privatePro": false
+      },
+    
     {
      
       "visible": true,
@@ -338,40 +400,41 @@
     },
     {
       "visible": true,
-      "title": "Pasarela de pagos",
+      "title": "Monitor",
        "role": "Full Stack",
-      "year": "2026",
-      "description": "Pasarela de pagos con la API Mercado Pago para la plataforma de ICMA Extranet.",
-      "overview": "Propuesta e implementación de una pasarela de pagos en línea para la plataforma de ICMA, integrando la API de Mercado Pago para que los pagos de los trámites se pudieran hacer directamente desde la web. El flujo cubre la generacion de la orden, la redireccion al checkout y la confirmacion automatica del pago mediante notificaciones, dejando cada operación conciliada en el sistema. Se desarrollo sobre la base existente en CodeIgniter para integrarse con los módulos que ya estaban en producción.",
+      "year": "2024",
+      "description": "Aplicación Web para la gestión de auditoría y administración de trámites marítimos.",
+      "overview": "Aplicación web para la gestión de auditorías y el seguimiento de trámites del sector marítimo, usada internamente por el area de operaciones. Cada tramite queda registrado con su estado, responsable y documentacion, de modo que el avance se puede auditar sin depender de reportes manuales. Fue desarrollada de principio a fin con CodeIgniter y SQL Server, trabajando sobre un volumen alto de información historica.",
       "highlights": [
-        "integración completa con la API de Mercado Pago: orden, checkout y confirmacion de pago.",
-        "Procesamiento de notificaciones para actualizar el estado de cada operación de forma automatica.",
-        "Registro y conciliacion de los pagos dentro de la plataforma de trámites.",
-        "Implementada sobre el sistema existente en CodeIgniter sin interrumpir los módulos en producción."
+        "Seguimiento de trámites maritimos con estados, responsables y trazabilidad de cada movimiento.",
+        "Modulo de auditoria que deja registro de los cambios realizados sobre la información en cada embarcación.",
+        "Reportes y busquedas sobre un volumen alto de datos en SQL Server, con consultas optimizadas.",
+        "Desarrollo completo del sistema y puesta en producción para el area de operaciones."
       ],
       "image": [
-        "pasarela/01.png",
-        "pasarela/02.png",
-        "pasarela/03.png",
-        "pasarela/04.png",
-        "pasarela/05.png"
+        "Monitor/01.png",
+        "Monitor/02.png",
+        "Monitor/03.png",
+        "Monitor/04.png",
+        "Monitor/05.png",
+        "Monitor/06.png"
       ],
       "tech": [
         "CodeIgniter",
         "JavaScript",
-        "JQuery",
+        "jQuery",
         "Bootstrap 5",
-        "API - Mercado Pago"
+        "SQL Server"
       ],
       "githubUrl": "",
-      "liveUrl": "https://sistemas.gruposolmar.pe/apps/icma-extranet/login",
+      "liveUrl": "https://sistemas.gruposolmar.pe/apps/monitor/",
       "privatePro": true
     },
     {
       "visible": true,
       "title": "Reclutamiento Solmar",
        "role": "Full Stack",
-      "year": "2025",
+      "year": "2024",
       "description": "Solución web Propuesta para la creación de una solución web que centralice y optimice el proceso de recepción y gestión de postulaciones.",
       "overview": "Solución web propuesta para centralizar la recepción y gestión de postulaciones, que hasta ese momento llegaban dispersas por correo y mensajeria. La plataforma ofrece un formulario público para los postulantes y un panel interno donde el area de recursos humanos puede filtrar, revisar y mover a cada candidato por las etapas del proceso. Desarrollada con CodeIgniter y SQL Server, reutilizando la infraestructura interna de la empresa.",
       "highlights": [
