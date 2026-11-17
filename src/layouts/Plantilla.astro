@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css";
-import Preloader from "../components/Preloader.astro";
+import Precarga from "../components/Precarga.astro";
 import { getImage } from "astro:assets";
 import perfil from "../assets/images/perfil.jpg";
 
@@ -15,15 +15,13 @@ const {
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const ogImage = await getImage({ src: perfil, width: 1200, height: 1200 });
-const ogImageURL = new URL(ogImage.src, Astro.site);
+const urlCanonica = new URL(Astro.url.pathname, Astro.site);
+const imagenOg = await getImage({ src: perfil, width: 1200, height: 1200 });
+const urlImagenOg = new URL(imagenOg.src, Astro.site);
 
-// Google Analytics solo se carga en producción y si hay ID configurado
-// (variable de entorno PUBLIC_GA_ID). Asi el trafico de "npm run dev" no
-// contamina las metricas.
-const gaId = import.meta.env.PUBLIC_GA_ID;
-const loadAnalytics = import.meta.env.PROD && Boolean(gaId);
+// Analytics: solo en produccion y si hay PUBLIC_GA_ID
+const idGa = import.meta.env.PUBLIC_GA_ID;
+const cargarAnalytics = import.meta.env.PROD && Boolean(idGa);
 ---
 
 <!doctype html>
@@ -34,22 +32,22 @@ const loadAnalytics = import.meta.env.PROD && Boolean(gaId);
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
     <link rel="shortcut icon" href={`${base}code.ico`} type="image/x-icon" />
-    <link rel="canonical" href={canonicalURL} />
+    <link rel="canonical" href={urlCanonica} />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:url" content={urlCanonica} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image" content={urlImagenOg} />
     <meta property="og:locale" content="es_PE" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:url" content={urlCanonica} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImageURL} />
+    <meta name="twitter:image" content={urlImagenOg} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -61,42 +59,44 @@ const loadAnalytics = import.meta.env.PROD && Boolean(gaId);
     <title>{title}</title>
 
     {
-      loadAnalytics && (
+      cargarAnalytics && (
         <>
           <script
             is:inline
             async
-            src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+            src={`https://www.googletagmanager.com/gtag/js?id=${idGa}`}
           />
-          <script is:inline define:vars={{ gaId }}>
+          <script is:inline define:vars={{ idGa }}>
             window.dataLayer = window.dataLayer || [];
             function gtag() {
               dataLayer.push(arguments);
             }
             gtag("js", new Date());
-            gtag("config", gaId);
+            gtag("config", idGa);
           </script>
         </>
       )
     }
 
+    {/* Tema guardado, antes de pintar, para que no parpadee */}
     <script is:inline>
       (function () {
         try {
-          var saved = localStorage.getItem("theme");
-          var dark =
-            saved === "dark" ||
-            (saved === null &&
+          var guardado = localStorage.getItem("theme");
+          var oscuro =
+            guardado === "dark" ||
+            (guardado === null &&
               window.matchMedia("(prefers-color-scheme: dark)").matches);
-          document.documentElement.classList.toggle("dark", dark);
+          document.documentElement.classList.toggle("dark", oscuro);
         } catch (e) {
+          // Modo privado: no se puede leer
         }
       })();
     </script>
   </head>
 
   <body>
-    <Preloader />
+    <Precarga />
     <slot />
   </body>
 </html>

@@ -1,0 +1,554 @@
+---
+import { Icon } from "astro-icon/components";
+import DetalleProyecto from "./DetalleProyecto.astro";
+import SelectorRepos from "./SelectorRepos.astro";
+import { proyectos } from "../data/datos";
+
+// Modal con el detalle de cada proyecto
+---
+
+<div
+  id="project-modal"
+  class="fixed inset-0 z-50 hidden overflow-y-auto overscroll-contain"
+  role="dialog"
+  aria-modal="true"
+>
+  {/* Fondo */}
+  <div
+    class="fixed inset-0 bg-gray-950/70 backdrop-blur-sm"
+    data-modal-backdrop
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="relative flex min-h-full items-start justify-center p-3 sm:p-6 lg:items-center">
+    <div
+      id="project-modal-panel"
+      class="relative w-full max-w-6xl rounded-2xl border border-gray-200 bg-white shadow-2xl dark:border-white/10 dark:bg-[#0a0a0a]"
+    >
+      <button
+        id="project-modal-close"
+        type="button"
+        class="absolute right-3 top-3 z-20 grid h-9 w-9 place-items-center rounded-full border border-gray-200 bg-white/90 text-gray-600 backdrop-blur transition hover:bg-gray-100 hover:text-gray-900 focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:bg-[#121212]/90 dark:text-gray-300 dark:hover:bg-[#1c1c1c] dark:hover:text-white"
+        aria-label="Cerrar detalle"
+      >
+        <Icon name="lucide:x" class="h-4 w-4" aria-hidden="true" />
+      </button>
+
+      <div class="p-4 sm:p-6 lg:p-8">
+        {
+          proyectos.map((proyecto, indice) => (
+            <div data-project-panel={indice} hidden>
+              <DetalleProyecto {...proyecto} indice={indice} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+{/* Visor de imagen a pantalla completa */}
+<div
+  id="project-lightbox"
+  class="fixed inset-0 z-[60] hidden flex-col bg-gray-950/95"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Imagen ampliada"
+>
+  {/* --- Barra superior --- */}
+  <div class="flex shrink-0 items-center justify-between gap-3 px-4 py-3">
+    <span
+      id="project-lightbox-counter"
+      class="font-mono text-[11px] tracking-widest text-white/70"
+    >
+    </span>
+
+    <div class="flex items-center gap-2">
+      <button
+        id="project-lightbox-zoom"
+        type="button"
+        class="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-2 text-xs font-medium text-white transition hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white/70"
+        aria-pressed="false"
+      >
+        <Icon
+          name="lucide:zoom-in"
+          class="h-4 w-4"
+          aria-hidden="true"
+          data-zoom-icon="in"
+        />
+        <Icon
+          name="lucide:zoom-out"
+          class="hidden h-4 w-4"
+          aria-hidden="true"
+          data-zoom-icon="out"
+        />
+        <span class="hidden sm:inline" data-zoom-label>Zoom</span>
+      </button>
+
+      <button
+        id="project-lightbox-close"
+        type="button"
+        class="grid h-9 w-9 place-items-center rounded-full bg-white/10 text-white transition hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white/70"
+        aria-label="Cerrar imagen ampliada"
+      >
+        <Icon name="lucide:x" class="h-5 w-5" aria-hidden="true" />
+      </button>
+    </div>
+  </div>
+
+  {/* --- Escenario --- */}
+  <div id="project-lightbox-stage" class="relative min-h-0 flex-1">
+    <div
+      id="project-lightbox-scroll"
+      class="flex h-full w-full overflow-hidden overscroll-contain px-4"
+    >
+      <img
+        id="project-lightbox-image"
+        src=""
+        alt=""
+        class="m-auto block max-h-full max-w-full cursor-zoom-in rounded-lg object-contain"
+      />
+    </div>
+
+    <button
+      id="project-lightbox-prev"
+      type="button"
+      class="absolute left-3 top-1/2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/10 text-white backdrop-blur-sm transition hover:bg-white/25 focus-visible:ring-2 focus-visible:ring-white/70"
+      aria-label="Imagen anterior"
+    >
+      <Icon name="lucide:chevron-left" class="h-6 w-6" aria-hidden="true" />
+    </button>
+    <button
+      id="project-lightbox-next"
+      type="button"
+      class="absolute right-3 top-1/2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/10 text-white backdrop-blur-sm transition hover:bg-white/25 focus-visible:ring-2 focus-visible:ring-white/70"
+      aria-label="Imagen siguiente"
+    >
+      <Icon name="lucide:chevron-right" class="h-6 w-6" aria-hidden="true" />
+    </button>
+  </div>
+
+  {/* --- Pie: descripcion y miniaturas --- */}
+  <div class="shrink-0 px-4 pb-4 pt-3">
+    <p
+      id="project-lightbox-caption"
+      class="mb-3 text-center text-xs leading-relaxed text-white/70"
+    >
+    </p>
+
+    <div
+      id="project-lightbox-thumbs"
+      class="mx-auto flex max-w-3xl snap-x justify-start gap-2 overflow-x-auto pb-1 gallery-thumbs sm:justify-center"
+      role="tablist"
+      aria-label="Capturas del proyecto"
+      style="display: none"
+      hidden
+    >
+    </div>
+  </div>
+</div>
+
+{/* Selector para los proyectos con mas de un repositorio */}
+<SelectorRepos />
+
+<script>
+  type Galeria = {
+    imagenes: HTMLElement[];
+    miniaturas: HTMLButtonElement[];
+    contador: HTMLElement | null;
+    descripcion: HTMLElement | null;
+    indice: number;
+  };
+
+  const modal = document.getElementById("project-modal");
+  const panel = document.getElementById("project-modal-panel");
+  const btnCerrar = document.getElementById("project-modal-close");
+  const fondo = modal?.querySelector<HTMLElement>("[data-modal-backdrop]");
+
+  const visor = document.getElementById("project-lightbox");
+  const visorImg = document.getElementById(
+    "project-lightbox-image"
+  ) as HTMLImageElement | null;
+  const visorDescripcion = document.getElementById("project-lightbox-caption");
+  const visorCerrar = document.getElementById("project-lightbox-close");
+  const visorContador = document.getElementById("project-lightbox-counter");
+  const visorScroll = document.getElementById("project-lightbox-scroll");
+  const visorMiniaturas = document.getElementById("project-lightbox-thumbs");
+  const visorAnterior = document.getElementById("project-lightbox-prev");
+  const visorSiguiente = document.getElementById("project-lightbox-next");
+  const visorZoom = document.getElementById("project-lightbox-zoom");
+
+  const paneles = Array.from(
+    modal?.querySelectorAll<HTMLElement>("[data-project-panel]") ?? []
+  );
+
+  // Galerias ya preparadas, para no registrar sus eventos dos veces
+  const galerias = new Map<HTMLElement, Galeria>();
+
+  let galeriaActiva: Galeria | null = null;
+  let ultimoEnfocado: HTMLElement | null = null;
+  let conZoom = false;
+
+  // 3 -> "03"
+  function rellenar(valor: number): string {
+    return String(valor).padStart(2, "0");
+  }
+
+  /* ---------- Galeria ---------- */
+
+  // Imagen grande de una diapositiva (no el fondo difuminado)
+  function imagenDe(galeria: Galeria, indice: number): HTMLImageElement | null {
+    const diapositiva = galeria.imagenes[indice];
+    return diapositiva?.querySelector<HTMLImageElement>("img:not([aria-hidden])") ?? null;
+  }
+
+  // Pinta la imagen actual, las miniaturas y el contador
+  function pintar(galeria: Galeria): void {
+    galeria.imagenes.forEach((diapositiva, i) => {
+      const activa = i === galeria.indice;
+      diapositiva.classList.toggle("opacity-100", activa);
+      diapositiva.classList.toggle("opacity-0", !activa);
+      diapositiva.classList.toggle("pointer-events-none", !activa);
+
+      if (activa) diapositiva.dataset.active = "true";
+      else delete diapositiva.dataset.active;
+    });
+
+    galeria.miniaturas.forEach((miniatura, i) => {
+      const activa = i === galeria.indice;
+      miniatura.classList.toggle("ring-accent", activa);
+      miniatura.classList.toggle("ring-transparent", !activa);
+      miniatura.classList.toggle("opacity-60", !activa);
+      miniatura.setAttribute("aria-selected", String(activa));
+
+      if (activa) miniatura.scrollIntoView({ block: "nearest", inline: "nearest" });
+    });
+
+    if (galeria.contador) {
+      galeria.contador.textContent = `${rellenar(galeria.indice + 1)} / ${rellenar(galeria.imagenes.length)}`;
+    }
+
+    if (galeria.descripcion) {
+      const img = imagenDe(galeria, galeria.indice);
+      galeria.descripcion.textContent = img?.dataset.caption ?? "";
+    }
+
+    if (visorAbierto()) sincronizarVisor(galeria);
+  }
+
+  // Cambia de imagen; el indice da la vuelta al llegar al final
+  function irAImagen(galeria: Galeria, indice: number): void {
+    const total = galeria.imagenes.length;
+    if (total === 0) return;
+
+    galeria.indice = (indice + total) % total;
+    pintar(galeria);
+  }
+
+  // Deslizar con el dedo, solo si el gesto es horizontal
+  function alDeslizar(
+    destino: HTMLElement | null,
+    alMover: (direccion: number) => void
+  ): void {
+    let inicioX = 0;
+    let inicioY = 0;
+
+    destino?.addEventListener(
+      "touchstart",
+      (evento) => {
+        inicioX = evento.changedTouches[0]?.clientX ?? 0;
+        inicioY = evento.changedTouches[0]?.clientY ?? 0;
+      },
+      { passive: true }
+    );
+
+    destino?.addEventListener(
+      "touchend",
+      (evento) => {
+        const avanceX = (evento.changedTouches[0]?.clientX ?? 0) - inicioX;
+        const avanceY = (evento.changedTouches[0]?.clientY ?? 0) - inicioY;
+
+        if (Math.abs(avanceX) > 45 && Math.abs(avanceX) > Math.abs(avanceY)) {
+          alMover(avanceX < 0 ? 1 : -1);
+        }
+      },
+      { passive: true }
+    );
+  }
+
+  // Prepara una galeria: botones, miniaturas y gesto tactil
+  function prepararGaleria(raiz: HTMLElement): Galeria {
+    const galeria: Galeria = {
+      imagenes: Array.from(raiz.querySelectorAll<HTMLElement>("[data-slide]")),
+      miniaturas: Array.from(
+        raiz.querySelectorAll<HTMLButtonElement>("[data-gallery-thumb]")
+      ),
+      contador: raiz.querySelector<HTMLElement>("[data-gallery-counter]"),
+      descripcion: raiz.querySelector<HTMLElement>("[data-gallery-caption]"),
+      indice: 0,
+    };
+
+    const btnAnterior = raiz.querySelector<HTMLButtonElement>("[data-gallery-prev]");
+    const btnSiguiente = raiz.querySelector<HTMLButtonElement>("[data-gallery-next]");
+    const btnAmpliar = raiz.querySelector<HTMLButtonElement>("[data-gallery-expand]");
+
+    btnAnterior?.addEventListener("click", () => irAImagen(galeria, galeria.indice - 1));
+    btnSiguiente?.addEventListener("click", () => irAImagen(galeria, galeria.indice + 1));
+    btnAmpliar?.addEventListener("click", () => abrirVisor(galeria));
+
+    galeria.miniaturas.forEach((miniatura, i) => {
+      miniatura.addEventListener("click", () => irAImagen(galeria, i));
+    });
+
+    const escenario = raiz.querySelector<HTMLElement>("[data-gallery-stage]");
+    alDeslizar(escenario, (direccion) => irAImagen(galeria, galeria.indice + direccion));
+
+    galerias.set(raiz, galeria);
+    return galeria;
+  }
+
+  /* ---------- Imagen ampliada ---------- */
+
+  function visorAbierto(): boolean {
+    return visor !== null && !visor.classList.contains("hidden");
+  }
+
+  // Activa o desactiva el zoom del visor
+  function ponerZoom(activo: boolean): void {
+    if (!visorImg || !visorScroll) return;
+    conZoom = activo;
+
+    visorScroll.classList.toggle("overflow-auto", activo);
+    visorScroll.classList.toggle("overflow-hidden", !activo);
+    visorImg.classList.toggle("max-h-full", !activo);
+    visorImg.classList.toggle("max-w-full", !activo);
+    visorImg.classList.toggle("w-[180%]", activo);
+    visorImg.classList.toggle("cursor-zoom-in", !activo);
+    visorImg.classList.toggle("cursor-zoom-out", activo);
+
+    visorZoom?.setAttribute("aria-pressed", String(activo));
+    visorZoom?.querySelector("[data-zoom-icon=in]")?.classList.toggle("hidden", activo);
+    visorZoom?.querySelector("[data-zoom-icon=out]")?.classList.toggle("hidden", !activo);
+
+    const etiqueta = visorZoom?.querySelector("[data-zoom-label]");
+    if (etiqueta) etiqueta.textContent = activo ? "Reducir" : "Zoom";
+
+    // El zoom arranca centrado, no pegado a la esquina
+    if (activo) {
+      visorScroll.scrollLeft =
+        (visorScroll.scrollWidth - visorScroll.clientWidth) / 2;
+      visorScroll.scrollTop =
+        (visorScroll.scrollHeight - visorScroll.clientHeight) / 2;
+    }
+  }
+
+  // Miniaturas del visor, copiadas de las de la galeria
+  function armarMiniaturasVisor(galeria: Galeria): void {
+    if (!visorMiniaturas) return;
+
+    visorMiniaturas.innerHTML = "";
+
+    // La clase `flex` gana al atributo hidden, asi que se oculta por estilo
+    const unica = galeria.imagenes.length < 2;
+    visorMiniaturas.hidden = unica;
+    visorMiniaturas.style.display = unica ? "none" : "";
+    if (unica) return;
+
+    galeria.imagenes.forEach((_, i) => {
+      const origen =
+        galeria.miniaturas[i]?.querySelector<HTMLImageElement>("img") ??
+        imagenDe(galeria, i);
+
+      const img = document.createElement("img");
+      img.src = origen?.currentSrc || origen?.src || "";
+      img.alt = "";
+      img.loading = "lazy";
+      img.decoding = "async";
+      img.className = "h-full w-full object-cover";
+
+      const boton = document.createElement("button");
+      boton.type = "button";
+      boton.setAttribute("role", "tab");
+      boton.setAttribute("aria-label", `Ver captura ${i + 1}`);
+      boton.dataset.lightboxThumb = String(i);
+      boton.className =
+        "relative h-12 w-20 shrink-0 snap-start overflow-hidden rounded-lg ring-2 ring-transparent transition hover:opacity-100 focus-visible:ring-white";
+      boton.appendChild(img);
+      boton.addEventListener("click", () => irAImagen(galeria, i));
+
+      visorMiniaturas.appendChild(boton);
+    });
+  }
+
+  // Pasa al visor la imagen actual de la galeria
+  function sincronizarVisor(galeria: Galeria): void {
+    const img = imagenDe(galeria, galeria.indice);
+    if (!img || !visorImg) return;
+
+    visorImg.src = img.currentSrc || img.src;
+    visorImg.alt = img.alt;
+    if (visorDescripcion) visorDescripcion.textContent = img.dataset.caption ?? "";
+
+    const total = galeria.imagenes.length;
+    const unica = total < 2;
+
+    if (visorContador) {
+      visorContador.textContent = unica
+        ? ""
+        : `${rellenar(galeria.indice + 1)} / ${rellenar(total)}`;
+    }
+
+    visorAnterior?.classList.toggle("hidden", unica);
+    visorSiguiente?.classList.toggle("hidden", unica);
+
+    const miniaturas = visorMiniaturas?.querySelectorAll<HTMLButtonElement>(
+      "[data-lightbox-thumb]"
+    );
+
+    miniaturas?.forEach((miniatura, i) => {
+      const activa = i === galeria.indice;
+      miniatura.classList.toggle("ring-white", activa);
+      miniatura.classList.toggle("ring-transparent", !activa);
+      miniatura.classList.toggle("opacity-50", !activa);
+      miniatura.setAttribute("aria-selected", String(activa));
+
+      if (activa) miniatura.scrollIntoView({ block: "nearest", inline: "nearest" });
+    });
+
+    // Cada imagen nueva empieza sin zoom
+    ponerZoom(false);
+  }
+
+  function abrirVisor(galeria: Galeria): void {
+    if (!visor) return;
+
+    armarMiniaturasVisor(galeria);
+    sincronizarVisor(galeria);
+    visor.classList.remove("hidden");
+    visor.classList.add("flex");
+    visorCerrar?.focus();
+  }
+
+  function cerrarVisor(): void {
+    if (!visor) return;
+
+    ponerZoom(false);
+    visor.classList.add("hidden");
+    visor.classList.remove("flex");
+  }
+
+  /* ---------- Modal del detalle ---------- */
+
+  function modalAbierto(): boolean {
+    return modal !== null && !modal.classList.contains("hidden");
+  }
+
+  function abrirModal(indice: number): void {
+    const destino = paneles[indice];
+    if (!modal || !destino) return;
+
+    ultimoEnfocado = document.activeElement as HTMLElement | null;
+
+    paneles.forEach((item) => {
+      item.hidden = item !== destino;
+    });
+
+    const raizGaleria = destino.querySelector<HTMLElement>("[data-gallery]");
+
+    if (raizGaleria) {
+      galeriaActiva = galerias.get(raizGaleria) ?? prepararGaleria(raizGaleria);
+      irAImagen(galeriaActiva, 0);
+    } else {
+      galeriaActiva = null;
+    }
+
+    const titulo = destino.querySelector("h3");
+    if (titulo?.id) modal.setAttribute("aria-labelledby", titulo.id);
+
+    modal.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+    modal.scrollTop = 0;
+    btnCerrar?.focus();
+  }
+
+  function cerrarModal(): void {
+    if (!modal) return;
+
+    cerrarVisor();
+    modal.classList.add("hidden");
+    document.body.style.overflow = "";
+    galeriaActiva = null;
+    ultimoEnfocado?.focus();
+  }
+
+  /* ---------- Eventos ---------- */
+
+  // Botones "Ver mas" de las tarjetas
+  document
+    .querySelectorAll<HTMLButtonElement>("button.project-view-more")
+    .forEach((boton) => {
+      boton.addEventListener("click", () => {
+        abrirModal(Number(boton.dataset.projectIndex));
+      });
+    });
+
+  btnCerrar?.addEventListener("click", cerrarModal);
+  fondo?.addEventListener("click", cerrarModal);
+  visorCerrar?.addEventListener("click", cerrarVisor);
+
+  visorImg?.addEventListener("click", () => ponerZoom(!conZoom));
+  visorZoom?.addEventListener("click", () => ponerZoom(!conZoom));
+
+  visorAnterior?.addEventListener("click", () => {
+    if (galeriaActiva) irAImagen(galeriaActiva, galeriaActiva.indice - 1);
+  });
+
+  visorSiguiente?.addEventListener("click", () => {
+    if (galeriaActiva) irAImagen(galeriaActiva, galeriaActiva.indice + 1);
+  });
+
+  // Clic en el hueco alrededor de la imagen: cierra el visor
+  visor?.addEventListener("click", (evento) => {
+    if (evento.target === visor || evento.target === visorScroll) cerrarVisor();
+  });
+
+  // Clic fuera del panel del detalle: cierra el modal
+  modal?.addEventListener("click", (evento) => {
+    const destino = evento.target as Node;
+    if (panel && !panel.contains(destino) && destino !== fondo) cerrarModal();
+  });
+
+  // Deslizar dentro del visor, solo si no hay zoom
+  alDeslizar(visorScroll, (direccion) => {
+    if (conZoom || !galeriaActiva || galeriaActiva.imagenes.length < 2) return;
+    irAImagen(galeriaActiva, galeriaActiva.indice + direccion);
+  });
+
+  // El selector de repos esta encima y atiende su propio teclado
+  function selectorReposAbierto(): boolean {
+    const selector = document.getElementById("repo-picker");
+    return selector !== null && !selector.classList.contains("hidden");
+  }
+
+  // Escape cierra, flechas cambian de imagen
+  document.addEventListener("keydown", (evento) => {
+    if (selectorReposAbierto() || !modalAbierto()) return;
+
+    if (evento.key === "Escape") {
+      if (visorAbierto()) cerrarVisor();
+      else cerrarModal();
+      return;
+    }
+
+    if (!galeriaActiva || galeriaActiva.imagenes.length < 2) return;
+
+    if (evento.key === "ArrowLeft") {
+      evento.preventDefault();
+      irAImagen(galeriaActiva, galeriaActiva.indice - 1);
+    } else if (evento.key === "ArrowRight") {
+      evento.preventDefault();
+      irAImagen(galeriaActiva, galeriaActiva.indice + 1);
+    }
+  });
+</script>

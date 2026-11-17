@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  /* Color de acento del portafolio. Cambia estos dos valores (RGB) y cambia
-     todo el sitio: se expone en Tailwind como `accent` (text-accent, etc). */
+  /* Color de acento. Cambiar estos dos valores cambia todo el sitio */
   :root {
     --accent: 47 66 94; /* navy 700: azul marino apagado sobre blanco */
   }
@@ -25,7 +24,7 @@
     font: inherit;
   }
 
-  /* Los iconos de astro-icon heredan el color del texto. */
+  /* Los iconos heredan el color del texto */
   [data-icon] {
     display: inline-block;
     vertical-align: middle;
@@ -36,7 +35,7 @@
    ABOUT ME
    ========================================================================== */
 
-/* Trama de puntos del fondo, difuminada hacia los bordes. */
+/* Trama de puntos del fondo */
 .bg-dot-grid {
   background-image: radial-gradient(
     circle at 1px 1px,
@@ -56,8 +55,7 @@
   );
 }
 
-/* Subrayado tipo resaltador: bordes irregulares y algo torcido,
-   para que se vea trazado a mano y no generado. */
+/* Subrayado tipo resaltador */
 .marker {
   position: relative;
   white-space: nowrap;
@@ -153,7 +151,7 @@
   border-radius: 9999px;
 }
 
-/* Quien prefiere menos movimiento, no lo sufre. */
+/* Menos movimiento si el sistema lo pide */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -165,8 +163,7 @@
   }
 }
 
-/* Resplandor de la foto (solo oscuro): la lamina tiene que parecer iluminada
-   en medio de la noche, no un recorte pegado sobre el negro. */
+/* Resplandor de la foto en modo oscuro */
 .hero-photo-glow {
   border-radius: 1.75rem;
   background: radial-gradient(
@@ -181,9 +178,6 @@
 
 /* ==========================================================================
    ETIQUETA DE SECCION
-   Mini "comentario de codigo" (// 02 — experience.ts) que antecede al
-   titulo de cada seccion. Reutiliza la misma fuente mono y el mismo tono
-   de acento que ya se usan en el contador del preloader.
    ========================================================================== */
 
 .section-tag {
@@ -195,9 +189,6 @@
 
 /* ==========================================================================
    PAGINACION DE PROYECTOS
-   Numeros en la misma mono del resto del sitio. La pagina activa se marca
-   con un filete de acento debajo, no con una pastilla de color: la rejilla
-   ya tiene suficientes bordes como para sumarle otro bloque relleno.
    ========================================================================== */
 
 .page-link {
@@ -222,7 +213,7 @@
   color: rgb(var(--accent));
 }
 
-/* El filete vive bajo el numero, alineado a su caja de texto. */
+/* Filete bajo el numero */
 .page-link[aria-current="page"]::after {
   content: "";
   position: absolute;
@@ -269,10 +260,6 @@
 
 /* ==========================================================================
    PRELOADER
-   Pantalla de carga: se muestra al entrar y se desvanece cuando la pagina
-   esta lista. Mientras tanto, las animaciones de entrada del contenido
-   (reveal, reveal-card, reveal-photo) quedan en pausa para que se vean
-   recien al terminar el preloader, no antes ni a medias.
    ========================================================================== */
 
 body:not(.is-loaded) {
@@ -411,9 +398,7 @@ body:not(.is-loaded) .reveal-photo {
   }
 }
 
-/* Monograma: las iniciales en la misma grotesca del nombre del hero, para que
-   lo primero que se ve y lo primero que se lee compartan voz. La inicial del
-   apellido va en acento, igual que la "M." del logotipo del navbar. */
+/* Monograma del preloader */
 .preloader-mark {
   display: flex;
   align-items: baseline;
@@ -494,8 +479,6 @@ body:not(.is-loaded) .reveal-photo {
 
 /* ==========================================================================
    NAVBAR
-   Pastilla flotante con blur. Al bajar se compacta, se opaca y aparece la
-   barra de progreso de lectura.
    ========================================================================== */
 
 .site-nav {
@@ -535,7 +518,7 @@ body:not(.is-loaded) .reveal-photo {
     0 14px 36px -16px rgb(0 0 0 / 0.85);
 }
 
-/* Con el menu móvil abierto el nav no se encoge. */
+/* Con el menu movil abierto el nav no se encoge */
 .site-nav.menu-open {
   max-width: 58rem;
 }
@@ -563,7 +546,7 @@ body:not(.is-loaded) .reveal-photo {
   inset: 0;
   border-radius: 0.75rem;
   pointer-events: none;
-  /* Detras del texto, delante de la pastilla deslizante. */
+  /* Detras del texto, delante de la pastilla */
   z-index: -1;
   opacity: 0;
   background: linear-gradient(
@@ -664,7 +647,7 @@ body:not(.is-loaded) .reveal-photo {
   color: rgb(var(--accent));
 }
 
-/* ---- Interruptor de tema: sol en claro, luna en oscuro ---- */
+/* ---- Interruptor de tema ---- */
 .theme-icon-moon {
   opacity: 0;
   transform: rotate(-90deg) scale(0.5);

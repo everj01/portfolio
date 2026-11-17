@@ -1,6 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
-import { experienceItems } from "../data/data";
+import { experiencias } from "../data/datos";
 ---
 
 <div class="flex flex-col items-center justify-center px-4 sm:px-6">
@@ -18,16 +18,16 @@ import { experienceItems } from "../data/data";
   </div>
 
   <div class="relative w-full max-w-3xl space-y-5 pl-7 sm:pl-9">
-    {/* Riel vertical: conecta las tarjetas como un log de commits */}
+    {/* Riel vertical */}
     <span
       class="pointer-events-none absolute left-0 top-10 h-[calc(100%-4rem)] w-px -translate-x-1/2 bg-accent/20"
       aria-hidden="true"
     />
 
     {
-      experienceItems.map((item) => (
+      experiencias.map((experiencia) => (
         <article class="group relative rounded-2xl border border-gray-900/10 bg-white/80 p-6 shadow-[0_18px_44px_-32px_rgba(11,18,32,0.55)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 sm:p-8 dark:border-white/[0.09] dark:bg-[#0a0a0a]/70 dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05),0_16px_48px_-30px_rgba(161,181,207,0.26)] dark:hover:border-accent/40">
-          {/* Nodo del commit, alineado con la línea del riel */}
+          {/* Nodo del riel */}
           <span
             class="pointer-events-none absolute -left-7 top-10 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-accent ring-4 ring-white dark:ring-gray-900 sm:-left-9"
             aria-hidden="true"
@@ -40,22 +40,22 @@ import { experienceItems } from "../data/data";
               </span>
               <div>
                 <h3 class="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">
-                  {item.role}
+                  {experiencia.rol}
                 </h3>
-                <p class="text-sm font-medium text-accent">{item.company}</p>
+                <p class="text-sm font-medium text-accent">{experiencia.empresa}</p>
               </div>
             </div>
 
             <span class="shrink-0 rounded-full bg-gray-900/5 px-3 py-1 text-xs font-medium text-gray-600 ring-1 ring-gray-900/10 dark:bg-white/5 dark:text-gray-300 dark:ring-white/10">
-              {item.period}
+              {experiencia.periodo}
             </span>
           </div>
 
           <ul class="mt-5 space-y-2.5 border-t border-gray-900/10 pt-5 dark:border-white/10">
-            {item.bullets?.map((bullet) => (
+            {experiencia.puntos?.map((punto) => (
               <li class="flex items-start gap-2.5 text-[15px] leading-relaxed text-gray-600 dark:text-gray-300">
                 <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/60" aria-hidden="true" />
-                {bullet}
+                {punto}
               </li>
             ))}
           </ul>

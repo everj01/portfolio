@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
-import SwitchTheme from "./SwitchTheme.astro";
-import { itemsNav as itemsNavbar } from "../data/data";
+import BotonTema from "./BotonTema.astro";
+import { enlacesNav } from "../data/datos";
 ---
 
 <header class="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:pt-4">
@@ -32,7 +32,7 @@ import { itemsNav as itemsNavbar } from "../data/data";
       class="relative hidden items-center gap-0.5 lg:flex lg:justify-self-center"
       role="list"
     >
-      {/* Pastilla que se desliza bajo el enlace activo */}
+      {/* Pastilla del enlace activo */}
       <li
         id="navbar-indicator"
         class="pointer-events-none absolute inset-y-0 left-0 -z-10 rounded-xl bg-accent/10 opacity-0 ring-1 ring-accent/20"
@@ -41,19 +41,19 @@ import { itemsNav as itemsNavbar } from "../data/data";
       </li>
 
       {
-        itemsNavbar.map((item) => (
+        enlacesNav.map((enlace) => (
           <li>
             <button
               type="button"
-              data-section={item.section}
+              data-section={enlace.seccion}
               class="nav-link group relative flex items-center gap-1.5 whitespace-nowrap rounded-xl px-2.5 py-2 text-[12.5px] font-medium text-gray-600 transition-colors duration-300 hover:text-gray-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 dark:text-gray-400 dark:hover:text-white xl:gap-2 xl:px-3 xl:text-[13px]"
             >
               <Icon
-                name={item.icon}
+                name={enlace.icono}
                 class="h-[17px] w-[17px] shrink-0 transition-transform duration-300 group-hover:scale-110"
                 aria-hidden="true"
               />
-              <span>{item.name}</span>
+              <span>{enlace.nombre}</span>
             </button>
           </li>
         ))
@@ -68,9 +68,9 @@ import { itemsNav as itemsNavbar } from "../data/data";
       >
       </span>
 
-      <SwitchTheme />
+      <BotonTema />
 
-      {/* Hamburguesa: pantallas que no caben los enlaces completos */}
+      {/* Hamburguesa */}
       <button
         id="navbar-toggle"
         type="button"
@@ -92,7 +92,7 @@ import { itemsNav as itemsNavbar } from "../data/data";
       </button>
     </div>
 
-    {/* ---------- Barra de progreso de lectura ---------- */}
+    {/* ---------- Barra de progreso ---------- */}
     <span
       id="navbar-progress"
       class="pointer-events-none absolute inset-x-3 bottom-0 h-px origin-left scale-x-0 rounded-full bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-500"
@@ -108,15 +108,15 @@ import { itemsNav as itemsNavbar } from "../data/data";
   >
     <ul class="flex flex-col gap-1 p-2" role="list">
       {
-        itemsNavbar.map((item, index) => (
-          <li class="nav-mobile-item" style={`--i:${index}`}>
+        enlacesNav.map((enlace, indice) => (
+          <li class="nav-mobile-item" style={`--i:${indice}`}>
             <button
               type="button"
-              data-section={item.section}
+              data-section={enlace.seccion}
               class="nav-link-mobile group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors duration-200 hover:bg-accent/10 hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 dark:text-gray-300 dark:hover:text-white"
             >
-              <Icon name={item.icon} class="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
-              <span>{item.name}</span>
+              <Icon name={enlace.icono} class="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
+              <span>{enlace.nombre}</span>
               <Icon
                 name="lucide:arrow-up-right"
                 class="ms-auto h-4 w-4 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
@@ -131,156 +131,161 @@ import { itemsNav as itemsNavbar } from "../data/data";
 </header>
 
 <script>
-  import { scrollToSection } from "../utils/scrollToSection";
+  import { irASeccion } from "../utils/scroll";
 
   const nav = document.getElementById("navbar");
-  const toggle = document.getElementById("navbar-toggle");
+  const boton = document.getElementById("navbar-toggle");
   const menu = document.getElementById("navbar-menu");
-  const brand = document.getElementById("navbar-brand");
-  const progress = document.getElementById("navbar-progress");
-  const indicator = document.getElementById("navbar-indicator");
+  const marca = document.getElementById("navbar-brand");
+  const progreso = document.getElementById("navbar-progress");
+  const pastilla = document.getElementById("navbar-indicator");
 
-  const links = Array.from(
+  const enlaces = Array.from(
     document.querySelectorAll<HTMLButtonElement>(".nav-link")
   );
-  const mobileLinks = Array.from(
+  const enlacesMovil = Array.from(
     document.querySelectorAll<HTMLButtonElement>(".nav-link-mobile")
   );
 
-  // Altura del navbar flotante: lo que hay que descontar al hacer scroll.
-  const navOffset = () => (nav?.offsetHeight ?? 56) + 24;
+  // Altura del navbar, se descuenta al hacer scroll
+  function margenNav(): number {
+    return (nav?.offsetHeight ?? 56) + 24;
+  }
 
   /* ---------- Menu móvil ---------- */
 
-  const setMenu = (open: boolean) => {
-    menu?.classList.toggle("is-open", open);
-    nav?.classList.toggle("menu-open", open);
-    toggle?.classList.toggle("is-open", open);
-    toggle?.setAttribute("aria-expanded", String(open));
-    toggle?.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
-  };
+  function ponerMenu(abierto: boolean): void {
+    menu?.classList.toggle("is-open", abierto);
+    nav?.classList.toggle("menu-open", abierto);
+    boton?.classList.toggle("is-open", abierto);
+    boton?.setAttribute("aria-expanded", String(abierto));
+    boton?.setAttribute("aria-label", abierto ? "Cerrar menú" : "Abrir menú");
+  }
 
-  toggle?.addEventListener("click", () => {
-    setMenu(!menu?.classList.contains("is-open"));
+  boton?.addEventListener("click", () => {
+    ponerMenu(!menu?.classList.contains("is-open"));
   });
 
   // Cerrar al tocar fuera o al pasar a escritorio
-  document.addEventListener("click", (event) => {
+  document.addEventListener("click", (evento) => {
     if (!menu?.classList.contains("is-open")) return;
-    const target = event.target as Node;
-    if (!menu.contains(target) && !nav?.contains(target)) setMenu(false);
+
+    const destino = evento.target as Node;
+    if (!menu.contains(destino) && !nav?.contains(destino)) ponerMenu(false);
   });
 
-  window.matchMedia("(min-width: 1024px)").addEventListener("change", (event) => {
-    if (event.matches) setMenu(false);
+  window.matchMedia("(min-width: 1024px)").addEventListener("change", (evento) => {
+    if (evento.matches) ponerMenu(false);
   });
 
   /* ---------- Pastilla deslizante ---------- */
 
-  let activeLink: HTMLButtonElement | null = null;
+  let enlaceActivo: HTMLButtonElement | null = null;
 
-  const moveIndicator = () => {
-    if (!indicator) return;
+  function moverPastilla(): void {
+    if (!pastilla) return;
 
-    if (!activeLink) {
-      indicator.style.opacity = "0";
+    if (!enlaceActivo) {
+      pastilla.style.opacity = "0";
       return;
     }
 
-    indicator.style.width = `${activeLink.offsetWidth}px`;
-    indicator.style.transform = `translateX(${activeLink.offsetLeft}px)`;
-    indicator.style.opacity = "1";
-  };
+    pastilla.style.width = `${enlaceActivo.offsetWidth}px`;
+    pastilla.style.transform = `translateX(${enlaceActivo.offsetLeft}px)`;
+    pastilla.style.opacity = "1";
+  }
 
-  const setActive = (section: string) => {
-    const next = links.find((link) => link.dataset.section === section) ?? null;
-    if (next === activeLink) return;
+  function marcarActivo(seccion: string): void {
+    const siguiente = enlaces.find((enlace) => enlace.dataset.section === seccion) ?? null;
+    if (siguiente === enlaceActivo) return;
 
-    activeLink = next;
+    enlaceActivo = siguiente;
 
-    links.forEach((link) => {
-      const isActive = link === next;
-      link.classList.toggle("is-active", isActive);
-      if (isActive) link.setAttribute("aria-current", "true");
-      else link.removeAttribute("aria-current");
+    enlaces.forEach((enlace) => {
+      const activo = enlace === siguiente;
+      enlace.classList.toggle("is-active", activo);
+
+      if (activo) enlace.setAttribute("aria-current", "true");
+      else enlace.removeAttribute("aria-current");
     });
 
-    mobileLinks.forEach((link) => {
-      link.classList.toggle("is-active", link.dataset.section === section);
+    enlacesMovil.forEach((enlace) => {
+      enlace.classList.toggle("is-active", enlace.dataset.section === seccion);
     });
 
-    moveIndicator();
-  };
+    moverPastilla();
+  }
 
-  /* ---------- Scroll: estado del nav, progreso y seccion activa ---------- */
+  /* ---------- Scroll ---------- */
 
-  const sections = Array.from(
+  const secciones = Array.from(
     document.querySelectorAll<HTMLElement>("main > section[id]")
   );
 
-  let ticking = false;
+  let enCola = false;
 
-  const onScroll = () => {
+  function alHacerScroll(): void {
     const y = window.scrollY;
 
-    // Estado compacto
+    // Nav compacto
     nav?.classList.toggle("is-scrolled", y > 24);
 
-    // Progreso de lectura
-    if (progress) {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      const ratio = max > 0 ? Math.min(y / max, 1) : 0;
-      progress.style.transform = `scaleX(${ratio})`;
-      progress.style.opacity = y > 24 ? "1" : "0";
+    // Progreso
+    if (progreso) {
+      const maximo = document.documentElement.scrollHeight - window.innerHeight;
+      const avance = maximo > 0 ? Math.min(y / maximo, 1) : 0;
+      progreso.style.transform = `scaleX(${avance})`;
+      progreso.style.opacity = y > 24 ? "1" : "0";
     }
 
-    // Seccion visible: la ultima cuyo inicio ya paso la línea de referencia.
-    const line = y + navOffset() + window.innerHeight * 0.2;
-    let current = sections[0]?.id ?? "";
+    // Seccion activa: la ultima que ya paso la linea de referencia
+    const linea = y + margenNav() + window.innerHeight * 0.2;
+    let actual = secciones[0]?.id ?? "";
 
-    for (const section of sections) {
-      if (section.offsetTop <= line) current = section.id;
+    for (const seccion of secciones) {
+      if (seccion.offsetTop <= linea) actual = seccion.id;
     }
 
-    // Al final de la pagina gana siempre la ultima seccion.
+    // Al final de la pagina gana la ultima seccion
     if (window.innerHeight + y >= document.documentElement.scrollHeight - 2) {
-      current = sections[sections.length - 1]?.id ?? current;
+      actual = secciones[secciones.length - 1]?.id ?? actual;
     }
 
-    setActive(current);
-    ticking = false;
-  };
+    marcarActivo(actual);
+    enCola = false;
+  }
 
-  const requestScroll = () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(onScroll);
-  };
+  function pedirScroll(): void {
+    if (enCola) return;
 
-  window.addEventListener("scroll", requestScroll, { passive: true });
+    enCola = true;
+    requestAnimationFrame(alHacerScroll);
+  }
+
+  window.addEventListener("scroll", pedirScroll, { passive: true });
   window.addEventListener("resize", () => {
-    moveIndicator();
-    requestScroll();
+    moverPastilla();
+    pedirScroll();
   });
 
   /* ---------- Navegacion ---------- */
 
-  [...links, ...mobileLinks].forEach((button) => {
-    button.addEventListener("click", () => {
-      scrollToSection(button.dataset.section ?? "", navOffset());
-      setMenu(false);
+  [...enlaces, ...enlacesMovil].forEach((enlace) => {
+    enlace.addEventListener("click", () => {
+      irASeccion(enlace.dataset.section ?? "", margenNav());
+      ponerMenu(false);
     });
   });
 
-  brand?.addEventListener("click", () => {
+  marca?.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-    setMenu(false);
+    ponerMenu(false);
   });
 
-  // Estado inicial (tras el primer layout, para medir bien la pastilla).
-  requestAnimationFrame(onScroll);
-  window.addEventListener("load", moveIndicator);
+  // Estado inicial
+  requestAnimationFrame(alHacerScroll);
+  window.addEventListener("load", moverPastilla);
 
-  // Las fuentes cambian el ancho de los enlaces: recolocar al terminar.
-  document.fonts?.ready.then(moveIndicator);
+  // Las fuentes cambian el ancho de los enlaces
+  document.fonts?.ready.then(moverPastilla);
 </script>

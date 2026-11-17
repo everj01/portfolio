@@ -1,0 +1,71 @@
+---
+import { Icon } from "astro-icon/components";
+
+// Boton de tema claro/oscuro
+---
+
+<button
+  id="switch-theme"
+  type="button"
+  role="switch"
+  aria-checked="false"
+  class="relative grid h-9 w-9 place-items-center rounded-xl border border-gray-900/10 text-gray-700 transition-colors duration-300 hover:bg-gray-900/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 dark:border-white/10 dark:text-gray-200 dark:hover:bg-white/5"
+>
+  <span class="sr-only">Cambiar tema claro/oscuro</span>
+
+  <Icon
+    name="lucide:sun"
+    class="theme-icon-sun absolute h-[18px] w-[18px] transition-all duration-300"
+    aria-hidden="true"
+  />
+  <Icon
+    name="lucide:moon"
+    class="theme-icon-moon absolute h-[18px] w-[18px] transition-all duration-300"
+    aria-hidden="true"
+  />
+</button>
+
+<script>
+  const raiz = document.documentElement;
+  const boton = document.getElementById("switch-theme");
+
+  // Avisa a los lectores de pantalla del estado del boton
+  function sincronizar(): void {
+    const esOscuro = raiz.classList.contains("dark");
+    boton?.setAttribute("aria-checked", String(esOscuro));
+  }
+
+  // Cambia el tema y lo guarda
+  function aplicar(esOscuro: boolean): void {
+    raiz.classList.toggle("dark", esOscuro);
+
+    try {
+      localStorage.setItem("theme", esOscuro ? "dark" : "light");
+    } catch (e) {
+      // Modo privado: no se puede guardar
+    }
+
+    sincronizar();
+  }
+
+  sincronizar();
+
+  boton?.addEventListener("click", () => {
+    aplicar(!raiz.classList.contains("dark"));
+  });
+
+  // Sigue al tema del sistema mientras el usuario no haya elegido uno
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", (evento) => {
+      let guardado: string | null = null;
+
+      try {
+        guardado = localStorage.getItem("theme");
+      } catch (e) {
+        // Modo privado: no se puede leer
+      }
+
+      if (guardado === null) aplicar(evento.matches);
+    });
+</script>

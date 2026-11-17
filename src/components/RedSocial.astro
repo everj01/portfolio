@@ -1,21 +1,21 @@
 ---
 import { Icon } from "astro-icon/components";
-import type { SocialItem } from "../types";
+import type { RedSocial } from "../types";
 
-type Props = SocialItem;
+type Props = RedSocial;
 
-const { url, icon, name, style } = Astro.props;
+const { url, icono, nombre, estilo } = Astro.props;
 ---
 
 <a
   href={url}
   target="_blank"
   rel="noopener noreferrer"
-  aria-label={name}
+  aria-label={nombre}
   class:list={[
     "group flex h-9 w-9 items-center justify-center rounded-xl text-gray-600 transition-all duration-300 hover:-translate-y-0.5 hover:scale-110 dark:text-gray-300",
-    style,
+    estilo,
   ]}
 >
-  <Icon name={icon} class="h-5 w-5 transition-transform duration-300" aria-hidden="true" />
+  <Icon name={icono} class="h-5 w-5 transition-transform duration-300" aria-hidden="true" />
 </a>

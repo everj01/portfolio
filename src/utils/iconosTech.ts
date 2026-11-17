@@ -1,13 +1,11 @@
-// Mapa de tecnologia -> icono Iconify + color de marca.
-// La clave se normaliza (minusculas, sin espacios ni simbolos), asi que
-// "Tailwind CSS", "tailwindcss" y "TailwindCSS" caen en la misma entrada.
+// Tecnologia -> icono Iconify + color de marca
 
-export interface TechIcon {
+export interface IconoTech {
   icon: string;
   color: string;
 }
 
-const MAP: Record<string, TechIcon> = {
+const MAPA: Record<string, IconoTech> = {
   // Frontend
   javascript: { icon: "simple-icons:javascript", color: "#F7DF1E" },
   typescript: { icon: "simple-icons:typescript", color: "#3178C6" },
@@ -69,9 +67,12 @@ const MAP: Record<string, TechIcon> = {
   mercadopago: { icon: "simple-icons:mercadopago", color: "#00B1EA" },
 };
 
-const normalize = (name: string) =>
-  name.toLowerCase().replace(/[^a-z0-9]/g, "");
+// "Tailwind CSS" y "tailwindcss" caen en la misma clave
+function normalizar(nombre: string): string {
+  return nombre.toLowerCase().replace(/[^a-z0-9]/g, "");
+}
 
-/** Devuelve el icono de la tecnologia, o null si no esta mapeada. */
-export const getTechIcon = (name: string): TechIcon | null =>
-  MAP[normalize(name)] ?? null;
+// Icono de la tecnologia, o null si no esta en el mapa
+export function obtenerIconoTech(nombre: string): IconoTech | null {
+  return MAPA[normalizar(nombre)] ?? null;
+}

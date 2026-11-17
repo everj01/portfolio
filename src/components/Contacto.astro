@@ -1,11 +1,11 @@
 ---
 import { Icon } from "astro-icon/components";
-import { itemsSocial } from "../data/data";
+import { redesSociales } from "../data/datos";
 
-// Datos de contacto: cambia estos tres valores y listo.
-const email = "ev.montero01@gmail.com";
-const phoneLabel = "+51 969024713";
-const phoneHref = "+51969024713";
+// Datos de contacto
+const correo = "ev.montero01@gmail.com";
+const telefonoVisible = "+51 969024713";
+const telefonoEnlace = "+51969024713";
 ---
 
 <div class="flex flex-col items-center justify-center px-4 py-12 sm:px-6">
@@ -49,17 +49,17 @@ const phoneHref = "+51969024713";
             Correo
           </p>
           <a
-            href={`mailto:${email}`}
+            href={`mailto:${correo}`}
             class="block truncate text-sm font-semibold text-gray-900 underline-offset-4 hover:text-accent hover:underline dark:text-gray-100"
           >
-            {email}
+            {correo}
           </a>
         </div>
 
         <button
           type="button"
-          class="copy-email relative shrink-0 rounded-lg p-2 text-gray-500 transition-colors hover:bg-accent/10 hover:text-accent dark:text-gray-400"
-          data-email={email}
+          class="copy-correo relative shrink-0 rounded-lg p-2 text-gray-500 transition-colors hover:bg-accent/10 hover:text-accent dark:text-gray-400"
+          data-correo={correo}
           aria-label="Copiar correo"
           title="Copiar correo"
         >
@@ -74,7 +74,7 @@ const phoneHref = "+51969024713";
 
       {/* Telefono */}
       <a
-        href={`tel:${phoneHref}`}
+        href={`tel:${telefonoEnlace}`}
         class="group flex items-center gap-4 rounded-2xl border border-gray-900/10 bg-gray-50/80 p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/30 hover:bg-white dark:border-white/[0.08] dark:bg-white/[0.03] dark:hover:border-accent/40 dark:hover:bg-white/[0.06]"
       >
         <span
@@ -89,7 +89,7 @@ const phoneHref = "+51969024713";
             Teléfono
           </p>
           <p class="truncate text-sm font-semibold text-gray-900 dark:text-gray-100">
-            {phoneLabel}
+            {telefonoVisible}
           </p>
         </div>
       </a>
@@ -101,26 +101,26 @@ const phoneHref = "+51969024713";
     >
       <div class="flex items-center gap-2">
         {
-          itemsSocial.map((item) => (
+          redesSociales.map((red) => (
             <a
-              href={item.url}
+              href={red.url}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={item.name}
-              title={item.name}
+              aria-label={red.nombre}
+              title={red.nombre}
               class:list={[
                 "flex h-10 w-10 items-center justify-center rounded-xl border border-gray-900/10 text-gray-600 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/30 dark:border-white/[0.08] dark:text-gray-300",
-                item.style,
+                red.estilo,
               ]}
             >
-              <Icon name={item.icon} class="h-[18px] w-[18px]" aria-hidden="true" />
+              <Icon name={red.icono} class="h-[18px] w-[18px]" aria-hidden="true" />
             </a>
           ))
         }
       </div>
 
       <a
-        href={`mailto:${email}`}
+        href={`mailto:${correo}`}
         class="inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:opacity-90 dark:text-navy-950"
       >
         <Icon name="lucide:send" class="h-4 w-4" aria-hidden="true" />
@@ -131,24 +131,24 @@ const phoneHref = "+51969024713";
 </div>
 
 <script>
-  // Copiar el correo al portapapeles; el icono cambia a un check un momento.
-  document.querySelectorAll<HTMLButtonElement>(".copy-email").forEach((btn) => {
-    btn.addEventListener("click", async () => {
-      const email = btn.dataset.email ?? "";
+  // Copiar el correo al portapapeles
+  document.querySelectorAll<HTMLButtonElement>(".copy-correo").forEach((boton) => {
+    boton.addEventListener("click", async () => {
+      const correo = boton.dataset.correo ?? "";
       try {
-        await navigator.clipboard.writeText(email);
+        await navigator.clipboard.writeText(correo);
       } catch {
         return;
       }
 
-      const idle = btn.querySelector<SVGElement>(".copy-idle");
-      const done = btn.querySelector<SVGElement>(".copy-done");
-      idle?.classList.add("invisible");
-      done?.classList.remove("hidden");
+      const iconoCopiar = boton.querySelector<SVGElement>(".copy-idle");
+      const iconoListo = boton.querySelector<SVGElement>(".copy-done");
+      iconoCopiar?.classList.add("invisible");
+      iconoListo?.classList.remove("hidden");
 
       window.setTimeout(() => {
-        idle?.classList.remove("invisible");
-        done?.classList.add("hidden");
+        iconoCopiar?.classList.remove("invisible");
+        iconoListo?.classList.add("hidden");
       }, 1500);
     });
   });

@@ -1,26 +1,26 @@
 ---
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
-import type { NormalizedImage } from "../types";
+import type { ImagenLista } from "../types";
 
 interface Props {
-  images: NormalizedImage[];
-  title?: string;
+  imagenes: ImagenLista[];
+  titulo?: string;
 }
 
-const { images, title = "" } = Astro.props;
-const multiple = images.length > 1;
-const total = String(images.length).padStart(2, "0");
+const { imagenes, titulo = "" } = Astro.props;
+const varias = imagenes.length > 1;
+const total = String(imagenes.length).padStart(2, "0");
 ---
 
-<div class="flex flex-col gap-3" data-gallery data-gallery-count={images.length}>
+<div class="flex flex-col gap-3" data-gallery data-gallery-count={imagenes.length}>
   {/* --- Escenario --- */}
   <div
     class="group/stage relative aspect-[16/10] w-full select-none overflow-hidden rounded-xl bg-gray-900 ring-1 ring-black/5 dark:ring-white/10"
     data-gallery-stage
   >
     {
-      images.length === 0 && (
+      imagenes.length === 0 && (
         <div class="flex h-full w-full flex-col items-center justify-center gap-2 text-gray-500">
           <Icon name="lucide:image-off" class="h-8 w-8" aria-hidden="true" />
           <span class="text-xs">Sin capturas disponibles</span>
@@ -29,19 +29,19 @@ const total = String(images.length).padStart(2, "0");
     }
 
     {
-      images.map((image, index) => (
+      imagenes.map((imagen, indice) => (
         <figure
           class:list={[
             "absolute inset-0 m-0 transition-opacity duration-300 ease-out",
-            index === 0 ? "opacity-100" : "pointer-events-none opacity-0",
+            indice === 0 ? "opacity-100" : "pointer-events-none opacity-0",
           ]}
-          data-slide={index}
-          data-active={index === 0 ? "true" : undefined}
+          data-slide={indice}
+          data-active={indice === 0 ? "true" : undefined}
         >
-          {/* Fondo difuminado: rellena el marco cuando la captura no encaja. */}
-          {image.local ? (
+          {/* Fondo difuminado para rellenar el marco */}
+          {imagen.local ? (
             <Image
-              src={image.local}
+              src={imagen.local}
               alt=""
               aria-hidden="true"
               width={640}
@@ -52,7 +52,7 @@ const total = String(images.length).padStart(2, "0");
             />
           ) : (
             <img
-              src={image.src}
+              src={imagen.ruta}
               alt=""
               aria-hidden="true"
               loading="lazy"
@@ -60,23 +60,23 @@ const total = String(images.length).padStart(2, "0");
               class="absolute inset-0 h-full w-full scale-110 object-cover opacity-30 blur-2xl"
             />
           )}
-          {image.local ? (
+          {imagen.local ? (
             <Image
-              src={image.local}
-              alt={image.caption || `${title} — captura ${index + 1}`}
-              data-caption={image.caption}
+              src={imagen.local}
+              alt={imagen.descripcion || `${titulo} — captura ${indice + 1}`}
+              data-caption={imagen.descripcion}
               width={1200}
               height={750}
-              loading={index === 0 ? "eager" : "lazy"}
+              loading={indice === 0 ? "eager" : "lazy"}
               decoding="async"
               class="relative h-full w-full object-contain"
             />
           ) : (
             <img
-              src={image.src}
-              alt={image.caption || `${title} — captura ${index + 1}`}
-              data-caption={image.caption}
-              loading={index === 0 ? "eager" : "lazy"}
+              src={imagen.ruta}
+              alt={imagen.descripcion || `${titulo} — captura ${indice + 1}`}
+              data-caption={imagen.descripcion}
+              loading={indice === 0 ? "eager" : "lazy"}
               decoding="async"
               class="relative h-full w-full object-contain"
             />
@@ -85,9 +85,9 @@ const total = String(images.length).padStart(2, "0");
       ))
     }
 
-    {/* Toda la imagen amplia: es el gesto que la gente intenta primero. */}
+    {/* Toda la imagen amplia */}
     {
-      images.length > 0 && (
+      imagenes.length > 0 && (
         <button
           type="button"
           data-gallery-expand
@@ -100,7 +100,7 @@ const total = String(images.length).padStart(2, "0");
 
     {/* Contador */}
     {
-      multiple && (
+      varias && (
         <span
           class="pointer-events-none absolute left-3 top-3 z-20 rounded-md bg-black/55 px-2 py-1 font-mono text-[11px] tracking-widest text-white/90 backdrop-blur-sm"
           data-gallery-counter
@@ -112,7 +112,7 @@ const total = String(images.length).padStart(2, "0");
 
     {/* Pista de ampliar */}
     {
-      images.length > 0 && (
+      imagenes.length > 0 && (
         <span
           class="pointer-events-none absolute right-3 top-3 z-20 inline-flex items-center gap-1.5 rounded-md bg-black/55 px-2 py-1 text-[11px] font-medium text-white/90 backdrop-blur-sm transition-opacity md:opacity-0 md:group-hover/stage:opacity-100"
           aria-hidden="true"
@@ -125,7 +125,7 @@ const total = String(images.length).padStart(2, "0");
 
     {/* Flechas */}
     {
-      multiple && (
+      varias && (
         <>
           <button
             type="button"
@@ -148,38 +148,38 @@ const total = String(images.length).padStart(2, "0");
     }
   </div>
 
-  {/* --- Descripcion de la imagen actual --- */}
+  {/* --- Descripcion --- */}
   <p
     class="min-h-[1.25rem] text-xs leading-relaxed text-gray-500 dark:text-gray-400"
     data-gallery-caption
   >
-    {images[0]?.caption ?? ""}
+    {imagenes[0]?.descripcion ?? ""}
   </p>
 
   {/* --- Miniaturas --- */}
   {
-    multiple && (
+    varias && (
       <div
         class="-mx-1 flex snap-x gap-2 overflow-x-auto px-1 pb-1 gallery-thumbs"
         role="tablist"
         aria-label="Capturas del proyecto"
       >
-        {images.map((image, index) => (
+        {imagenes.map((imagen, indice) => (
           <button
             type="button"
-            data-gallery-thumb={index}
+            data-gallery-thumb={indice}
             role="tab"
-            aria-selected={index === 0 ? "true" : "false"}
+            aria-selected={indice === 0 ? "true" : "false"}
             class:list={[
               "relative h-14 w-24 shrink-0 snap-start overflow-hidden rounded-lg ring-2 transition",
-              index === 0
+              indice === 0
                 ? "ring-accent"
                 : "opacity-60 ring-transparent hover:opacity-100",
             ]}
           >
-            {image.local ? (
+            {imagen.local ? (
               <Image
-                src={image.local}
+                src={imagen.local}
                 alt=""
                 aria-hidden="true"
                 width={192}
@@ -190,7 +190,7 @@ const total = String(images.length).padStart(2, "0");
               />
             ) : (
               <img
-                src={image.src}
+                src={imagen.ruta}
                 alt=""
                 aria-hidden="true"
                 loading="lazy"

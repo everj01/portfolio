@@ -1,0 +1,219 @@
+---
+import { Icon } from "astro-icon/components";
+import TarjetaProyecto from "./TarjetaProyecto.astro";
+import ModalProyecto from "./ModalProyecto.astro";
+import { proyectos } from "../data/datos";
+import { tieneRepoPublico } from "../utils/proyectos";
+
+const total = proyectos.length;
+const reposPublicos = proyectos.filter(tieneRepoPublico).length;
+
+// Paginado: 9 tarjetas por pagina
+const POR_PAGINA = 9;
+const totalPaginas = Math.ceil(total / POR_PAGINA);
+
+// Pagina a la que pertenece una tarjeta
+function paginaDe(indice: number): number {
+  return Math.floor(indice / POR_PAGINA) + 1;
+}
+
+// 3 -> "03"
+function rellenar(n: number): string {
+  return String(n).padStart(2, "0");
+}
+---
+
+<div class="mx-auto w-[90%] max-w-7xl py-20 lg:py-28">
+  {/* --- Encabezado --- */}
+  <div
+    class="relative flex flex-col gap-6 overflow-hidden border-b border-gray-200 pb-8 lg:flex-row lg:items-end lg:justify-between dark:border-white/10"
+  >
+    <div
+      class="pointer-events-none absolute inset-0 -z-10 bg-dot-grid opacity-40 dark:opacity-20"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <p class="section-tag">// 03 — projects.tsx</p>
+      <h2
+        class="font-display text-3xl font-semibold tracking-[-0.02em] text-gray-900 md:text-4xl dark:text-white"
+      >
+        Proyectos
+      </h2>
+      <p class="max-w-xl text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+        Sistemas que he construido en mi proceso de desarrollador
+      </p>
+    </div>
+
+    {/* Resumen */}
+    <dl
+      class="flex shrink-0 items-center gap-6 font-mono text-xs text-gray-500 dark:text-gray-400"
+    >
+      <div class="flex flex-col gap-1">
+        <dt class="uppercase tracking-[0.18em] text-[10px]">Proyectos</dt>
+        <dd class="text-2xl font-semibold text-gray-900 dark:text-white">
+          {String(total).padStart(2, "0")}
+        </dd>
+      </div>
+      <div
+        class="h-10 w-px bg-gray-200 dark:bg-white/10"
+        aria-hidden="true"
+      >
+      </div>
+      <div class="flex flex-col gap-1">
+        <dt class="uppercase tracking-[0.18em] text-[10px]">Con repo público</dt>
+        <dd
+          class="flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+        >
+          <Icon
+            name="simple-icons:github"
+            class="h-5 w-5 text-gray-400 dark:text-gray-500"
+            aria-hidden="true"
+          />
+          {String(reposPublicos).padStart(2, "0")}
+        </dd>
+      </div>
+    </dl>
+  </div>
+
+  {/* --- Rejilla --- */}
+  <div
+    id="projects-grid"
+    class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3"
+  >
+    {
+      proyectos.map((proyecto, indice) => (
+        <div class="h-full" data-project-page={paginaDe(indice)} hidden={indice >= POR_PAGINA}>
+          <TarjetaProyecto {...proyecto} indice={indice} />
+        </div>
+      ))
+    }
+  </div>
+
+  {/* --- Paginacion --- */}
+  {
+    totalPaginas > 1 && (
+      <nav
+        class="mt-12 flex flex-col items-center gap-5 border-t border-gray-200 pt-8 dark:border-white/10"
+        aria-label="Paginación de proyectos"
+        data-pagination
+        data-per-page={POR_PAGINA}
+        data-total-pages={totalPaginas}
+      >
+        <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-400 dark:text-gray-500">
+          <span data-page-range>{rellenar(1)} — {rellenar(Math.min(POR_PAGINA, total))}</span> de{" "}
+          {rellenar(total)}
+        </p>
+
+        <div class="flex items-center gap-1.5">
+          <button
+            type="button"
+            data-page-prev
+            disabled
+            class="page-arrow"
+            aria-label="Página anterior"
+          >
+            <Icon name="lucide:arrow-left" class="h-4 w-4" aria-hidden="true" />
+          </button>
+
+          {Array.from({ length: totalPaginas }, (_, i) => i + 1).map((n) => (
+            <button
+              type="button"
+              data-page-go={n}
+              class="page-link"
+              aria-current={n === 1 ? "page" : undefined}
+              aria-label={`Ir a la página ${n}`}
+            >
+              {rellenar(n)}
+            </button>
+          ))}
+
+          <button
+            type="button"
+            data-page-next
+            class="page-arrow"
+            aria-label="Página siguiente"
+          >
+            <Icon name="lucide:arrow-right" class="h-4 w-4" aria-hidden="true" />
+          </button>
+        </div>
+      </nav>
+    )
+  }
+
+  <ModalProyecto />
+</div>
+
+<script>
+  import { irASeccion } from "../utils/scroll";
+
+  const rejilla = document.getElementById("projects-grid");
+  const nav = document.querySelector<HTMLElement>("[data-pagination]");
+
+  if (rejilla && nav) {
+    const tarjetas = Array.from(rejilla.querySelectorAll<HTMLElement>("[data-project-page]"));
+    const enlaces = Array.from(nav.querySelectorAll<HTMLButtonElement>("[data-page-go]"));
+    const btnAnterior = nav.querySelector<HTMLButtonElement>("[data-page-prev]");
+    const btnSiguiente = nav.querySelector<HTMLButtonElement>("[data-page-next]");
+    const rango = nav.querySelector<HTMLElement>("[data-page-range]");
+
+    const porPagina = Number(nav.dataset.perPage);
+    const totalPaginas = Number(nav.dataset.totalPages);
+
+    let actual = 1;
+
+    // 3 -> "03"
+    function rellenar(n: number): string {
+      return String(n).padStart(2, "0");
+    }
+
+    // Muestra las tarjetas de la pagina y actualiza la barra
+    function pintar(pagina: number): void {
+      actual = pagina;
+
+      let visibles = 0;
+
+      tarjetas.forEach((tarjeta) => {
+        const mostrar = Number(tarjeta.dataset.projectPage) === actual;
+        tarjeta.hidden = !mostrar;
+        if (mostrar) visibles++;
+      });
+
+      enlaces.forEach((enlace) => {
+        if (Number(enlace.dataset.pageGo) === actual) {
+          enlace.setAttribute("aria-current", "page");
+        } else {
+          enlace.removeAttribute("aria-current");
+        }
+      });
+
+      if (btnAnterior) btnAnterior.disabled = actual === 1;
+      if (btnSiguiente) btnSiguiente.disabled = actual === totalPaginas;
+
+      if (rango) {
+        const desde = (actual - 1) * porPagina + 1;
+        rango.textContent = `${rellenar(desde)} — ${rellenar(desde + visibles - 1)}`;
+      }
+    }
+
+    // Al cambiar de pagina se vuelve al encabezado de la seccion
+    function irAPagina(pagina: number): void {
+      if (pagina === actual || pagina < 1 || pagina > totalPaginas) return;
+
+      pintar(pagina);
+
+      const cabecera = document.querySelector<HTMLElement>("header");
+      irASeccion("projectsme", (cabecera?.offsetHeight ?? 56) + 24);
+    }
+
+    enlaces.forEach((enlace) => {
+      enlace.addEventListener("click", () => irAPagina(Number(enlace.dataset.pageGo)));
+    });
+
+    btnAnterior?.addEventListener("click", () => irAPagina(actual - 1));
+    btnSiguiente?.addEventListener("click", () => irAPagina(actual + 1));
+
+    pintar(1);
+  }
+</script>

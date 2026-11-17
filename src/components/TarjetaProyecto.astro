@@ -1,37 +1,37 @@
 ---
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
-import TechChip from "./TechChip.astro";
-import type { ProjectCardProps } from "../types";
-import { hasLiveDemo, normalizeImages, normalizeRepos } from "../utils/projects";
+import EtiquetaTech from "./EtiquetaTech.astro";
+import type { Proyecto } from "../types";
+import { tieneDemo, normalizarImagenes, normalizarRepos } from "../utils/proyectos";
 
-type Props = ProjectCardProps & { index: number };
+type Props = Proyecto & { indice: number };
 
-const props = Astro.props;
-const { index, title, description, tech = [], role, year, status, liveUrl } = props;
+const propiedades = Astro.props;
+const { indice, titulo, descripcion, tecnologias = [], rol, anio, estado, urlDemo } = propiedades;
 
-// La demo solo se muestra si "liveUrl" trae algo; si viene vacia no hay boton.
-const showDemo = hasLiveDemo(props);
+// Boton de demo
+const mostrarDemo = tieneDemo(propiedades);
 
-const images = normalizeImages(props.image);
-const cover = images[0];
+const imagenes = normalizarImagenes(propiedades.imagenes);
+const portada = imagenes[0];
 
-// Un repo => enlace directo. Varios => se abre el selector.
-const repos = normalizeRepos(props);
-const showGithub = repos.length > 0;
-const singleRepo = repos.length === 1 ? repos[0] : null;
+// Un repo abre el enlace directo; varios abren el selector
+const repos = normalizarRepos(propiedades);
+const mostrarGithub = repos.length > 0;
+const repoUnico = repos.length === 1 ? repos[0] : null;
 
-// Solo caben 4 etiquetas sin que la tarjeta se desordene; el resto se resume.
-const visibleTech = tech.slice(0, 4);
-const restTech = tech.length - visibleTech.length;
+// Solo 4 etiquetas visibles, el resto se resume
+const techVisibles = tecnologias.slice(0, 4);
+const techRestantes = tecnologias.length - techVisibles.length;
 
-const number = String(index + 1).padStart(2, "0");
+const numero = String(indice + 1).padStart(2, "0");
 
-// Slug corto para la barra tipo terminal: "Sistema de Control" -> "sistema-de-control"
-const slug = (title ?? "")
+// "Sistema de Control" -> "sistema-de-control"
+const rutaCorta = (titulo ?? "")
   .toLowerCase()
   .normalize("NFD")
-  .replace(/[̀-ͯ]/g, "")
+  .replace(/[\u0300-\u036F]/g, "") // quita acentos
   .replace(/[^a-z0-9]+/g, "-")
   .replace(/^-+|-+$/g, "");
 ---
@@ -39,7 +39,7 @@ const slug = (title ?? "")
 <article
   class="group relative flex h-full flex-col overflow-hidden rounded-2xl border-2 border-gray-300 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-accent/70 hover:shadow-[0_18px_25px_-20px_rgba(0,0,0,0.35)] focus-within:border-accent/70 dark:border-white/[0.10] dark:bg-[#101010] dark:shadow-[0_10px_34px_-18px_rgba(161,181,207,0.22)] dark:hover:border-accent/50 dark:hover:shadow-[0_16px_46px_-16px_rgba(161,181,207,0.42)]"
 >
-  {/* --- Barra de ventana, tipo terminal/editor --- */}
+  {/* --- Barra tipo terminal --- */}
   <div
     class="flex items-center gap-1.5 border-b border-gray-100 bg-gray-50/80 px-3 py-1.5 dark:border-white/10 dark:bg-white/[0.03]"
     aria-hidden="true"
@@ -48,31 +48,31 @@ const slug = (title ?? "")
     <span class="h-2 w-2 rounded-full bg-amber-400/70"></span>
     <span class="h-2 w-2 rounded-full bg-emerald-400/70"></span>
     <span class="ml-2 truncate font-mono text-[10px] text-gray-400 dark:text-gray-500">
-      ~/projects/{slug}
+      ~/projects/{rutaCorta}
     </span>
   </div>
 
   {/* --- Portada --- */}
   <div class="relative aspect-[16/10] w-full overflow-hidden bg-gray-100 dark:bg-[#0a0a0a]">
     {
-      cover ? (
-        cover.local ? (
+      portada ? (
+        portada.local ? (
           <Image
-            src={cover.local}
-            alt={`Portada de ${title}`}
+            src={portada.local}
+            alt={`Portada de ${titulo}`}
             width={640}
             height={400}
             loading="lazy"
             decoding="async"
-            class="h-full w-full object-cover object-top saturate-[0.85] transition-[filter,transform] duration-500 group-hover:scale-[1.03] group-hover:saturate-100"
+            class="h-full w-full object-portada object-top saturate-[0.85] transition-[filter,transform] duration-500 group-hover:scale-[1.03] group-hover:saturate-100"
           />
         ) : (
           <img
-            src={cover.src}
-            alt={`Portada de ${title}`}
+            src={portada.ruta}
+            alt={`Portada de ${titulo}`}
             loading="lazy"
             decoding="async"
-            class="h-full w-full object-cover object-top saturate-[0.85] transition-[filter,transform] duration-500 group-hover:scale-[1.03] group-hover:saturate-100"
+            class="h-full w-full object-portada object-top saturate-[0.85] transition-[filter,transform] duration-500 group-hover:scale-[1.03] group-hover:saturate-100"
           />
         )
       ) : (
@@ -92,36 +92,36 @@ const slug = (title ?? "")
     <span
       class:list={[
         "absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-[11px] font-medium backdrop-blur-sm",
-        showGithub
+        mostrarGithub
           ? "bg-emerald-500/90 text-white"
           : "bg-black/50 text-white/85",
       ]}
     >
       <Icon
-        name={showGithub ? "simple-icons:github" : "lucide:lock"}
+        name={mostrarGithub ? "simple-icons:github" : "lucide:lock"}
         class="h-3.5 w-3.5"
         aria-hidden="true"
       />
-      {showGithub ? "Código público" : "Código privado"}
+      {mostrarGithub ? "Código público" : "Código privado"}
     </span>
 
     {/* Estado del proyecto y acceso a la demo */}
     {
-      (status || showDemo) && (
+      (estado || mostrarDemo) && (
         <div class="absolute bottom-3 left-3 flex flex-wrap items-center gap-2">
-          {status && (
+          {estado && (
             <span class="inline-flex items-center gap-1.5 rounded-md bg-amber-500/90 px-2 py-1 text-[11px] font-medium text-white backdrop-blur-sm">
               <Icon name="lucide:loader" class="h-3.5 w-3.5" aria-hidden="true" />
-              {status}
+              {estado}
             </span>
           )}
-          {showDemo && (
+          {mostrarDemo && (
             <a
-              href={liveUrl}
+              href={urlDemo}
               target="_blank"
               rel="noopener noreferrer"
               class="relative z-20 inline-flex items-center gap-1.5 rounded-md bg-accent/90 px-2 py-1 text-[11px] font-semibold text-white backdrop-blur-sm transition-colors hover:bg-accent focus-visible:ring-2 focus-visible:ring-white/70"
-              aria-label={`Ver la demo de ${title}`}
+              aria-label={`Ver la demo de ${titulo}`}
             >
               <Icon name="lucide:play" class="h-3.5 w-3.5" aria-hidden="true" />
               Demo
@@ -133,10 +133,10 @@ const slug = (title ?? "")
 
     {/* Cantidad de capturas */}
     {
-      images.length > 1 && (
+      imagenes.length > 1 && (
         <span class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-md bg-black/50 px-2 py-1 font-mono text-[11px] text-white/90 backdrop-blur-sm">
           <Icon name="lucide:layers" class="h-3.5 w-3.5" aria-hidden="true" />
-          {images.length}
+          {imagenes.length}
         </span>
       )
     }
@@ -145,41 +145,40 @@ const slug = (title ?? "")
   {/* --- Cuerpo --- */}
   <div class="flex flex-1 flex-col gap-4 p-5">
     <div class="flex items-start gap-3.5">
-      {/* El numero ancla la tarjeta: mismo gesto editorial que el nombre del
-          hero, y hace que cada una se reconozca de un vistazo. */}
+      {/* Numero de la tarjeta */}
       <span
         class="shrink-0 font-display text-[2.5rem] font-bold leading-[0.85] tracking-[-0.03em] tabular-nums text-accent/30 dark:text-accent/40"
         aria-hidden="true"
       >
-        {number}
+        {numero}
       </span>
 
       <div class="min-w-0 space-y-2">
         {
-          (role || year) && (
+          (rol || anio) && (
             <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-400 dark:text-gray-500">
-              {[role, year].filter(Boolean).join(" · ")}
+              {[rol, anio].filter(Boolean).join(" · ")}
             </p>
           )
         }
         <h3
           class="text-lg font-bold leading-snug text-gray-900 transition-colors group-hover:text-accent dark:text-white"
         >
-          {title}
+          {titulo}
         </h3>
         <p class="line-clamp-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-          {description}
+          {descripcion}
         </p>
       </div>
     </div>
 
     {/* Tecnologias */}
     <div class="mt-auto flex flex-wrap gap-1.5">
-      {visibleTech.map((item) => <TechChip name={item} />)}
+      {techVisibles.map((item) => <EtiquetaTech name={item} />)}
       {
-        restTech > 0 && (
+        techRestantes > 0 && (
           <span class="inline-flex items-center rounded-md border border-dashed border-gray-300 px-2.5 py-1 text-[11px] font-medium text-gray-500 dark:border-white/15 dark:text-gray-400">
-            +{restTech}
+            +{techRestantes}
           </span>
         )
       }
@@ -190,9 +189,9 @@ const slug = (title ?? "")
       class="flex items-center justify-between border-t border-gray-100 pt-4 dark:border-white/10"
     >
       {
-        singleRepo ? (
+        repoUnico ? (
           <a
-            href={singleRepo.url}
+            href={repoUnico.url}
             target="_blank"
             rel="noopener noreferrer"
             class="relative z-20 inline-flex items-center gap-2 rounded-lg px-2 py-1 text-xs font-medium text-gray-600 transition-colors hover:text-accent dark:text-gray-400 dark:hover:text-accent"
@@ -200,10 +199,10 @@ const slug = (title ?? "")
             <Icon name="simple-icons:github" class="h-4 w-4" aria-hidden="true" />
             Repositorio
           </a>
-        ) : showGithub ? (
+        ) : mostrarGithub ? (
           <button
             type="button"
-            data-repo-trigger={index}
+            data-repo-trigger={indice}
             class="relative z-20 inline-flex items-center gap-2 rounded-lg px-2 py-1 text-xs font-medium text-gray-600 transition-colors hover:text-accent focus-visible:ring-2 focus-visible:ring-accent dark:text-gray-400 dark:hover:text-accent"
           >
             <Icon name="simple-icons:github" class="h-4 w-4" aria-hidden="true" />
@@ -230,12 +229,12 @@ const slug = (title ?? "")
     </div>
   </div>
 
-  {/* Toda la tarjeta abre el detalle; el enlace al repo queda por encima (z-20). */}
+  {/* Toda la tarjeta abre el detalle */}
   <button
     type="button"
-    data-project-index={index}
+    data-project-index={indice}
     class="project-view-more absolute inset-0 z-10 cursor-pointer rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900"
   >
-    <span class="sr-only">Ver detalle de {title}</span>
+    <span class="sr-only">Ver detalle de {titulo}</span>
   </button>
 </article>

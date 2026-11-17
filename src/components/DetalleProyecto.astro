@@ -1,40 +1,40 @@
 ---
 import { Icon } from "astro-icon/components";
-import ProjectGallery from "./ProjectGallery.astro";
-import TechChip from "./TechChip.astro";
-import type { ProjectCardProps } from "../types";
-import { hasLiveDemo, normalizeImages, normalizeRepos } from "../utils/projects";
+import GaleriaProyecto from "./GaleriaProyecto.astro";
+import EtiquetaTech from "./EtiquetaTech.astro";
+import type { Proyecto } from "../types";
+import { tieneDemo, normalizarImagenes, normalizarRepos } from "../utils/proyectos";
 
-type Props = ProjectCardProps & { index: number };
+type Props = Proyecto & { indice: number };
 
-const props = Astro.props;
+const propiedades = Astro.props;
 const {
-  index,
-  title,
-  description,
-  overview,
-  highlights = [],
-  tech = [],
-  liveUrl,
-  role,
-  year,
-  status,
-} = props;
+  indice,
+  titulo,
+  descripcion,
+  resumen,
+  puntosClave = [],
+  tecnologias = [],
+  urlDemo,
+  rol,
+  anio,
+  estado,
+} = propiedades;
 
-const images = normalizeImages(props.image);
+const imagenes = normalizarImagenes(propiedades.imagenes);
 
-// Un repo => boton directo. Varios => el boton abre el selector.
-const repos = normalizeRepos(props);
-const showGithub = repos.length > 0;
-const singleRepo = repos.length === 1 ? repos[0] : null;
-const showDemo = hasLiveDemo(props);
-const body = overview?.trim() ? overview : description;
-const meta = [role, year].filter(Boolean).join(" · ");
+// Un repo abre el enlace directo; varios abren el selector
+const repos = normalizarRepos(propiedades);
+const mostrarGithub = repos.length > 0;
+const repoUnico = repos.length === 1 ? repos[0] : null;
+const mostrarDemo = tieneDemo(propiedades);
+const cuerpo = resumen?.trim() ? resumen : descripcion;
+const meta = [rol, anio].filter(Boolean).join(" · ");
 ---
 
 <div class="grid gap-7 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-9">
   {/* --- Galeria --- */}
-  <ProjectGallery images={images} title={title} />
+  <GaleriaProyecto imagenes={imagenes} titulo={titulo} />
 
   {/* --- Ficha --- */}
   <div class="flex flex-col gap-6">
@@ -48,18 +48,18 @@ const meta = [role, year].filter(Boolean).join(" · ");
       }
 
       <h3
-        id={`project-title-${index}`}
+        id={`project-title-${indice}`}
         class="text-2xl font-bold leading-tight text-gray-900 sm:text-3xl dark:text-white"
       >
-        {title}
+        {titulo}
       </h3>
 
       <div class="flex flex-wrap items-center gap-2">
         {
-          status && (
+          estado && (
             <span class="inline-flex items-center gap-1.5 rounded-md bg-amber-50 px-2 py-1 text-[11px] font-medium text-amber-700 ring-1 ring-amber-200 dark:bg-amber-500/10 dark:text-amber-300 dark:ring-amber-500/20">
               <Icon name="lucide:loader" class="h-3.5 w-3.5" aria-hidden="true" />
-              {status}
+              {estado}
             </span>
           )
         }
@@ -67,18 +67,18 @@ const meta = [role, year].filter(Boolean).join(" · ");
         <span
           class:list={[
             "inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-[11px] font-medium",
-            showGithub
+            mostrarGithub
               ? "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300 dark:ring-emerald-500/20"
               : "bg-gray-100 text-gray-600 ring-1 ring-gray-200 dark:bg-white/5 dark:text-gray-300 dark:ring-white/10",
           ]}
         >
           <Icon
-            name={showGithub ? "simple-icons:github" : "lucide:lock"}
+            name={mostrarGithub ? "simple-icons:github" : "lucide:lock"}
             class="h-3.5 w-3.5"
             aria-hidden="true"
           />
           {
-            showGithub
+            mostrarGithub
               ? repos.length > 1
                 ? `${repos.length} repos públicos`
                 : "Código público"
@@ -87,10 +87,10 @@ const meta = [role, year].filter(Boolean).join(" · ");
         </span>
 
         {
-          images.length > 0 && (
+          imagenes.length > 0 && (
             <span class="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-2 py-1 text-[11px] font-medium text-gray-600 ring-1 ring-gray-200 dark:bg-white/5 dark:text-gray-300 dark:ring-white/10">
               <Icon name="lucide:layers" class="h-3.5 w-3.5" aria-hidden="true" />
-              {images.length} {images.length === 1 ? "captura" : "capturas"}
+              {imagenes.length} {imagenes.length === 1 ? "captura" : "capturas"}
             </span>
           )
         }
@@ -105,19 +105,19 @@ const meta = [role, year].filter(Boolean).join(" · ");
         Sobre el proyecto
       </h4>
       <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
-        {body}
+        {cuerpo}
       </p>
     </section>
 
     {/* Puntos clave */}
     {
-      highlights.length > 0 && (
+      puntosClave.length > 0 && (
         <section class="flex flex-col gap-2">
           <h4 class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-400 dark:text-gray-500">
             Puntos clave
           </h4>
           <ul class="flex flex-col gap-2">
-            {highlights.map((item) => (
+            {puntosClave.map((item) => (
               <li class="flex items-start gap-2.5 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
                 <Icon
                   name="lucide:check"
@@ -134,14 +134,14 @@ const meta = [role, year].filter(Boolean).join(" · ");
 
     {/* Stack */}
     {
-      tech.length > 0 && (
+      tecnologias.length > 0 && (
         <section class="flex flex-col gap-2.5">
           <h4 class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-400 dark:text-gray-500">
             Stack
           </h4>
           <div class="flex flex-wrap gap-2">
-            {tech.map((item) => (
-              <TechChip name={item} size="md" />
+            {tecnologias.map((item) => (
+              <EtiquetaTech name={item} size="md" />
             ))}
           </div>
         </section>
@@ -153,9 +153,9 @@ const meta = [role, year].filter(Boolean).join(" · ");
       class="mt-auto flex flex-col gap-3 border-t border-gray-100 pt-5 sm:flex-row dark:border-white/10"
     >
       {
-        singleRepo ? (
+        repoUnico ? (
           <a
-            href={singleRepo.url}
+            href={repoUnico.url}
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-gray-700 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
@@ -163,10 +163,10 @@ const meta = [role, year].filter(Boolean).join(" · ");
             <Icon name="simple-icons:github" class="h-4 w-4" aria-hidden="true" />
             Ver repositorio
           </a>
-        ) : showGithub ? (
+        ) : mostrarGithub ? (
           <button
             type="button"
-            data-repo-trigger={index}
+            data-repo-trigger={indice}
             class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-gray-700 focus-visible:ring-2 focus-visible:ring-accent dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
           >
             <Icon name="simple-icons:github" class="h-4 w-4" aria-hidden="true" />
@@ -181,9 +181,9 @@ const meta = [role, year].filter(Boolean).join(" · ");
       }
 
       {
-        showDemo && (
+        mostrarDemo && (
           <a
-            href={liveUrl}
+            href={urlDemo}
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-gray-300 px-4 py-2.5 text-sm font-semibold text-gray-800 transition-colors hover:border-accent hover:text-accent dark:border-white/15 dark:text-gray-100 dark:hover:border-accent"

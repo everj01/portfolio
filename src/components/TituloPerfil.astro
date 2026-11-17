@@ -1,0 +1,38 @@
+---
+import { titulos } from "../data/datos";
+
+const nombres = titulos.map((titulo) => titulo.nombre);
+---
+
+<div class="flex justify-start">
+  <span
+    id="title-perfil"
+    class="title-perfil-fade show font-mono text-sm font-medium uppercase tracking-[0.14em] text-accent sm:text-base"
+    data-titulos={JSON.stringify(nombres)}
+  >
+    {nombres[0]}
+  </span>
+</div>
+
+<script>
+  const elemento = document.getElementById("title-perfil");
+
+  if (elemento) {
+    const titulos: string[] = JSON.parse(elemento.dataset.titulos ?? "[]");
+
+    if (titulos.length > 1) {
+      let actual = 0;
+
+      setInterval(() => {
+        // Sale, cambia el texto y vuelve a entrar
+        elemento.classList.remove("show");
+
+        setTimeout(() => {
+          actual = (actual + 1) % titulos.length;
+          elemento.textContent = titulos[actual] ?? "";
+          elemento.classList.add("show");
+        }, 400);
+      }, 2600);
+    }
+  }
+</script>

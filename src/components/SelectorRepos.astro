@@ -1,0 +1,193 @@
+---
+import { Icon } from "astro-icon/components";
+import { proyectos } from "../data/datos";
+import { normalizarRepos } from "../utils/proyectos";
+
+// Selector de repositorio. Solo se abre si un proyecto tiene mas de uno
+const listaProyectos = proyectos.map((proyecto) => ({
+  titulo: proyecto.titulo ?? "",
+  repos: normalizarRepos(proyecto),
+}));
+
+// "https://github.com/everj01/web-portfolio" -> "everj01/web-portfolio"
+function rutaRepo(url: string): string {
+  try {
+    return new URL(url).pathname.replace(/^\/+|\/+$/g, "");
+  } catch {
+    return url;
+  }
+}
+---
+
+<div
+  id="repo-picker"
+  class="fixed inset-0 z-[70] hidden items-center justify-center p-4"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Elegir repositorio"
+>
+  <div
+    class="absolute inset-0 bg-gray-950/80 backdrop-blur-sm"
+    data-repo-backdrop
+    aria-hidden="true"
+  >
+  </div>
+
+  <div
+    id="repo-picker-panel"
+    class="relative w-full max-w-md rounded-2xl border border-gray-200 bg-white p-5 shadow-2xl dark:border-white/10 dark:bg-[#0a0a0a]"
+  >
+    <div class="mb-4 flex items-start justify-between gap-4">
+      <div class="flex flex-col gap-1">
+        <p
+          class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-400 dark:text-gray-500"
+        >
+          Repositorios
+        </p>
+        <p class="text-base font-bold text-gray-900 dark:text-white" data-repo-heading>
+          Elige un repositorio
+        </p>
+      </div>
+
+      <button
+        id="repo-picker-close"
+        type="button"
+        class="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-gray-200 text-gray-500 transition hover:bg-gray-100 hover:text-gray-900 focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
+        aria-label="Cerrar selector de repositorios"
+      >
+        <Icon name="lucide:x" class="h-4 w-4" aria-hidden="true" />
+      </button>
+    </div>
+
+    {
+      listaProyectos.map((proyecto, indice) =>
+        proyecto.repos.length > 1 ? (
+          <ul class="flex flex-col gap-2" data-repo-list={indice} hidden>
+            {proyecto.repos.map((repo) => (
+              <li>
+                <a
+                  href={repo.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group flex items-center gap-3 rounded-xl border border-gray-200 px-3 py-2.5 transition-colors hover:border-accent/60 hover:bg-accent/5 focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:hover:border-accent/60 dark:hover:bg-white/5"
+                >
+                  <span class="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gray-100 text-gray-700 transition-colors group-hover:bg-accent group-hover:text-white dark:bg-white/5 dark:text-gray-200">
+                    <Icon
+                      name={repo.icono ?? "simple-icons:github"}
+                      class="h-4 w-4"
+                      aria-hidden="true"
+                    />
+                  </span>
+
+                  <span class="flex min-w-0 flex-col">
+                    <span class="truncate text-sm font-semibold text-gray-900 dark:text-white">
+                      {repo.nombre}
+                    </span>
+                    <span class="truncate font-mono text-[11px] text-gray-500 dark:text-gray-400">
+                      {repo.descripcion || rutaRepo(repo.url)}
+                    </span>
+                  </span>
+
+                  <Icon
+                    name="lucide:arrow-up-right"
+                    class="ml-auto h-4 w-4 shrink-0 text-gray-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
+                    aria-hidden="true"
+                  />
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : null
+      )
+    }
+  </div>
+</div>
+
+<script>
+  const selector = document.getElementById("repo-picker");
+  const panel = document.getElementById("repo-picker-panel");
+  const btnCerrar = document.getElementById("repo-picker-close");
+  const titulo = selector?.querySelector<HTMLElement>("[data-repo-heading]");
+
+  const listas = Array.from(
+    selector?.querySelectorAll<HTMLElement>("[data-repo-list]") ?? []
+  );
+
+  let ultimoEnfocado: HTMLElement | null = null;
+
+  function estaAbierto(): boolean {
+    return selector !== null && !selector.classList.contains("hidden");
+  }
+
+  // Muestra la lista de repos del proyecto pedido
+  function abrir(indice: number, nombreProyecto: string): void {
+    const lista = listas.find((item) => item.dataset.repoList === String(indice));
+    if (!selector || !lista) return;
+
+    ultimoEnfocado = document.activeElement as HTMLElement | null;
+
+    listas.forEach((item) => {
+      item.hidden = item !== lista;
+    });
+
+    if (titulo) titulo.textContent = nombreProyecto || "Elige un repositorio";
+
+    selector.classList.remove("hidden");
+    selector.classList.add("flex");
+    document.body.style.overflow = "hidden";
+    lista.querySelector<HTMLAnchorElement>("a")?.focus();
+  }
+
+  function cerrar(): void {
+    if (!selector) return;
+
+    selector.classList.add("hidden");
+    selector.classList.remove("flex");
+
+    // Si el detalle del proyecto sigue abierto, el scroll debe quedar bloqueado
+    const modal = document.getElementById("project-modal");
+    const modalAbierto = modal !== null && !modal.classList.contains("hidden");
+    if (!modalAbierto) document.body.style.overflow = "";
+
+    ultimoEnfocado?.focus();
+  }
+
+  // Botones de "varios repos" de las tarjetas y del detalle
+  document
+    .querySelectorAll<HTMLButtonElement>("[data-repo-trigger]")
+    .forEach((boton) => {
+      boton.addEventListener("click", (evento) => {
+        evento.preventDefault();
+        evento.stopPropagation();
+
+        const tarjeta = boton.closest("article, [data-project-panel]");
+        const nombreProyecto = tarjeta?.querySelector("h3")?.textContent?.trim() ?? "";
+
+        abrir(Number(boton.dataset.repoTrigger), nombreProyecto);
+      });
+    });
+
+  btnCerrar?.addEventListener("click", cerrar);
+
+  // Clic fuera del panel
+  selector?.addEventListener("click", (evento) => {
+    const destino = evento.target as Node;
+    if (panel && !panel.contains(destino)) cerrar();
+  });
+
+  // Al elegir un repo se abre en otra pestaña, el selector ya no hace falta
+  selector?.querySelectorAll("a[href]").forEach((enlace) => {
+    enlace.addEventListener("click", cerrar);
+  });
+
+  document.addEventListener("keydown", (evento) => {
+    if (estaAbierto() && evento.key === "Escape") cerrar();
+  });
+</script>
+
+<style>
+  /* El atributo hidden pierde contra la clase `flex` de la lista */
+  ul[data-repo-list][hidden] {
+    display: none;
+  }
+</style>

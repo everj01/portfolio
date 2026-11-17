@@ -1,28 +1,26 @@
 ---
-// Layout
-import Layout from "../layouts/Layout.astro";
+import Plantilla from "../layouts/Plantilla.astro";
 
-//Componentes
-import Navbar from "../components/Navbar.astro";
-import AboutMe from "../components/AboutMe.astro";
-import ExperienceMe from "../components/ExperienceMe.astro";
-import ProjectsMe from "../components/ProjectsMe.astro";
-import SkillsMe from "../components/SkillsMe.astro";
-import EducationMe from "../components/EducationMe.astro";
-import ContactMe from "../components/ContactMe.astro";
+import BarraNav from "../components/BarraNav.astro";
+import SobreMi from "../components/SobreMi.astro";
+import Experiencia from "../components/Experiencia.astro";
+import Proyectos from "../components/Proyectos.astro";
+import Habilidades from "../components/Habilidades.astro";
+import Educacion from "../components/Educacion.astro";
+import Contacto from "../components/Contacto.astro";
 ---
 
-<Layout>
+<Plantilla>
   <div class="flex flex-col min-h-screen">
-    <Navbar />
+    <BarraNav />
 
     <main class="flex-1 bg-white dark:bg-black dark:text-white/90">
-      <section id="aboutme"><AboutMe /></section>
-      <section id="experienceme"><ExperienceMe /></section>
-      <section id="projectsme"><ProjectsMe /></section>
-      <section id="skillsme"><SkillsMe /></section>
-      <section id="educationme"><EducationMe /></section>
-      <section id="contactme"><ContactMe /></section>
+      <section id="aboutme"><SobreMi /></section>
+      <section id="experienceme"><Experiencia /></section>
+      <section id="projectsme"><Proyectos /></section>
+      <section id="skillsme"><Habilidades /></section>
+      <section id="educationme"><Educacion /></section>
+      <section id="contactme"><Contacto /></section>
     </main>
 
     <footer
@@ -47,4 +45,4 @@ import ContactMe from "../components/ContactMe.astro";
       </p>
     </footer>
   </div>
-</Layout>
+</Plantilla>

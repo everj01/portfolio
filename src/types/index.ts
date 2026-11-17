@@ -1,94 +1,92 @@
-export interface ItemsNavbar {
-  name: string;
-  /** Nombre Iconify, ej: "lucide:user-round" */
-  icon: string;
-  section: string;
+export interface EnlaceNav {
+  nombre: string;
+  // Nombre Iconify, ej: "lucide:user-round"
+  icono: string;
+  seccion: string;
 }
 
-export interface TitleDev {
-  name: string;
+export interface TituloPerfil {
+  nombre: string;
 }
 
-export interface SocialItem {
-  name: string;
-  /** Nombre Iconify, ej: "simple-icons:github" */
-  icon: string;
+export interface RedSocial {
+  nombre: string;
+  // Nombre Iconify, ej: "simple-icons:github"
+  icono: string;
   url: string;
-  style: string;
+  estilo: string;
 }
 
-/** Un repositorio del proyecto. Si hay varios se ofrece un selector. */
-export interface RepoLink {
-  /** Etiqueta visible, ej: "Frontend" / "Backend" / "API". */
-  name: string;
+// Un repositorio del proyecto
+export interface Repo {
+  // Etiqueta visible, ej: "Frontend"
+  nombre: string;
   url: string;
-  /** Nombre Iconify opcional, ej: "simple-icons:github". */
-  icon?: string;
-  /** Nota corta opcional, ej: "React + Vite". */
-  description?: string;
+  icono?: string;
+  descripcion?: string;
 }
 
-/** Una imagen de la galeria: solo la url, o url + descripcion propia. */
-export type GalleryImage = string | { src: string; caption?: string };
+// Imagen de la galeria: solo la ruta, o ruta + descripcion
+export type ImagenGaleria = string | { ruta: string; descripcion?: string };
 
-export interface ProjectCardProps {
+export interface Proyecto {
   visible?: boolean;
-  title?: string;
-  /** Resumen corto: es lo que se ve en la tarjeta. */
-  description?: string;
-  /** Texto largo opcional para el detalle. Si falta, se usa description. */
-  overview?: string;
-  /** Puntos clave que se listan en el detalle. */
-  highlights?: string[];
-  /** Rol desempeñado, ej: "Full Stack". */
-  role?: string;
-  /** Año o rango, ej: "2024" / "2023 - 2024". */
-  year?: string;
-  /** Estado del proyecto, ej: "En desarrollo". Si falta, no se muestra nada. */
-  status?: string;
-  image?: GalleryImage[];
-  tech?: string[];
-  githubUrl?: string | null;
-  /** Varios repositorios (frontend, backend, móvil...). Tiene prioridad sobre githubUrl. */
-  repos?: RepoLink[];
-  liveUrl?: string;
-  /** true => el codigo es privado, no se ofrece enlace a GitHub. */
-  privatePro?: boolean;
+  titulo?: string;
+  // Resumen corto para la tarjeta
+  descripcion?: string;
+  // Texto largo para el detalle
+  resumen?: string;
+  // Puntos clave del detalle
+  puntosClave?: string[];
+  // Ej: "Full Stack"
+  rol?: string;
+  // Ej: "2024" o "2023 - 2024"
+  anio?: string;
+  // Ej: "En desarrollo"
+  estado?: string;
+  imagenes?: ImagenGaleria[];
+  tecnologias?: string[];
+  urlGithub?: string | null;
+  // Varios repos (frontend, backend...). Tiene prioridad sobre urlGithub
+  repos?: Repo[];
+  urlDemo?: string;
+  // Codigo privado: sin enlace a GitHub
+  esPrivado?: boolean;
 }
 
-/** Imagen ya normalizada para la galeria. */
-export interface NormalizedImage {
-  src: string;
-  caption: string;
-  /** Presente solo si `src` es una captura empaquetada en src/assets. */
+// Imagen ya lista para la galeria
+export interface ImagenLista {
+  ruta: string;
+  descripcion: string;
+  // Solo si la captura vive en src/assets
   local?: import("astro").ImageMetadata;
 }
 
-export type SkillLevel = "basic" | "learning" | "advanced" | "";
+export type NivelHabilidad = "basico" | "aprendiendo" | "avanzado" | "";
 
-export interface Skill {
-  name: string;
-  level: SkillLevel;
+export interface Habilidad {
+  nombre: string;
+  nivel: NivelHabilidad;
 }
 
-export interface SkillsCat {
-  title?: string;
-  /** Nombre Iconify, ej: "lucide:code" */
-  icon?: string;
+export interface CategoriaHabilidades {
+  titulo?: string;
+  // Nombre Iconify, ej: "lucide:code"
+  icono?: string;
   color?: string;
-  skills?: Skill[];
+  habilidades?: Habilidad[];
 }
 
-export interface ExperienceItem {
-  company: string;
-  role: string;
-  /** Ej: "Ago 2023 - Sep 2026" */
-  period: string;
-  bullets?: string[];
+export interface Experiencia {
+  empresa: string;
+  rol: string;
+  // Ej: "Ago 2023 - Sep 2026"
+  periodo: string;
+  puntos?: string[];
 }
 
-export interface EducationItem {
-  title: string;
-  institution: string;
-  year: string;
+export interface Estudio {
+  titulo: string;
+  institucion: string;
+  anio: string;
 }

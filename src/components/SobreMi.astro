@@ -1,23 +1,22 @@
 ---
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
-import ItemSocial from "./ItemSocial.astro";
-import TitlePerfil from "./TitlePerfil.astro";
-import { itemsSocial, cvUrl, certificatesUrl } from "../data/data";
+import RedSocial from "./RedSocial.astro";
+import TituloPerfil from "./TituloPerfil.astro";
+import { redesSociales, urlCv, urlCertificados } from "../data/datos";
 import imgPerfil from "../assets/images/perfil.jpg";
 
-// Certificados: con url propia se abre fuera; sin ella, el boton baja a la
-// seccion de educacion, que ya lista la formacion y las certificaciones.
-const certsUrl = certificatesUrl?.trim() ?? "";
-const certsHref = certsUrl || "#educationme";
-const certsExternal = Boolean(certsUrl);
+// Certificados: con url propia se abre fuera, sin ella baja a educacion
+const urlCerts = urlCertificados?.trim() ?? "";
+const enlaceCerts = urlCerts || "#educationme";
+const certsExterno = Boolean(urlCerts);
 ---
 
 <div
   id="hero-section"
   class="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-28 sm:px-6 sm:py-32"
 >
-  {/* ---------- Fondo: trama de puntos + formas flotando ---------- */}
+  {/* ---------- Fondo ---------- */}
   <div class="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
     <div class="absolute inset-0 bg-dot-grid opacity-70 dark:opacity-40"></div>
 
@@ -82,7 +81,7 @@ const certsExternal = Boolean(certsUrl);
       </div>
     </div>
 
-    {/* Aros finos: dan profundidad sin ensuciar (no llevan blur) */}
+    {/* Aros */}
     <div
       class="animate-float absolute right-[14%] top-[22%] h-44 w-44 rounded-full border border-navy-500/15 dark:border-navy-300/15"
     >
@@ -99,8 +98,7 @@ const certsExternal = Boolean(certsUrl);
     <div
       class="reveal-card relative rounded-3xl border border-gray-900/10 bg-white/70 px-6 py-10 shadow-[0_30px_80px_-40px_rgba(11,18,32,0.45)] backdrop-blur-xl sm:px-12 sm:py-14 lg:py-16 lg:pe-14 lg:ps-16 dark:border-white/[0.14] dark:bg-black/60 dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.07),0_26px_72px_-30px_rgba(161,181,207,0.22)]"
     >
-      {/* Marcas de corte: enmarcan la tarjeta como una retícula de imprenta,
-          sin sumar otro borde. Solo en pantallas anchas. */}
+      {/* Marcas de corte en las esquinas */}
       <div class="pointer-events-none absolute -inset-3 hidden lg:block" aria-hidden="true">
         <span class="absolute left-0 top-0 h-5 w-px bg-accent/30"></span>
         <span class="absolute left-0 top-0 h-px w-5 bg-accent/30"></span>
@@ -125,7 +123,7 @@ const certsExternal = Boolean(certsUrl);
           </h1>
 
           <div class="mt-4">
-            <TitlePerfil />
+            <TituloPerfil />
           </div>
 
           <p class="mt-6 max-w-[62ch] text-base leading-[1.7] text-pretty text-gray-600 dark:text-gray-300">
@@ -143,7 +141,7 @@ const certsExternal = Boolean(certsUrl);
           >
             <div class="flex flex-wrap items-center gap-3">
               <a
-                href={cvUrl}
+                href={urlCv}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_20px_-10px_rgba(0,0,0,0.5)] transition-transform duration-300 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-navy-800"
@@ -153,9 +151,9 @@ const certsExternal = Boolean(certsUrl);
               </a>
 
               <a
-                href={certsHref}
-                target={certsExternal ? "_blank" : undefined}
-                rel={certsExternal ? "noopener noreferrer" : undefined}
+                href={enlaceCerts}
+                target={certsExterno ? "_blank" : undefined}
+                rel={certsExterno ? "noopener noreferrer" : undefined}
                 class="inline-flex items-center gap-2 rounded-xl border border-gray-900/15 px-4 py-2.5 text-sm font-semibold text-gray-800 transition-[transform,border-color,color] duration-300 hover:-translate-y-0.5 hover:border-accent hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 dark:border-white/20 dark:text-gray-100 dark:hover:border-accent dark:focus-visible:ring-offset-navy-800"
               >
                 <Icon name="lucide:award" class="h-4 w-4" aria-hidden="true" />
@@ -165,12 +163,12 @@ const certsExternal = Boolean(certsUrl);
 
             <div class="flex items-center gap-1">
               {
-                itemsSocial.map((item) => (
-                  <ItemSocial
-                    url={item.url}
-                    icon={item.icon}
-                    name={item.name}
-                    style={item.style}
+                redesSociales.map((red) => (
+                  <RedSocial
+                    url={red.url}
+                    icono={red.icono}
+                    nombre={red.nombre}
+                    estilo={red.estilo}
                   />
                 ))
               }
@@ -181,8 +179,7 @@ const certsExternal = Boolean(certsUrl);
 
         <div class="order-1 flex justify-center lg:order-2 lg:-me-4 lg:-mt-20">
           <div class="reveal-photo relative" style="--d: 0.15s">
-            {/* Resplandor: en la noche la lamina tiene que parecer iluminada,
-                no un recorte pegado sobre el negro. */}
+            {/* Resplandor de la foto en modo oscuro */}
             <span
               class="hero-photo-glow pointer-events-none absolute -inset-6 hidden dark:block"
               aria-hidden="true"></span>
@@ -209,9 +206,7 @@ const certsExternal = Boolean(certsUrl);
       </div>
     </div>
 
-    {/* ---------- La frase, debajo de la tarjeta ---------- */}
-    {/* El padding lateral repite el de la tarjeta para que la frase arranque
-        en la misma vertical que el nombre. */}
+    {/* ---------- Frase ---------- */}
     <div class="reveal mt-10 px-6 sm:mt-12 sm:px-12 lg:ps-16" style="--d: 0.55s">
       <p
         class="max-w-[46ch] font-display text-[clamp(1.25rem,2.4vw,1.875rem)] font-medium leading-[1.4] tracking-[-0.01em] text-balance text-gray-800 sm:max-w-[52ch] dark:text-gray-100"
@@ -237,26 +232,25 @@ const certsExternal = Boolean(certsUrl);
 </div>
 
 <script>
-  // Parallax sutil: las formas del fondo siguen el mouse unos pocos px.
-  // Se desactiva con prefers-reduced-motion y en pantallas tactiles.
+  // Parallax: las formas del fondo siguen al mouse
   const hero = document.getElementById("hero-section");
-  const shapes = document.getElementById("hero-parallax");
+  const formas = document.getElementById("hero-parallax");
 
   if (
     hero &&
-    shapes &&
+    formas &&
     window.matchMedia("(pointer: fine)").matches &&
     !window.matchMedia("(prefers-reduced-motion: reduce)").matches
   ) {
-    hero.addEventListener("mousemove", (e) => {
-      const rect = hero.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      shapes.style.transform = `translate3d(${x * 24}px, ${y * 24}px, 0)`;
+    hero.addEventListener("mousemove", (evento) => {
+      const caja = hero.getBoundingClientRect();
+      const x = (evento.clientX - caja.left) / caja.width - 0.5;
+      const y = (evento.clientY - caja.top) / caja.height - 0.5;
+      formas.style.transform = `translate3d(${x * 24}px, ${y * 24}px, 0)`;
     });
 
     hero.addEventListener("mouseleave", () => {
-      shapes.style.transform = "translate3d(0, 0, 0)";
+      formas.style.transform = "translate3d(0, 0, 0)";
     });
   }
 </script>

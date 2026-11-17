@@ -1,0 +1,98 @@
+<div id="preloader" class="preloader" role="status" aria-live="polite" aria-label="Cargando">
+  <div class="preloader-bg" aria-hidden="true">
+    <div class="preloader-dots"></div>
+    <div class="preloader-glow preloader-glow-a"></div>
+    <div class="preloader-glow preloader-glow-b"></div>
+  </div>
+
+  <div class="preloader-content">
+    <div class="preloader-ring-wrap">
+      <span class="preloader-ring"></span>
+      <span class="preloader-ring preloader-ring-2"></span>
+      <span class="preloader-mark" aria-hidden="true">
+        <span class="preloader-letter" style="--i:0">E</span>
+        <span class="preloader-letter preloader-letter-accent" style="--i:1">M</span>
+      </span>
+    </div>
+
+    <div class="preloader-bar-track">
+      <span id="preloader-bar-fill" class="preloader-bar-fill"></span>
+    </div>
+    <span id="preloader-percent" class="preloader-percent">0%</span>
+  </div>
+</div>
+
+<noscript>
+  <style>
+    #preloader {
+      display: none !important;
+    }
+    body {
+      overflow: visible !important;
+    }
+  </style>
+</noscript>
+
+<script is:inline>
+  (function () {
+    var preloader = document.getElementById("preloader");
+    if (!preloader) return;
+
+    var barra = document.getElementById("preloader-bar-fill");
+    var porcentaje = document.getElementById("preloader-percent");
+    var menosMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    var avance = 0;
+    var listo = false;
+    var tiempoMinimo = menosMovimiento ? 0 : 1000;
+    var inicio = Date.now();
+
+    function ponerAvance(valor) {
+      avance = valor > 100 ? 100 : valor;
+      if (barra) barra.style.width = avance + "%";
+      if (porcentaje) porcentaje.textContent = Math.floor(avance) + "%";
+    }
+
+    function animar() {
+      if (!listo) {
+        if (avance < 90) {
+          avance += (90 - avance) * 0.06 + 0.3;
+          ponerAvance(avance);
+        }
+        requestAnimationFrame(animar);
+      }
+    }
+    if (!menosMovimiento) requestAnimationFrame(animar);
+
+    function ocultar() {
+      document.body.classList.add("is-loaded");
+      preloader.classList.add("preloader-hide");
+      setTimeout(
+        function () {
+          if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+        },
+        menosMovimiento ? 0 : 700
+      );
+    }
+
+    function terminar() {
+      if (listo) return;
+      listo = true;
+      var transcurrido = Date.now() - inicio;
+      var espera = Math.max(tiempoMinimo - transcurrido, 0);
+      setTimeout(function () {
+        ponerAvance(100);
+        setTimeout(ocultar, menosMovimiento ? 0 : 220);
+      }, espera);
+    }
+
+    if (document.readyState === "complete") {
+      terminar();
+    } else {
+      window.addEventListener("load", terminar);
+    }
+
+    // Por si acaso: nunca dejar al visitante atrapado
+    setTimeout(terminar, 6000);
+  })();
+</script>

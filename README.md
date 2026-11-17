@@ -1,16 +1,13 @@
-# Portfolio — Ever Montero - Astro
+# Portfolio — Ever Montero
 
-Version en Astro de mi portafolio (Anteriormente en React):
-todo es HTML estático con scripts vanilla. Ya no se carga ninguna
-libreria JS de terceros en el navegador (la galeria del modal es propia).
-Se utiliza de forma escensial Astro, Tailwind CSS.
+Portafolio personal hecho con Astro y Tailwind CSS. Todo el contenido
+(proyectos, habilidades, experiencia) se edita en `src/data/datos.json`.
 
-## Comandos
+## Como ejecutarlo
 
 ```sh
 npm install
 npm run dev      # http://localhost:4321/portfolio/
-npm run build    # astro check + build -> dist/
+npm run build    # genera dist/
 npm run preview  # sirve dist/
 ```
-
