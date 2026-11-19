@@ -16,6 +16,10 @@ const mostrarDemo = tieneDemo(propiedades);
 const imagenes = normalizarImagenes(propiedades.imagenes);
 const portada = imagenes[0];
 
+// Las capturas de movil son verticales (ej. 460x876). En la caja 16/10 hay que
+// contenerlas, no recortarlas: se muestran enteras sobre una copia difuminada.
+const esVertical = portada?.local ? portada.local.width < portada.local.height : false;
+
 // Un repo abre el enlace directo; varios abren el selector
 const repos = normalizarRepos(propiedades);
 const mostrarGithub = repos.length > 0;
@@ -57,22 +61,38 @@ const rutaCorta = (titulo ?? "")
     {
       portada ? (
         portada.local ? (
-          <Image
-            src={portada.local}
-            alt={`Portada de ${titulo}`}
-            width={640}
-            height={400}
-            loading="lazy"
-            decoding="async"
-            class="h-full w-full object-portada object-top saturate-[0.85] transition-[filter,transform] duration-500 group-hover:scale-[1.03] group-hover:saturate-100"
-          />
+          <>
+            {/* Relleno difuminado para que la vertical no deje franjas vacias */}
+            {esVertical && (
+              <Image
+                src={portada.local}
+                alt=""
+                width={640}
+                loading="lazy"
+                decoding="async"
+                aria-hidden="true"
+                class="absolute inset-0 h-full w-full scale-110 object-cover opacity-30 blur-2xl"
+              />
+            )}
+            <Image
+              src={portada.local}
+              alt={`Portada de ${titulo}`}
+              width={640}
+              loading="lazy"
+              decoding="async"
+              class:list={[
+                "relative h-full w-full saturate-[0.85] transition-[filter,transform] duration-500 group-hover:scale-[1.03] group-hover:saturate-100",
+                esVertical ? "object-contain" : "object-cover object-top",
+              ]}
+            />
+          </>
         ) : (
           <img
             src={portada.ruta}
             alt={`Portada de ${titulo}`}
             loading="lazy"
             decoding="async"
-            class="h-full w-full object-portada object-top saturate-[0.85] transition-[filter,transform] duration-500 group-hover:scale-[1.03] group-hover:saturate-100"
+            class="h-full w-full object-cover object-top saturate-[0.85] transition-[filter,transform] duration-500 group-hover:scale-[1.03] group-hover:saturate-100"
           />
         )
       ) : (

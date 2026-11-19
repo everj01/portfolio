@@ -53,3 +53,16 @@ export function tieneRepoPublico(proyecto: Proyecto): boolean {
 export function tieneDemo(proyecto: Proyecto): boolean {
   return typeof proyecto.urlDemo === "string" && proyecto.urlDemo.trim() !== "";
 }
+
+//Categoria a la que pertenece un proyecto
+export function categoriaDe(proyecto: Proyecto): string {
+  const rol = proyecto.rol;
+  return (rol?.trim() === "" || rol === undefined || rol === null)  ? "Otros" : rol.trim();
+}
+
+//Todas las categorais que existen sin repetir
+export function categoriaDisponibles(lista: Proyecto[]): string[] {
+  const miLista = lista.map((u) => categoriaDe(u));
+  const miListaUnico: string[] = [...new Set(miLista)];
+  return miListaUnico;
+}

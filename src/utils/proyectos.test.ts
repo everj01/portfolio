@@ -4,6 +4,7 @@ import {
   normalizarRepos,
   tieneDemo,
   tieneRepoPublico,
+  categoriaDisponibles
 } from "./proyectos";
 
 describe("normalizarImagenes", () => {
@@ -120,3 +121,19 @@ describe("tieneRepoPublico con varios repos", () => {
     expect(tieneRepoPublico({ repos: [] })).toBe(false);
   });
 });
+
+
+describe("categoriaDisponibles", () => {
+  it("no repite categorias", () => {
+    expect(
+      categoriaDisponibles([{ rol: "Frontend" }, { rol: "Mobile" }, { rol: "Full Stack" }, { rol: "Full Stack" }, { rol: "Mobile" }])
+    ).toEqual(["Frontend", "Mobile", "Full Stack"]);
+  });
+
+  it("agrupa los proyectos sin rol en Otros", () => {
+    const testProyecto = [{rol: "Frontend"}, { rol: "Mobile"}, { rol: "" }, {}];
+    expect(
+      categoriaDisponibles(testProyecto)
+    ).toEqual(["Frontend", "Mobile", "Otros"]);
+  });
+})

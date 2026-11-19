@@ -67,6 +67,37 @@
   "proyectos": [
     {
       "visible": true,
+      "titulo": "MiLink",
+      "rol": "Full Stack",
+      "anio": "2026",
+      "descripcion": "Acortador de enlaces con estadísticas de clics, construido con microservicios en Java Spring Boot.",
+      "resumen": "Proyecto personal para practicar microservicios con un caso simple y útil: pegas un link largo, obtienes uno corto (o con un alias propio) y ves cuántas personas lo abrieron, por día y por navegador. Lo dividí en dos servicios: uno crea los enlaces y hace la redirección, y otro registra cada clic y calcula las estadísticas, cada uno con su propia base de datos. Se comunican con OpenFeign y, si el servicio de estadísticas falla, el enlace igual redirige, porque lo importante para el usuario es llegar a su destino. Todo el entorno se levanta con Docker Compose.",
+      "puntosClave": [
+        "Arquitectura de microservicios con API Gateway, Eureka y OpenFeign.",
+        "Enlaces cortos aleatorios o con alias personalizado, sin duplicados.",
+        "Estadísticas de los últimos 7 días y por navegador, con gráficos propios en CSS.",
+        "Redirección 302 para no perder el conteo de clics por la caché del navegador.",
+        "Entorno completo con Docker Compose y una base de datos PostgreSQL por servicio."
+      ],
+      "imagenes": [
+        "web-milink/01.png",
+        "web-milink/02.png",
+        "web-milink/03.png"
+      ],
+      "tecnologias": [
+        "Java",
+        "Spring Boot",
+        "Spring Cloud",
+        "PostgreSQL",
+        "React",
+        "Docker"
+      ],
+      "urlGithub": "https://github.com/everj01/web-milink",
+      "urlDemo": "",
+      "esPrivado": false
+    },
+    {
+      "visible": true,
       "titulo": "Okumet Document",
       "rol": "Full Stack",
       "anio": "2026",
@@ -138,6 +169,41 @@
         "Tailwind CSS"
       ],
       "urlGithub": "https://github.com/everj01/app-web-diario-ia",
+      "urlDemo": "",
+      "esPrivado": false
+    },
+    {
+      "visible": true,
+      "titulo": "Ticket Rapi",
+      "rol": "Full Stack",
+      "anio": "2026",
+      "descripcion": "Plataforma de eventos y venta de entradas con código QR, construida con microservicios en Java Spring Boot.",
+      "resumen": "Proyecto personal para practicar arquitectura de microservicios con un caso real: publicar eventos, vender entradas sin superar el aforo, entregar una entrada digital con QR y validarla en la puerta. Lo dividí en servicios independientes (eventos, entradas y notificaciones), cada uno con su propia base de datos, que se comunican por HTTP con OpenFeign. También fue mi primera vez implementando Docker: todo el entorno (PostgreSQL, RabbitMQ, el servidor de correo de prueba, los microservicios y el frontend) se levanta con un solo comando, lo que me enseñó a pensar en configuraciones por variables de entorno y en cómo se conectan los contenedores entre sí.",
+      "puntosClave": [
+        "Arquitectura de microservicios con API Gateway, Eureka y OpenFeign.",
+        "Control de aforo sin sobreventa mediante actualizaciones atómicas en la base de datos.",
+        "Generación de entradas con código QR y validación en puerta (una sola vez por entrada).",
+        "Primera implementación con Docker y Docker Compose: entorno completo listo con un solo comando.",
+        "El diseño se realizo bajo el apoyo de claude code y skills de diseños como 'impeccable' para acelerar el proceso de desarrollo."
+      ],
+      "imagenes": [
+        "ticket-rapi/01.png",
+        "ticket-rapi/02.png",
+        "ticket-rapi/03.png",
+        "ticket-rapi/04.png",
+        "ticket-rapi/05.png",
+        "ticket-rapi/06.png",
+        "ticket-rapi/07.png"
+      ],
+      "tecnologias": [
+        "Java",
+        "Spring Boot",
+        "RabbitMQ",
+        "PostgreSQL",
+        "React",
+        "Docker"
+      ],
+      "urlGithub": "https://github.com/everj01/web-ticket-rapi",
       "urlDemo": "",
       "esPrivado": false
     },
@@ -246,6 +312,7 @@
       ],
       "tecnologias": [
         "Java",
+        "Spring Boot",
         "Angular",
         "MySQL"
       ],
@@ -381,7 +448,7 @@
       "tecnologias": [
         "CodeIgniter",
         "JavaScript",
-        "JQuery",
+        "Spring Boot",
         "Bootstrap 5",
         "SQL Server",
         "Alpine.js",
@@ -459,10 +526,10 @@
   "experiencia": [
     {
       "empresa": "Sol Security S.A.C. (antes Solmar Security)",
-      "rol": "Desarrollador Web / Asistente de Sistemas",
+      "rol": "Analista de Sistemas",
       "periodo": "Ago 2023 - Sep 2026",
       "puntos": [
-        "Migré módulos de sistemas legados (VB.NET, PowerBuilder) hacia Laravel y CodeIgniter, rediseñando la lógica de negocio sobre una arquitectura API REST.",
+        "Migré módulos de sistemas legados (VB.NET, PowerBuilder) hacia Laravel y Java, rediseñando la lógica de negocio sobre una arquitectura API REST.",
         "Optimicé procedimientos almacenados e índices en SQL Server, mejorando los tiempos de respuesta en módulos con alto volumen de información.",
         "Desarrollé de principio a fin 3 sistemas en producción: gestión de auditorías y trámites (Monitor), seguridad para el sector marítimo (Control Web) y una pasarela de pagos (ICMA).",
         "Administré bases de datos MariaDB, MySQL y SQL Server, y brindé soporte a aplicaciones en producción atendiendo incidencias de alta prioridad."
@@ -553,7 +620,6 @@
           "nombre": "Nest JS",
           "nivel": "basico"
         },
-        
         {
           "nombre": "Python (Django)",
           "nivel": "basico"

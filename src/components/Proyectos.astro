@@ -3,19 +3,15 @@ import { Icon } from "astro-icon/components";
 import TarjetaProyecto from "./TarjetaProyecto.astro";
 import ModalProyecto from "./ModalProyecto.astro";
 import { proyectos } from "../data/datos";
-import { tieneRepoPublico } from "../utils/proyectos";
+import { tieneRepoPublico, categoriaDisponibles, categoriaDe } from "../utils/proyectos";
 
 const total = proyectos.length;
 const reposPublicos = proyectos.filter(tieneRepoPublico).length;
+const filtros = ["Todos", ...categoriaDisponibles(proyectos)];
 
 // Paginado: 9 tarjetas por pagina
 const POR_PAGINA = 9;
 const totalPaginas = Math.ceil(total / POR_PAGINA);
-
-// Pagina a la que pertenece una tarjeta
-function paginaDe(indice: number): number {
-  return Math.floor(indice / POR_PAGINA) + 1;
-}
 
 // 3 -> "03"
 function rellenar(n: number): string {
@@ -76,7 +72,21 @@ function rellenar(n: number): string {
       </div>
     </dl>
   </div>
-
+  {/* --- Filtros --- */}
+  <div class="mt-6 flex flex-wrap gap-2" data-filtros>
+    {
+      filtros.map((filtro) => (
+        <button
+          type="button"
+          data-filtro={filtro}
+          aria-pressed={filtro === "Todos"}
+          class="chip-filtro"
+        >
+          {filtro}
+        </button>
+      ))
+    }
+  </div>
   {/* --- Rejilla --- */}
   <div
     id="projects-grid"
@@ -84,12 +94,25 @@ function rellenar(n: number): string {
   >
     {
       proyectos.map((proyecto, indice) => (
-        <div class="h-full" data-project-page={paginaDe(indice)} hidden={indice >= POR_PAGINA}>
+        <div
+          class="h-full"
+          data-project-categoria={categoriaDe(proyecto)}
+          hidden={indice >= POR_PAGINA}
+        >
           <TarjetaProyecto {...proyecto} indice={indice} />
         </div>
       ))
     }
   </div>
+
+  {/* --- Sin resultados --- */}
+  <p
+    class="mt-10 text-center text-sm text-gray-500 dark:text-gray-400"
+    data-sin-resultados
+    hidden
+  >
+    No hay proyectos en esta categoría.
+  </p>
 
   {/* --- Paginacion --- */}
   {
@@ -99,11 +122,10 @@ function rellenar(n: number): string {
         aria-label="Paginación de proyectos"
         data-pagination
         data-per-page={POR_PAGINA}
-        data-total-pages={totalPaginas}
       >
         <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-400 dark:text-gray-500">
           <span data-page-range>{rellenar(1)} — {rellenar(Math.min(POR_PAGINA, total))}</span> de{" "}
-          {rellenar(total)}
+          <span data-page-total>{rellenar(total)}</span>
         </p>
 
         <div class="flex items-center gap-1.5">
@@ -149,18 +171,27 @@ function rellenar(n: number): string {
   import { irASeccion } from "../utils/scroll";
 
   const rejilla = document.getElementById("projects-grid");
-  const nav = document.querySelector<HTMLElement>("[data-pagination]");
 
-  if (rejilla && nav) {
-    const tarjetas = Array.from(rejilla.querySelectorAll<HTMLElement>("[data-project-page]"));
-    const enlaces = Array.from(nav.querySelectorAll<HTMLButtonElement>("[data-page-go]"));
-    const btnAnterior = nav.querySelector<HTMLButtonElement>("[data-page-prev]");
-    const btnSiguiente = nav.querySelector<HTMLButtonElement>("[data-page-next]");
-    const rango = nav.querySelector<HTMLElement>("[data-page-range]");
+  if (rejilla) {
+    const barraFiltros = document.querySelector<HTMLElement>("[data-filtros]");
+    const nav = document.querySelector<HTMLElement>("[data-pagination]");
+    const vacio = document.querySelector<HTMLElement>("[data-sin-resultados]");
 
-    const porPagina = Number(nav.dataset.perPage);
-    const totalPaginas = Number(nav.dataset.totalPages);
+    const tarjetas = Array.from(
+      rejilla.querySelectorAll<HTMLElement>("[data-project-categoria]"),
+    );
+    const botonesFiltro = Array.from(
+      barraFiltros?.querySelectorAll<HTMLButtonElement>("[data-filtro]") ?? [],
+    );
+    const enlaces = Array.from(nav?.querySelectorAll<HTMLButtonElement>("[data-page-go]") ?? []);
+    const btnAnterior = nav?.querySelector<HTMLButtonElement>("[data-page-prev]");
+    const btnSiguiente = nav?.querySelector<HTMLButtonElement>("[data-page-next]");
+    const rango = nav?.querySelector<HTMLElement>("[data-page-range]");
+    const totalRango = nav?.querySelector<HTMLElement>("[data-page-total]");
 
+    const porPagina = Number(nav?.dataset.perPage) || tarjetas.length || 1;
+
+    let filtro = "Todos";
     let actual = 1;
 
     // 3 -> "03"
@@ -168,44 +199,90 @@ function rellenar(n: number): string {
       return String(n).padStart(2, "0");
     }
 
-    // Muestra las tarjetas de la pagina y actualiza la barra
-    function pintar(pagina: number): void {
-      actual = pagina;
+    // Tarjetas que pasan el filtro activo, en el orden del json
+    function listaFiltrada(): HTMLElement[] {
+      if (filtro === "Todos") return tarjetas;
+      return tarjetas.filter((tarjeta) => tarjeta.dataset.projectCategoria === filtro);
+    }
 
-      let visibles = 0;
+    // Las paginas dependen del filtro, no del total de proyectos
+    function totalPaginas(): number {
+      return Math.max(1, Math.ceil(listaFiltrada().length / porPagina));
+    }
+
+    // Muestra la pagina actual del filtro actual y pone al dia la barra
+    function pintar(): void {
+      const lista = listaFiltrada();
+      const paginas = totalPaginas();
+
+      // Si el filtro nuevo tiene menos paginas, se vuelve al inicio
+      if (actual > paginas) actual = 1;
+
+      const desde = (actual - 1) * porPagina;
+      const visibles = lista.slice(desde, desde + porPagina);
 
       tarjetas.forEach((tarjeta) => {
-        const mostrar = Number(tarjeta.dataset.projectPage) === actual;
-        tarjeta.hidden = !mostrar;
-        if (mostrar) visibles++;
+        tarjeta.hidden = true;
+      });
+      visibles.forEach((tarjeta) => {
+        tarjeta.hidden = false;
       });
 
+      if (vacio) vacio.hidden = lista.length > 0;
+
+      // Con una sola pagina la barra no aporta nada
+      if (nav) nav.hidden = paginas === 1;
+
       enlaces.forEach((enlace) => {
-        if (Number(enlace.dataset.pageGo) === actual) {
-          enlace.setAttribute("aria-current", "page");
-        } else {
-          enlace.removeAttribute("aria-current");
-        }
+        const numero = Number(enlace.dataset.pageGo);
+
+        // Los botones existen desde el build: los que sobran se esconden
+        enlace.hidden = numero > paginas;
+
+        if (numero === actual) enlace.setAttribute("aria-current", "page");
+        else enlace.removeAttribute("aria-current");
       });
 
       if (btnAnterior) btnAnterior.disabled = actual === 1;
-      if (btnSiguiente) btnSiguiente.disabled = actual === totalPaginas;
+      if (btnSiguiente) btnSiguiente.disabled = actual === paginas;
 
       if (rango) {
-        const desde = (actual - 1) * porPagina + 1;
-        rango.textContent = `${rellenar(desde)} — ${rellenar(desde + visibles - 1)}`;
+        const primero = visibles.length === 0 ? 0 : desde + 1;
+        rango.textContent = `${rellenar(primero)} — ${rellenar(desde + visibles.length)}`;
       }
+
+      if (totalRango) totalRango.textContent = rellenar(lista.length);
     }
 
     // Al cambiar de pagina se vuelve al encabezado de la seccion
     function irAPagina(pagina: number): void {
-      if (pagina === actual || pagina < 1 || pagina > totalPaginas) return;
+      if (pagina === actual || pagina < 1 || pagina > totalPaginas()) return;
 
-      pintar(pagina);
+      actual = pagina;
+      pintar();
 
       const cabecera = document.querySelector<HTMLElement>("header");
       irASeccion("projectsme", (cabecera?.offsetHeight ?? 56) + 24);
     }
+
+    // Un solo listener en la barra: el click puede caer en un hijo del boton
+    barraFiltros?.addEventListener("click", (evento) => {
+      const boton = (evento.target as HTMLElement).closest<HTMLButtonElement>("[data-filtro]");
+      if (!boton) return;
+
+      const elegido = boton.dataset.filtro ?? "Todos";
+      if (elegido === filtro) return;
+
+      filtro = elegido;
+      actual = 1;
+
+      botonesFiltro.forEach((otro) => {
+        otro.setAttribute("aria-pressed", String(otro === boton));
+      });
+
+      // Sin scroll: filtrar no deberia mover la pagina
+      pintar();
+    });
 
     enlaces.forEach((enlace) => {
       enlace.addEventListener("click", () => irAPagina(Number(enlace.dataset.pageGo)));
@@ -214,6 +291,6 @@ function rellenar(n: number): string {
     btnAnterior?.addEventListener("click", () => irAPagina(actual - 1));
     btnSiguiente?.addEventListener("click", () => irAPagina(actual + 1));
 
-    pintar(1);
+    pintar();
   }
 </script>
