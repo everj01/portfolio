@@ -542,6 +542,10 @@
           "nivel": "avanzado"
         },
         {
+          "nombre": "Spring Boot",
+          "nivel": "avanzado"
+        },
+        {
           "nombre": "CodeIgniter",
           "nivel": "avanzado"
         },
@@ -549,10 +553,7 @@
           "nombre": "Nest JS",
           "nivel": "basico"
         },
-        {
-          "nombre": "Spring Boot",
-          "nivel": "basico"
-        },
+        
         {
           "nombre": "Python (Django)",
           "nivel": "basico"
@@ -586,6 +587,10 @@
         },
         {
           "nombre": "Firebase",
+          "nivel": "basico"
+        },
+        {
+          "nombre": "Azure",
           "nivel": "basico"
         },
         {
@@ -652,6 +657,10 @@
         {
           "nombre": "Flutter",
           "nivel": "avanzado"
+        },
+        {
+          "nombre": "Kotlin",
+          "nivel": "basico"
         }
       ]
     }

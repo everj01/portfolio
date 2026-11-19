@@ -147,7 +147,7 @@ const rutaCorta = (titulo ?? "")
     <div class="flex items-start gap-3.5">
       {/* Numero de la tarjeta */}
       <span
-        class="shrink-0 font-display text-[2.5rem] font-bold leading-[0.85] tracking-[-0.03em] tabular-nums text-accent/30 dark:text-accent/40"
+        class="shrink-0 font-display text-[2.5rem] font-bold leading-[0.85] tracking-[-0.03em] tabular-nums text-accent/40 dark:text-accent/40"
         aria-hidden="true"
       >
         {numero}
@@ -156,7 +156,7 @@ const rutaCorta = (titulo ?? "")
       <div class="min-w-0 space-y-2">
         {
           (rol || anio) && (
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-400 dark:text-gray-500">
+            <p class="font-mono text-[13px] uppercase tracking-[0.18em] text-gray-500 dark:text-gray-500">
               {[rol, anio].filter(Boolean).join(" · ")}
             </p>
           )
